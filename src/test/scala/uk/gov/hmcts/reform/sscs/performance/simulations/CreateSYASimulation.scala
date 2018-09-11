@@ -4,7 +4,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.submityourappeal
-import uk.gov.hmcts.reform.sscs.performance.submityourappeal._
+import uk.gov.hmcts.reform.sscs.performance.submityourappeal.{UploadEvidence, _}
 //import uk.gov.hmcts.reform.sscs.performance.processes._
 import uk.gov.hmcts.reform.sscs.performance.trackyourappeal.TrackYourAppeal
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
@@ -26,10 +26,10 @@ object  CreateSYASimulation {
 
   def createSYAScenario =
     exec(
-     LandingPage.landingPage,
-      LandingPage.beforeYouAppeal,
-      LandingPage.helpWithAppeal,
-      LandingPage.startAnAppeal,
+    // LandingPage.landingPage,
+     // LandingPage.beforeYouAppeal,
+     // LandingPage.helpWithAppeal,
+     // LandingPage.startAnAppeal,
       StartAppealPage.entry,
       StartAppealPage.benifitType,
       StartAppealPage.postCodeCheck,
@@ -46,7 +46,13 @@ object  CreateSYASimulation {
       Representative.representative,
       Representative.repDetails,
       AppealingReason.reasonForAppealing,
-      //AppealingReason.evidence,
+      UploadEvidence.evidenceProvide,
+    //  UploadEvidence.evidenceUpload_GET,
+    UploadEvidence.evidenceUpload_1MB,
+     UploadEvidence.evidenceUpload_2MB,
+    UploadEvidence.evidenceUpload_3MB,
+     UploadEvidence.evidenceUploadComplete,
+     UploadEvidence.evidenceDescription,
       AppealingReason.attendHearing,
       AppealingReason.supportHearing,
       AppealingReason.checkYourAppeal

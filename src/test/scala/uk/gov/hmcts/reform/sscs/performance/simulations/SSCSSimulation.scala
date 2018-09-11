@@ -46,9 +46,9 @@ class SSCSSimulation extends Simulation
 
 
        setUp(
-         scenarioTYA.inject(
+         scenarioSYA.inject(
            nothingFor(10),
-           splitUsers(10) into (rampUsers(2) over (10)) separatedBy (0)).protocols(httpProtocolTYA),
+           rampUsers(1) over (1)).protocols(httpProtocolSYA)
        )
 
        /* setUp(

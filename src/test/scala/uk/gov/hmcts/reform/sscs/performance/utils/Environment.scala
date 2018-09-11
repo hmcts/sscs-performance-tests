@@ -7,7 +7,8 @@ object Environment {
   val cmcBashURL = scala.util.Properties.envOrElse("baseURL", "https://www.moneyclaims.demo.platform.hmcts.net")
   val sscsTYAURL = scala.util.Properties.envOrElse("baseURL", "https://track-appeal.demo.platform.hmcts.net")
  // val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.nonprod.platform.hmcts.net")
- val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.demo.platform.hmcts.net")
+ //val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.demo.platform.hmcts.net")
+  val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://sscs-tribunals-frontend-sprod.service.core-compute-sprod.internal")
 
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
   
@@ -24,7 +25,7 @@ object Environment {
 		"User-Agent" -> "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36")
 
     
-    val thinkTime = 20
+    val thinkTime = 1
   val tyaThinkTime=10
     val waitForNextIteration = 80
 }

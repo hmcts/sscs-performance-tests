@@ -13,8 +13,9 @@ object StartAppealPage{
   val feeder = csv("sscs_details.csv").circular
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
  val entry =   exec(http("TX05_SSCS_Entry")
-      .get("/entry"))
+      .get("/"))
       .pause(thinktime)
+    .feed(feeder)
 
   val benifitType =
   exec(http("TX06_SSCS_BenifitType")

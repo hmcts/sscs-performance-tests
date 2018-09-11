@@ -14,11 +14,21 @@ object AppealingReason{
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
 
+
+  val headers_check_appeal = Map(
+    "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+    "Accept-Encoding" -> "gzip, deflate, br",
+    "Accept-Language" -> "en-GB,en-US;q=0.9,en;q=0.8",
+    "Cache-Control" -> "max-age=0",
+    "Connection" -> "keep-alive",
+    "Origin" -> "https://sscs-tribunals-frontend-sprod.service.core-compute-sprod.internal",
+    "Upgrade-Insecure-Requests" -> "1")
+
  val reasonForAppealing=
   exec(http("TX20_SSCS_ReasonForAppeal")
     .post("/reason-for-appealing/item-0")
-    .formParam("item.whatYouDisagreeWith", "disagree with the appeal sscs perf test")
-    .formParam("item.reasonForAppealing", "i want child benifit back sscs perf test")
+    .formParam("item.whatYouDisagreeWith", "Disagree - I am Performance Testing")
+    .formParam("item.reasonForAppealing", "Reason For Appeal - I am Performance Testing")
     .check(regex("Your reasons for appealing")))
     .pause(thinktime)
 
@@ -28,16 +38,17 @@ object AppealingReason{
 
     .exec(http("TX21_SSCS_OtherReasonForAppealing")
       .post("/other-reason-for-appealing")
-      .formParam("otherReasonForAppealing", "there are few other reasons sscs perf test"))
+      .formParam("otherReasonForAppealing", "Other Reason - I am Performance Testing"))
     .pause(thinktime)
 
+  //from here go to upload evidence
  /* val evidence=
   exec(http("request_432")
     .post("/sending-evidence"))
     .pause(thinktime)*/
 
 val attendHearing=
-  exec(http("TX22_SSCS_AttendHearing")
+  exec(http("TX32_SSCS_AttendHearing")
     .post("/the-hearing")
     .formParam("attendHearing", "yes")
     .check(regex("Do you need any support at the hearing?")))
@@ -45,21 +56,22 @@ val attendHearing=
 
 
   val supportHearing=
-  exec(http("TX23_SSCS_HearingSupport")
+  exec(http("TX33_SSCS_HearingSupport")
     .post("/hearing-support")
     .formParam("arrangements", "no")
     .check(regex("Your availability for a hearing")))
     .pause(thinktime)
 
-    .exec(http("TX24_SSCS_HearingAvailability")
+    .exec(http("TX34_SSCS_HearingAvailability")
       .post("/hearing-availability")
       .formParam("scheduleHearing", "no")
     .check(regex("Check your answers")))
     .pause(thinktime)
 
 val checkYourAppeal=
-  exec(http("TX25_SSCS_CheckYourAppeal")
+  exec(http("TX35_SSCS_CheckYourAppeal")
   .post("/check-your-appeal")
+      .headers(headers_check_appeal)
     .formParam("signer", "${signer}")
     .check(regex("Your appeal has been submitted")))
     .pause(thinktime)
