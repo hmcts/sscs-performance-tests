@@ -2,6 +2,8 @@ package uk.gov.hmcts.reform.sscs.performance.submityourappeal
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import uk.gov.hmcts.reform.cmc.performance.simulations.checks.CsrfCheck
+import uk.gov.hmcts.reform.cmc.performance.simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
 //import uk.gov.hmcts.reform.cmc.performance.simulations.checks.{CsrfCheck, CurrentPageCheck}
 //import uk.gov.hmcts.reform.idam.User
 import uk.gov.hmcts.reform.sscs.performance.utils._
@@ -9,21 +11,6 @@ import uk.gov.hmcts.reform.sscs.performance.utils._
 object UploadEvidence{
 
   val thinktime = Environment.thinkTime
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   val headers_19 = Map(
     "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
@@ -63,11 +50,14 @@ object UploadEvidence{
 
 
 
-
+//following request has to be changed to yes when using upload files
   val evidenceProvide=
     exec(http("TX22_SSCS_EvidenceProvide")
       .post("/evidence-provide")
-      .formParam("evidenceProvide", "yes"))
+      .formParam("evidenceProvide", "no")
+      .formParam(csrfParameter, csrfTemplate)
+      .check(CsrfCheck.save)
+    )
       .pause(thinktime)
 
 
@@ -77,11 +67,14 @@ object UploadEvidence{
       .post("/evidence-upload/item-0")
       .headers(headers_1MB)
       .body(RawFileBody("RecordedSimulationlatest_0015_request.txt")))
-      .pause(10)
+      //.pause(10)
       .exec(http("TX25_SSCS_EvidenceUpload_1MB_GET")
         .get("/evidence-upload")
         .check(status.is(200))
-      )
+      .check(CsrfCheck.save)
+    )
+      .pause(10)
+
 
   val evidenceUpload_2MB=
     exec(http("TX26_SSCS_EvidenceUpload_2MB")
@@ -89,29 +82,32 @@ object UploadEvidence{
       .headers(headers_2MB)
       .body(RawFileBody("RecordedSimulationlatest_0030_request.txt")))
 
-
-      .pause(10)
+     // .pause(10)
       .exec(http("TX27_SSCS_EvidenceUpload_2MB_GET")
         .get("/evidence-upload")
         .check(status.is(200))
+      .check(CsrfCheck.save)
       )
+    .pause(10)
 
   val evidenceUpload_3MB=
     exec(http("TX28_SSCS_EvidenceUpload_3MB")
       .post("/evidence-upload/item-2")
       .headers(headers_3MB)
       .body(RawFileBody("RecordedSimulationlatest_0043_request.txt")))
-
-
-      .pause(10)
+    //  .pause(10)
       .exec(http("TX29_SSCS_EvidenceUpload_3MB_GET")
         .get("/evidence-upload")
-        .check(status.is(200)))
+        .check(status.is(200))
+      .check(CsrfCheck.save)
+    )
+    .pause(10)
 
   val evidenceUploadComplete=
 
     exec(http("TX30_SSCS_EvidenceUpload_Complete")
       .post("/evidence-upload")
+      .formParam(csrfParameter, csrfTemplate)
       .headers(headers_19)
       .header("Content-Length", "0")
       .check(regex("Describe the evidence")))
@@ -123,6 +119,7 @@ object UploadEvidence{
     exec(http("TX31_SSCS_Evidence_Description")
       .post("/evidence-description")
       .formParam("describeTheEvidence", "Evidence - I am Performance Testing")
+      .formParam(csrfParameter, csrfTemplate)
       .check(regex("The appeal hearing")))
       .pause(5)
 

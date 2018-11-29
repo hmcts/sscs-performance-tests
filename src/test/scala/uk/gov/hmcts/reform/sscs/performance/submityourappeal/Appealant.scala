@@ -2,6 +2,8 @@ package uk.gov.hmcts.reform.sscs.performance.submityourappeal
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import uk.gov.hmcts.reform.cmc.performance.simulations.checks.CsrfCheck
+import uk.gov.hmcts.reform.cmc.performance.simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
 import uk.gov.hmcts.reform.sscs.performance.submityourappeal.StartAppealPage.thinktime
 //import uk.gov.hmcts.reform.cmc.performance.simulations.checks.{CsrfCheck, CurrentPageCheck}
 //import uk.gov.hmcts.reform.idam.User
@@ -10,6 +12,9 @@ import uk.gov.hmcts.reform.sscs.performance.utils._
 object Appealant{
 
   val thinktime = Environment.thinkTime
+  val mrnDate=Environment.mrnDate
+  val mrnMonth=Environment.mrnMonth
+  val mrnYear=Environment.mrnYear
   
 
 
@@ -19,7 +24,10 @@ object Appealant{
   val haveMRN=
     exec(http("TX09_SSCS_HaveMRN")
       .post("/have-a-mrn")
-      .formParam("haveAMRN", "yes"))
+      .formParam("haveAMRN", "yes")
+      .formParam(csrfParameter, csrfTemplate)
+      .check(CsrfCheck.save)
+    )
     //  .check(regex("address on the top right of your Mandatory Reconsideration Notice (MRN)")))
       .pause(thinktime)
 
@@ -28,16 +36,23 @@ val DWPIssuingOffice=
   exec(http("TX10_SSCS_DWPIssuingOffice")
     .post("/dwp-issuing-office")
     .formParam("pipNumber", "1")
-    .check(regex("When is your Mandatory Reconsideration Notice")))
+      .formParam(csrfParameter, csrfTemplate)
+    .check(regex("When is your Mandatory Reconsideration Notice"))
+    .check(CsrfCheck.save)
+  )
     .pause(thinktime)
 
   val MRNDate=
   exec(http("TX11_SSCS_MRNDate")
     .post("/mrn-date")
-    .formParam("mrnDate.day", "02")
-    .formParam("mrnDate.month", "09")
-    .formParam("mrnDate.year", "2018")
-    .check(regex("Enter your name")))
+    .formParam("mrnDate.day", mrnDate)
+    .formParam("mrnDate.month", mrnMonth)
+    .formParam("mrnDate.year", mrnYear)
+    .formParam(csrfParameter, csrfTemplate)
+
+    .check(regex("Enter your name"))
+    .check(CsrfCheck.save)
+  )
     .pause(thinktime)
 
   val name=
@@ -46,7 +61,10 @@ val DWPIssuingOffice=
     .formParam("title", "mr")
     .formParam("firstName", "${firstname}")
     .formParam("lastName", "${lastname}")
-    .check(regex("Enter your date of birth")))
+    .formParam(csrfParameter, csrfTemplate)
+    .check(regex("Enter your date of birth"))
+    .check(CsrfCheck.save)
+  )
     .pause(thinktime)
 
   val DOB=
@@ -55,14 +73,20 @@ val DWPIssuingOffice=
     .formParam("date.day", "10")
     .formParam("date.month", "11")
     .formParam("date.year", "1982")
-    .check(regex("Enter your National Insurance number")))
+    .formParam(csrfParameter, csrfTemplate)
+    .check(regex("Enter your National Insurance number"))
+    .check(CsrfCheck.save)
+  )
     .pause(thinktime)
 
   val niNumber=
   exec(http("TX14_SSCS_Appealant_NiNumber")
     .post("/enter-appellant-nino")
     .formParam("nino", "${ninumber}")
-    .check(regex("Enter your contact details")))
+    .formParam(csrfParameter, csrfTemplate)
+    .check(regex("Enter your contact details"))
+    .check(CsrfCheck.save)
+  )
     .pause(thinktime)
 
   val contactDetails=
@@ -73,17 +97,22 @@ val DWPIssuingOffice=
     .formParam("townCity", "PerfCity")
     .formParam("county", "PerfCounty")
     .formParam("postCode", "WV95LT")
-    .formParam("phoneNumber", "7540612047")
+    .formParam("phoneNumber", "07540612047")
     .formParam("emailAddress", "${email}"+"@perftest.uk.gov")
-    .check(regex("Do you want to receive text message notifications?")))
+    .formParam(csrfParameter, csrfTemplate)
+    .check(regex("Do you want to receive text message notifications?"))
+    .check(CsrfCheck.save)
+  )
     .pause(thinktime)
 
 
   val textRemainders=
   exec(http("TX16_SSCS_TextRemainders")
     .post("/appellant-text-reminders")
-    .formParam("doYouWantTextMsgReminders", "no"))
-   // .check(regex("Enter your mobile phone number")))
+    .formParam("doYouWantTextMsgReminders", "no")
+    .formParam(csrfParameter, csrfTemplate)
+
+    .check(CsrfCheck.save))
     .pause(thinktime)
 
     /*.exec(http("TX17_SSCS_Mobile")

@@ -2,6 +2,8 @@ package uk.gov.hmcts.reform.sscs.performance.submityourappeal
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import uk.gov.hmcts.reform.cmc.performance.simulations.checks.CsrfCheck
+import uk.gov.hmcts.reform.cmc.performance.simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
 //import uk.gov.hmcts.reform.cmc.performance.simulations.checks.{CsrfCheck, CurrentPageCheck}
 //import uk.gov.hmcts.reform.idam.User
 import uk.gov.hmcts.reform.sscs.performance.utils._
@@ -18,7 +20,10 @@ object Representative{
   exec(http("TX18_SSCS_Representative")
     .post("/representative")
     .formParam("hasRepresentative", "yes")
-    .check(regex("Enter their details")))
+    .formParam(csrfParameter, csrfTemplate)
+    .check(regex("Enter their details"))
+    .check(CsrfCheck.save)
+  )
     .pause(thinktime)
 
 
@@ -29,15 +34,18 @@ val repDetails=
       .formParam("name.title","Mr")
     .formParam("name.first", "PerfRepFirst")
     .formParam("name.last", "PerfRepLast")
-    .formParam("name.organisation", "sdsdsd")
+    .formParam("name.organisation", "PerfOrganization")
     .formParam("addressLine1", "PerfRep Street")
     .formParam("addressLine2", "Perf Gardens")
     .formParam("townCity", "PerfCity")
     .formParam("county", "PerfCounty")
     .formParam("postCode", "TW3 1JX")
-    .formParam("phoneNumber", "${repphonenumber}")
-    .formParam("emailAddress", "${repemail}"+"@perftest.uk.gov")
-    .check(regex("Your reasons for appealing")))
+    .formParam("phoneNumber", "07540612435")
+    .formParam("emailAddress", "repemail@perftest.uk.gov")
+    .formParam(csrfParameter, csrfTemplate)
+    .check(regex("Your reasons for appealing"))
+    .check(CsrfCheck.save)
+  )
     .pause(thinktime)
 
 
