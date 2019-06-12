@@ -4,10 +4,10 @@ object Environment {
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
   
 
-  val sscsTYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.nonprod.platform.hmcts.net")
+  val sscsTYAURL = scala.util.Properties.envOrElse("basetyaURL", "https://benefit-appeal.nonprod.platform.hmcts.net")
 
   //val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.nonprod.platform.hmcts.net")
-  val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://track-appeal.nonprod.platform.hmcts.net")
+  val sscsSYAURL = scala.util.Properties.envOrElse("basesyaURL", "https://track-appeal.nonprod.platform.hmcts.net")
 
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
   
