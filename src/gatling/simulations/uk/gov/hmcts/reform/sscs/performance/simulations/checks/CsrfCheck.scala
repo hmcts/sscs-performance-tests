@@ -1,0 +1,15 @@
+package uk.gov.hmcts.reform.sscs.performance.simulations.checks
+
+import io.gatling.core.Predef._
+import io.gatling.core.check._
+import io.gatling.core.check.extractor.css.CssCheckType
+import io.gatling.http.Predef._
+import io.gatling.http.check._
+import jodd.lagarto.dom.NodeSelector
+
+object CsrfCheck {
+  def save: CheckBuilder[CssCheckType, NodeSelector, String] = css("input[name='_csrf']", "value").saveAs("csrf")
+
+  def csrfParameter: String = "_csrf"
+  def csrfTemplate: String = "${csrf}"
+}
