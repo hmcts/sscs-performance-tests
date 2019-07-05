@@ -7,6 +7,7 @@ import uk.gov.hmcts.reform.sscs.performance.simulations.checks.{CsrfCheck, Curre
 //import uk.gov.hmcts.reform.sscs.performance.simulations.checks.{CsrfCheck, CurrentPageCheck}
 //import uk.gov.hmcts.reform.idam.User
 import uk.gov.hmcts.reform.sscs.performance.utils._
+import io.gatling.http.cookie.CookieJar
 
 object StartAppealPage{
 
@@ -40,6 +41,13 @@ object StartAppealPage{
     .check(CsrfCheck.save)
   )
 
+
+   /* .exec(
+      session => {
+          getCookieValue(CookieKey("jwtCookieName"))
+        session.set("jwt", getCookieValue(CookieKey("jwtCookieName")))
+      } )
+*/
     .pause(thinktime)
 
 val areYouAnAppointee =

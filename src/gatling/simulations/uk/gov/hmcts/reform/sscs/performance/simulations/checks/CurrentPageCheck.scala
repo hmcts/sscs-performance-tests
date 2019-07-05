@@ -6,6 +6,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.check._
 import io.gatling.http.check.url.CurrentLocationCheckType
 
+
 object CurrentPageCheck {
   def save: CheckBuilder[CurrentLocationCheckType,String,String] = currentLocation.saveAs("currentPage")
   def currentPageTemplate: String = "${currentPage}"

@@ -15,7 +15,7 @@ version = '1.0'
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Project Name Performance Tests',
+        attributes 'Implementation-Title': 'SSCS Performance Tests',
                 'Implementation-Version': version
     }
 }
