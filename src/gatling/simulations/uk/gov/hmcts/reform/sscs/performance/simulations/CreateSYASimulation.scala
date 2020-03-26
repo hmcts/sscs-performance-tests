@@ -3,10 +3,8 @@ package uk.gov.hmcts.reform.sscs.performance.simulations
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
-import uk.gov.hmcts.reform.sscs.performance.submityourappeal
 import uk.gov.hmcts.reform.sscs.performance.submityourappeal.{UploadEvidence, _}
 //import uk.gov.hmcts.reform.sscs.performance.processes._
-import uk.gov.hmcts.reform.sscs.performance.trackyourappeal.TrackYourAppeal
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 //import uk.gov.hmcts.reform.sscs.performance.simulations.lifecycle.SimulationHooks
 //import uk.gov.hmcts.reform.idam.{User,LoginPage}
@@ -24,6 +22,8 @@ object  CreateSYASimulation {
     "Origin" -> Environment.sscsSYAURL
   )
 
+
+
   def createSYAScenario =
     exec(
     // LandingPage.landingPage,
@@ -33,28 +33,32 @@ object  CreateSYASimulation {
       StartAppealPage.entry,
       StartAppealPage.benifitType,
       StartAppealPage.postCodeCheck,
-      StartAppealPage.areYouAnAppointee,
-    //  StartAppealPage.independance,
+      StartAppealPage.independance_beforelogin,
+      StartAppealPage.savelater,
+      StartAppealPage.login,
+      StartAppealPage.independance_postlogin,
       Appealant.haveMRN,
-      Appealant.DWPIssuingOffice,
       Appealant.MRNDate,
+      Appealant.DWPIssuingOffice,
+      StartAppealPage.areYouAnAppointee,
       Appealant.name,
       Appealant.DOB,
       Appealant.niNumber,
       Appealant.contactDetails,
       Appealant.textRemainders,
       Representative.representative,
-      Representative.repDetails,
+      //Representative.repDetails,
       AppealingReason.reasonForAppealing,
+      AppealingReason.finalReasonForAppealing,
       UploadEvidence.evidenceProvide,
      // UploadEvidence.evidenceUpload_GET,
     //UploadEvidence.evidenceUpload_1MB,
     //UploadEvidence.evidenceUpload_2MB,
     //UploadEvidence.evidenceUpload_3MB,
-      UploadEvidence.evidenceUpload_2MB_1,
+     /* UploadEvidence.evidenceUpload_2MB_1,
       UploadEvidence.evidenceUpload_2MB_2,
      UploadEvidence.evidenceUploadComplete,
-     UploadEvidence.evidenceDescription,
+     UploadEvidence.evidenceDescription,*/
       AppealingReason.attendHearing,
       AppealingReason.supportHearing,
       AppealingReason.checkYourAppeal

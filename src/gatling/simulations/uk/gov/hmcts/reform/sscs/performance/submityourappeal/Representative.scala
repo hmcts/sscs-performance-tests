@@ -12,17 +12,17 @@ object Representative{
 
   val thinktime = Environment.thinkTime
   
-    val feeder = csv("TYA_Details.csv").circular
+    //val feeder = csv("TYA_Details.csv").circular
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
 
   val representative=
   exec(http("TX18_SSCS_Representative")
     .post("/representative")
-    .formParam("hasRepresentative", "yes")
-    .formParam(csrfParameter, csrfTemplate)
-    .check(regex("Enter their details"))
-    .check(CsrfCheck.save)
+    .formParam("hasRepresentative", "no")
+  //  .formParam(csrfParameter, csrfTemplate)
+   // .check(regex("Enter their details"))
+   // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 

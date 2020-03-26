@@ -10,15 +10,16 @@ object LandingPage {
 
   val thinktime = Environment.thinkTime
 
-  val feeder = csv("sscs_details.csv").circular
+ // val feeder = csv("sscs_details.csv").circular
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
+  //1
  val landingPage =   exec(http("TX01_SSCS_LandingPage")
       .get("/")
    .check(status.is(200))
       .check(regex("Appeal a benefit decision")))
       .pause(thinktime)
-    .feed(feeder)
+
 
    val beforeYouAppeal=
      exec(http("TX02_SSCS_BeforeYouAppeal")

@@ -1,21 +1,15 @@
 package uk.gov.hmcts.reform.sscs.performance.simulations
 
-import com.typesafe.config._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef.{Proxy, http}
 import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
-import io.gatling.core.structure.ScenarioBuilder
-import uk.gov.hmcts.reform.sscs.performance.simulations.CreateTYASimulation
-import uk.gov.hmcts.reform.sscs.performance.utils.Environment
-
-import scala.collection.mutable.ArrayBuffer
 
 class SSCSSimulation extends Simulation
      {
 
        val httpProtocolTYA: HttpProtocolBuilder = http.proxy(Proxy("proxyout.reform.hmcts.net",8080))
-         .baseUrl(Environment.sscsTYAURL)
+         .baseUrl(Environment.SSCSCORURL)
          .headers(Environment.commonHeader)
 
 
@@ -23,14 +17,21 @@ class SSCSSimulation extends Simulation
          .baseUrl(Environment.sscsSYAURL)
          .headers(Environment.commonHeader)
 
+       val httpProtocolUserCreation: HttpProtocolBuilder = http.proxy(Proxy("proxyout.reform.hmcts.net",8080))
+         .baseUrl(Environment.sscsSYAURL)
+         .headers(Environment.commonHeader)
+
        implicit val postHeaders: Map[String, String] = Map(
          "Origin" -> Environment.sscsSYAURL
        )
-       val scenarioTYA = scenario("Create TYA Journey")
-         .exec(CreateTYASimulation.createTYAScenario)
+       val scenarioSSCSCOR = scenario("Create TYA Journey")
+         .exec(CreateCORSimulation.createCORScenario)
 
        val scenarioSYA = scenario("Create SYA Journey")
          .exec(CreateSYASimulation.createSYAScenario)
+
+       val scenarioUserCreation = scenario("Create User")
+         .exec(UserCreateSimulation.createUser)
 
 
        /*setUp(
@@ -45,11 +46,27 @@ class SSCSSimulation extends Simulation
        ).maxDuration(5400)*/
 
 
-       setUp(
+      /* setUp(
          scenarioSYA.inject(
            nothingFor(10),
-           rampUsers(1) during  (100)).protocols(httpProtocolSYA)
+           rampUsers(1) during  (1)).protocols(httpProtocolSYA)
+       )*/
+
+       /*setUp(
+         scenarioSSCSCOR.inject(
+           nothingFor(10),
+           rampUsers(1) during  (1)).protocols(httpProtocolTYA)
+       )*/
+
+       setUp(
+         scenarioUserCreation.inject(
+           nothingFor(10),
+           rampUsers(1) during  (1)).protocols(httpProtocolUserCreation)
        )
+
+
+
+
 
        /* setUp(
           scenarioSYA.inject(

@@ -64,9 +64,9 @@ object UploadEvidence{
   val evidenceProvide=
     exec(http("TX22_SSCS_EvidenceProvide")
       .post("/evidence-provide")
-      .formParam("evidenceProvide", "yes")
-      .formParam(csrfParameter, csrfTemplate)
-      .check(CsrfCheck.save)
+      .formParam("evidenceProvide", "no")
+     // .formParam(csrfParameter, csrfTemplate)
+     // .check(CsrfCheck.save)
     )
       .pause(thinktime)
 
