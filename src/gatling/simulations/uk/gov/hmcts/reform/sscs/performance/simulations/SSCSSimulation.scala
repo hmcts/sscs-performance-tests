@@ -60,8 +60,8 @@ class SSCSSimulation extends Simulation
 
        setUp(
          scenarioUserCreation.inject(
-           nothingFor(10),
-           rampUsers(1) during  (1)).protocols(httpProtocolUserCreation)
+           nothingFor(5),
+           rampUsers(1) during  (5)).protocols(httpProtocolUserCreation)
        )
 
 

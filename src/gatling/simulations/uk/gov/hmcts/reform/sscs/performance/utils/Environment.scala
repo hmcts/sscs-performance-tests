@@ -9,7 +9,9 @@ object Environment {
   //val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.nonprod.platform.hmcts.net")
   val sscsSYAURL = scala.util.Properties.envOrElse("basesyaURL", "https://benefit-appeal.perftest.platform.hmcts.net")
   val IDAMURL = scala.util.Properties.envOrElse("idamURL", "https://idam-web-public.aat.platform.hmcts.net")
-  val idamBaseUrl = "http://idam-api-perftest.service.core-compute-perftest.internal"
+  //val idamBaseUrl-old = "http://idam-api-perftest.service.core-compute-perftest.internal"
+  val idamBaseUrl = "https://idam-api.perftest.platform.hmcts.net"
+
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
   
   val users = scala.util.Properties.envOrElse("numberOfUser", "10")

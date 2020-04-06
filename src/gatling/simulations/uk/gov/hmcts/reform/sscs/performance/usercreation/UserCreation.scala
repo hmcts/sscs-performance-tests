@@ -33,7 +33,7 @@ object UserCreation {
   //1
 
 
-  val createUsers =
+  /*val createUsers =
     feed(feeder)
       .exec(http("Create IDAM users")
         .post(addIdamUserUrl)
@@ -44,6 +44,27 @@ object UserCreation {
           "surname": "SSCS-perftest-Lname999",
           "password": "Pass19word",
           "roles": [{"code": "prd-admin"}]
+        }"""
+        ))
+        .asJson
+        .headers(Map("Content-Type" -> "application/json"))
+        .check(status.is(201)))
+      // .check(status.is(201)))
+      .pause(10)*/
+
+  val createUsers =
+    feed(feeder)
+      .exec(http("Create IDAM users")
+        .post(addIdamUserUrl)
+        .body(StringBody(
+          """{
+             "id": "Y431",
+          "description": "BROMLEY COUNTY COURT",
+          "email": "${idamUser}",
+          "forename": "BarDM-perftest-Fname999",
+          "surname": "BarDM-perftest-Lname999",
+          "password": "Pass19word",
+          "roles": [{"code": "bar-delivery-manager"}]
         }"""
         ))
         .asJson
@@ -61,8 +82,8 @@ object UserCreation {
       val client = new NotificationClient("sidam_perftest-b7ab8862-25b4-41c9-8311-cb78815f7d2d-ebb113ff-da17-4646-a39e-f93783a993f4")
       val pattern = new Regex("token.+")
      // val str = findEmail(client,session("generatedEmail").as[String])
-
-      val str = findEmail(client,"perftestsample@mailinator.com")
+//xui.sample1@mailinator.com
+      val str = findEmail(client,"cmc.legal1@mailinator.com")
       //session.set("activationLink", (pattern findFirstMatchIn str.get).mkString)
       session.set("activationLink", (pattern findFirstMatchIn str.get).mkString.trim.replace(")", ""))
   }
