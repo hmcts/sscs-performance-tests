@@ -109,20 +109,7 @@ object SSCSCOR {
     "accept-encoding" -> "gzip, deflate, br",
     "accept-language" -> "en-US,en;q=0.9",
     "cache-control" -> "max-age=0",
-    "content-type" -> "multipart/form-data; boundary=----WebKitFormBoundaryyPExPvHEuDk2Hqa2",
-    "origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
-    "sec-fetch-dest" -> "document",
-    "sec-fetch-mode" -> "navigate",
-    "sec-fetch-site" -> "same-origin",
-    "upgrade-insecure-requests" -> "1",
-    "user-agent" -> "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36")
-
-  val headers_83 = Map(
-    "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-    "accept-encoding" -> "gzip, deflate, br",
-    "accept-language" -> "en-US,en;q=0.9",
-    "cache-control" -> "max-age=0",
-    "content-type" -> "multipart/form-data; boundary=----WebKitFormBoundaryCAU5OZnSGksCV3fQ",
+    "content-type" -> "multipart/form-data; boundary=----WebKitFormBoundaryq7pXscVFWTLISBg4",
     "origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
     "sec-fetch-dest" -> "document",
     "sec-fetch-mode" -> "navigate",
@@ -131,6 +118,34 @@ object SSCSCOR {
     "upgrade-insecure-requests" -> "1",
     "user-agent" -> "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36")
 
+
+  val headers_upload3mb = Map(
+    "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    "accept-encoding" -> "gzip, deflate, br",
+    "accept-language" -> "en-US,en;q=0.9",
+    "cache-control" -> "max-age=0",
+    "content-type" -> "multipart/form-data; boundary=----WebKitFormBoundary1zIKvDeQ1iOj4qPy",
+    "origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
+    "sec-fetch-dest" -> "document",
+    "sec-fetch-mode" -> "navigate",
+    "sec-fetch-site" -> "same-origin",
+    "sec-fetch-user" -> "?1",
+    "upgrade-insecure-requests" -> "1",
+    "user-agent" -> "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36")
+
+  val headers_83 = Map(
+    "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    "accept-encoding" -> "gzip, deflate, br",
+    "accept-language" -> "en-US,en;q=0.9",
+    "cache-control" -> "max-age=0",
+    "content-type" -> "multipart/form-data; boundary=----WebKitFormBoundaryjacOdkygBa1u93KL",
+    "origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
+    "sec-fetch-dest" -> "document",
+    "sec-fetch-mode" -> "navigate",
+    "sec-fetch-site" -> "same-origin",
+    "sec-fetch-user" -> "?1",
+    "upgrade-insecure-requests" -> "1",
+    "user-agent" -> "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36")
   // =======================================================================================
   // Enter URL for Service
   // Data Dependency - Need MYA reference. This is the Cases id from SYA
@@ -163,7 +178,7 @@ object SSCSCOR {
    .exec(http("SSCSCOR_020_010_LoginPage_SessionExt")
           .get("/session-extension")
           .headers(headers_20)
-     .check(status.is(200))
+     .check(status.in(200,304))
    )
   .pause(tyaThinkTime)
 
@@ -182,7 +197,9 @@ object SSCSCOR {
   )
 .exec(http("SSCSCOR_030_010_EnterPostcode_SessionExt")
       .get("/session-extension")
-      .headers(headers_20))
+      .headers(headers_20)
+  .check(status.in(200,304)
+))
                   .pause(tyaThinkTime)
 
   // =======================================================================================
@@ -191,10 +208,13 @@ object SSCSCOR {
 val clickOnEvidenceTab=
   exec(http("SSCSCOR_040_005_ClickOnEvidenceTab")
        .get("/task-list")
-       .headers(headers_tasklist))
+       .headers(headers_tasklist)
+    .check(status.in(200,304))
+  )
   .exec(http("SSCSCOR_040_010_ClickOnEvidenceTab_SessionExt")
       .get("/session-extension")
-      .headers(headers_20))
+      .headers(headers_20)
+    .check(status.is(200)))
     .pause(tyaThinkTime)
 
 
@@ -212,7 +232,9 @@ exec(http("SSCSCOR_050_005_ClickOnSubmitEvidence")
 
  .exec(http("SSCSCOR_050_010_ClickOnSubmitEvidence_SessionExt")
 .get("/session-extension")
-.headers(headers_20))
+.headers(headers_20)
+   .check(status.in(200,304))
+ )
 .pause(tyaThinkTime)
 
 
@@ -228,6 +250,7 @@ exec(http("SSCSCOR_060_005_SelectUploadOption")
    .formParam("additional-evidence-option", "upload")
    .formParam("_csrf", "${csrf}")
    .formParam("continue", "")
+  .check(status.is(200))
    // .check(CsrfCheck.save)
    //.check(currentLocation.saveAs("uploadlocation"))
    //.check(regex("additional-evidence-form", "(?<=code=)(.*)(?=&scope)").saveAs("authcode"))
@@ -242,7 +265,9 @@ exec(http("SSCSCOR_060_005_SelectUploadOption")
 
    .exec(http("SSCSCOR_060_010_SelectUploadOption_SessionExt")
 .get("/session-extension")
-.headers(headers_20))
+.headers(headers_20)
+     .check(status.in(200,304))
+   )
 .pause(tyaThinkTime)
 
 
@@ -267,18 +292,41 @@ exec(http("TX04_SSCS_TYA_Evidence_Upload1")
   .headers(headers_20))
 .pause(tyaThinkTime)*/
 
-val uploadDocument=
-  exec(http("SSCSCOR_070_005_UploadDoc")
+val uploadDocument_2MB=
+  exec(http("SSCSCOR_070_005_UploadDoc2MB")
         .post("${uploadurl}")
         .headers(headers_73)
+    .bodyPart(RawFileBodyPart("file", "2MB.pdf")
+              .fileName("2MB.pdf")
+              .transferEncoding("binary")).asMultipartForm
     .check(status.is(200))
-    .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmitfinal"))
+    .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit2mb"))
   )
-    .exec(http("SSCSCOR_070_010_UploadDoc_SessionExt")
+    .exec(http("SSCSCOR_070_010_UploadDoc2MB_SessionExt")
           .get("/session-extension")
-          .headers(headers_20))
+          .headers(headers_20)
+      .check(status.in(200,304))
+    )
     .pause(tyaThinkTime)
-// Missing this call - https://sscs-cor.aat.platform.hmcts.net/additional-evidence/upload
+
+  val uploadDocument_3MB=
+    exec(http("SSCSCOR_070_005_UploadDoc3MB")
+         .post("${uploadurlsubmit2mb}")
+         .headers(headers_upload3mb)
+         .bodyPart(RawFileBodyPart("file", "3MB.pdf")
+                   .fileName("3MB.pdf")
+                   .transferEncoding("binary")).asMultipartForm
+         .check(status.is(200))
+         .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmitfinal"))
+    )
+    .exec(http("SSCSCOR_070_010_UploadDoc3MB_SessionExt")
+          .get("/session-extension")
+          .headers(headers_20)
+      .check(status.in(200,304))
+    )
+    .pause(tyaThinkTime)
+
+  // Missing this call - https://sscs-cor.aat.platform.hmcts.net/additional-evidence/upload
 // =======================================================================================
 // Click - submit envidence to the tribunal.
 // Looks like file is uploadedddddddddddddddddjdkdd again?
@@ -287,7 +335,7 @@ val uploadDocument=
 // =======================================================================================
 val submitUploadedDocument =
 exec(http("SSCSCOR_080_005_SubmitEvidence")
-.post("${uploadurlsubmitfinal}")
+.post("${uploadurlsubmit2mb}")
        .headers(headers_83)
 .body(RawFileBody("RecordedSimulationlatestupdate_0082_request.txt"))
 //.check(CsrfCheck.save)
@@ -296,7 +344,7 @@ exec(http("SSCSCOR_080_005_SubmitEvidence")
  .exec(http("SSCSCOR_080_010_SubmitEvidence_SessionExt")
 .get("/session-extension")
 .headers(headers_20)
-  .check(status.is(200))
+  .check(status.in(200,304))
  )
 
 .pause(tyaThinkTime)
@@ -310,7 +358,9 @@ exec(http("SSCSCOR_090_005_ReturnToAppeal")
 
  .exec(http("SSCSCOR_090_010_ReturnToAppeal_SessionExt")
 .get("/session-extension")
-.headers(headers_20))
+.headers(headers_20)
+   .check(status.in(200,304))
+ )
 
 .pause(tyaThinkTime)
 // =======================================================================================
@@ -323,7 +373,9 @@ exec(http("SSCSCOR_100_005_Hearing")
 .check(status.is(200)))
  .exec(http("SSCSCOR_100_010_Hearing_SessionExt")
 .get("/session-extension")
-.headers(headers_20))
+.headers(headers_20)
+   .check(status.in(200,304))
+ )
 .pause(tyaThinkTime)
 // =======================================================================================
 //Signout
