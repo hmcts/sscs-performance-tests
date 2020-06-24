@@ -4,11 +4,11 @@ object Environment {
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
 
 
-  val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "https://sscs-cor.aat.platform.hmcts.net")
+    val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "https://sscs-cor.perftest.platform.hmcts.net")
 
   //val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.nonprod.platform.hmcts.net")
   val sscsSYAURL = scala.util.Properties.envOrElse("basesyaURL", "https://benefit-appeal.perftest.platform.hmcts.net")
-  val IDAMURL = scala.util.Properties.envOrElse("idamURL", "https://idam-web-public.aat.platform.hmcts.net")
+  val IDAMURL = scala.util.Properties.envOrElse("idamURL", "https://idam-web-public.perftest.platform.hmcts.net")
   //val idamBaseUrl-old = "http://idam-api-perftest.service.core-compute-perftest.internal"
   val idamBaseUrl = "https://idam-api.perftest.platform.hmcts.net"
 

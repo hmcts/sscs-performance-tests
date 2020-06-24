@@ -52,7 +52,7 @@ object UserCreation {
       // .check(status.is(201)))
       .pause(10)*/
 
-  val createUsers =
+  /*val createUsers =
     feed(feeder)
       .exec(http("Create IDAM users")
         .post(addIdamUserUrl)
@@ -71,6 +71,32 @@ object UserCreation {
         .headers(Map("Content-Type" -> "application/json"))
         .check(status.is(201)))
       // .check(status.is(201)))
+      .pause(10)*/
+  //below are for the users for cmc legal rep
+
+  val createUsers =
+    feed(feeder)
+      .exec(http("Create IDAM users")
+        .post(addIdamUserUrl)
+        .body(StringBody(
+          """{
+               "email": "${idamUser}",
+               "forename": "CMC",
+               "surname": "'Test",
+                "levelOfAccess": 0,
+               "userGroup": {
+                  "code": "caseworker-cmc-solicitor"
+                },
+                "activationDate": "",
+               "lastAccess": "",
+               "roles": [{"code":"solicitor"},{"code":"caseworker-cmc"},{"code":"caseworker-cmc-solicitor"}],
+               "password": "Pass19word"
+            }"""
+        ))
+        .asJson
+        .headers(Map("Content-Type" -> "application/json"))
+        .check(status.is(201)))
+      // .check(status.is(201)))
       .pause(10)
 
 
@@ -83,11 +109,11 @@ object UserCreation {
       val pattern = new Regex("token.+")
      // val str = findEmail(client,session("generatedEmail").as[String])
 //xui.sample1@mailinator.com
-      val str = findEmail(client,"cmc.legal1@mailinator.com")
+      val str = findEmail(client,"sscs.cor.305@mailinator.com")
       //session.set("activationLink", (pattern findFirstMatchIn str.get).mkString)
       session.set("activationLink", (pattern findFirstMatchIn str.get).mkString.trim.replace(")", ""))
   }
-    .pause(60)
+    .pause(40)
     .exec(http("SelfReg01_TX03_Password")
       .get("https://idam-web-public.perftest.platform.hmcts.net/users/register?&${activationLink}")
       .headers(headers_pwd)
@@ -95,7 +121,7 @@ object UserCreation {
       .check(css("input[name='token']", "value").saveAs("token"))
       .check(css("input[name='code']", "value").saveAs("code"))
       .check(css("input[name='_csrf']", "value").saveAs("_csrf")))
-    .pause(60)
+    .pause(40)
     .exec(http("SelfReg01_TX04_Activate").post("https://idam-web-public.perftest.platform.hmcts.net/users/activate")
       .formParam("_csrf", "${_csrf}")
       .formParam("code", "${code}")
