@@ -4,7 +4,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 //import uk.gov.hmcts.reform.sscs.performance.processes._
-import uk.gov.hmcts.reform.sscs.performance.trackyourappeal.SSCSCOR
+import uk.gov.hmcts.reform.sscs.performance.trackyourappeal.SSCSMYA
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 //import uk.gov.hmcts.reform.sscs.performance.simulations.lifecycle.SimulationHooks
 //import uk.gov.hmcts.reform.idam.{User,LoginPage}
@@ -26,18 +26,18 @@ object  CreateCORSimulation {
   def createCORScenario =
     exec(
       feed(feeder),
-      SSCSCOR.home,        //  LoginPage.logIn(testUsers.head),
-      SSCSCOR.login,
-      SSCSCOR.enterPostcode,
-      SSCSCOR.clickOnEvidenceTab,
-      SSCSCOR.clickSubmitEvidenceLink,
-      SSCSCOR.selectUploadRadioButton,
-      SSCSCOR.uploadDocument_2MB,
+      SSCSMYA.home,        //  LoginPage.logIn(testUsers.head),
+      SSCSMYA.login,
+      SSCSMYA.enterPostcode,
+      SSCSMYA.clickOnEvidenceTab,
+      SSCSMYA.clickSubmitEvidenceLink,
+      SSCSMYA.selectUploadRadioButton,
+      SSCSMYA.uploadDocument_2MB,
      // SSCSCOR.uploadDocument_3MB,
-      SSCSCOR.submitUploadedDocument,
-      SSCSCOR.returnToAppealDetails,
-      SSCSCOR.Hearing,
-      SSCSCOR.logout
+      SSCSMYA.submitUploadedDocument,
+      SSCSMYA.returnToAppealDetails,
+      SSCSMYA.Hearing,
+      SSCSMYA.logout
     )
 
   pace(WaitForNextIteration)
