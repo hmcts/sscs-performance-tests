@@ -23,7 +23,7 @@ object SSCSMYA {
   val home =
   exec(http("SSCSMYA_010_LandingPage")
       .get("/sign-in?tya=${reference}")
-    headers(SSCSMYAHeaders.headers_homepage)
+      .headers(SSCSMYAHeaders.headers_homepage)
          .check(status.in(200))
           .check(CsrfCheck.save))
     .pause(tyaThinkTime)
