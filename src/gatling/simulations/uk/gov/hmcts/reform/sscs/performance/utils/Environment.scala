@@ -1,24 +1,21 @@
 package uk.gov.hmcts.reform.sscs.performance.utils
 
 object Environment {
+
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
-
-
-    val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "https://sscs-cor.perftest.platform.hmcts.net")
-
+  val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "https://sscs-cor.perftest.platform.hmcts.net")
   //val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.nonprod.platform.hmcts.net")
   val sscsSYAURL = scala.util.Properties.envOrElse("basesyaURL", "https://benefit-appeal.perftest.platform.hmcts.net")
   val IDAMURL = scala.util.Properties.envOrElse("idamURL", "https://idam-web-public.perftest.platform.hmcts.net")
   //val idamBaseUrl-old = "http://idam-api-perftest.service.core-compute-perftest.internal"
   val idamBaseUrl = "https://idam-api.perftest.platform.hmcts.net"
-
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
   
   val users = scala.util.Properties.envOrElse("numberOfUser", "10")
   val maxResponseTime = scala.util.Properties.envOrElse("maxResponseTime", "500")
   val idamCookieName="SESSION_ID"
   val mrnDate="01"
-  val mrnMonth="03"
+  val mrnMonth="06"
   val mrnYear="2020"
   
   val commonHeader = Map(

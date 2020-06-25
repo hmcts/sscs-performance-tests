@@ -9,25 +9,22 @@ import uk.gov.hmcts.reform.sscs.performance.utils._
 object AppealingReason{
 
   val thinktime = Environment.thinkTime
-  
+  val feeder = csv("sscs_details.csv").circular
+  val sscsSYAURL = Environment.sscsSYAURL
 
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
-
 
   val headers_check_appeal = Map(
     "accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
     "accept-encoding" -> "gzip, deflate, br",
     "accept-language" -> "en-US,en;q=0.9",
     "cache-control" -> "max-age=0",
-    "origin" -> "https://benefit-appeal.aat.platform.hmcts.net",
+    "origin" -> sscsSYAURL,
     "sec-fetch-dest" -> "document",
     "sec-fetch-mode" -> "navigate",
     "sec-fetch-site" -> "same-origin",
     "sec-fetch-user" -> "?1",
     "upgrade-insecure-requests" -> "1")
-
-
-
 
  val reasonForAppealing=
 
@@ -109,10 +106,12 @@ val attendHearing=
      // .check(CsrfCheck.save)
     )
     .pause(thinktime)
-val checkYourAppeal=
+    
+val checkYourAppeal= feed(feeder)
+  .
   exec(http("TX35_SSCS_CheckYourAppeal")
   .post("/check-your-appeal")
-    .formParam("signer", "vijayrama")
+    .formParam("signer", "${firstname} ${lastname}")
       .headers(headers_check_appeal)
       .check(status.in(200,302 ))
    // .formParam(csrfParameter, csrfTemplate)
