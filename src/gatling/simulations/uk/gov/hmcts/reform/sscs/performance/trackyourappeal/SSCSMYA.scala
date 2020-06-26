@@ -14,6 +14,27 @@ object SSCSMYA {
   val tyaThinkTime = Environment.tyaThinkTime
   val idamUrl = Environment.IDAMURL
 
+  val headers_fire2MB = Map(
+    "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Content-Type" -> "multipart/form-data; boundary=---------------------------198111773715345659193638287702",
+    "Origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
+    "TE" -> "Trailers",
+    "Upgrade-Insecure-Requests" -> "1")
+
+  val headers_fire3MB = Map(
+    "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Content-Type" -> "multipart/form-data; boundary=---------------------------1748031016249108562799986968",
+    "Origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
+    "TE" -> "Trailers",
+    "Upgrade-Insecure-Requests" -> "1")
+
+  val headers_submituploadfire = Map(
+    "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Content-Type" -> "multipart/form-data; boundary=---------------------------24522327642503733002897372352",
+    "Origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
+    "TE" -> "Trailers",
+    "Upgrade-Insecure-Requests" -> "1")
+
 
   // =======================================================================================
   // Enter URL for Service
@@ -162,7 +183,40 @@ exec(http("TX04_SSCS_TYA_Evidence_Upload1")
   .headers(headers_20))
 .pause(tyaThinkTime)*/
 
-val uploadDocument_2MB=
+  val uploadDocument2MB=
+  exec(http("SSCSMYA_070_005_UploadDoc2MB")
+        .post("${uploadurl}")
+        .headers(headers_fire2MB)
+        .body(RawFileBody("RecordedSimulationCORFire_0000_request.txt")).asMultipartForm
+    .check(status.is(200))
+    .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit2mb"))
+  )
+    .exec(http("SSCSMYA_070_010_UploadDoc2MB_SessionExt")
+          .get("/session-extension")
+          .headers(SSCSMYAHeaders.headers_20)
+          .check(status.in(200,304)))
+    .pause(15)
+
+
+  val uploadDocument3MB=
+    exec(http("SSCSMYA_070_005_UploadDoc3MB")
+         .post("${uploadurlsubmit2mb}")
+         .headers(headers_fire3MB)
+      .body(RawFileBody("RecordedSimulationCORFire_0005_request.txt")).asMultipartForm
+         .check(status.is(200))
+         .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit3mb"))
+    )
+      .exec(http("SSCSMYA_070_010_UploadDoc3MB_SessionExt")
+            .get("/session-extension")
+            .headers(SSCSMYAHeaders.headers_20)
+            .check(status.in(200,304))
+      )
+      .pause(15)
+
+
+
+
+  val uploadDocument_2MB=
   exec(http("SSCSMYA_070_005_UploadDoc2MB")
         .post("${uploadurl}")
         .headers(SSCSMYAHeaders.headers_73)
@@ -177,7 +231,7 @@ val uploadDocument_2MB=
           .headers(SSCSMYAHeaders.headers_20)
       .check(status.in(200,304))
     )
-    .pause(tyaThinkTime)
+    .pause(30)
 
   val uploadDocument_3MB=
     exec(http("SSCSMYA_070_005_UploadDoc3MB")
@@ -205,14 +259,36 @@ val uploadDocument_2MB=
 // =======================================================================================
 val submitUploadedDocument =
 exec(http("SSCSMYA_080_005_SubmitEvidence")
-.post("${uploadurlsubmit2mb}")
-       .headers(SSCSMYAHeaders.headers_83)
-       .header("Content-Type", "application/octet-stream")
-       /*.formParam("additional-evidence-description", "asasasasasasasasasasasasas")
-       .formParam("additional-evidence-file", "2MB.pdf")
-      // .formParam("additional-evidence-file", "3MB.pdf")
-       .formParam("buttonSubmit", "Submit evidence to the tribunal")*/
-.body(RawFileBody("RecordedSimulationlatestupdate_0082_request.txt"))
+     .post("${uploadurlsubmit3mb}")
+     .headers(SSCSMYAHeaders.headers_83)
+     .header("Content-Type", "application/octet-stream")
+     /*.formParam("additional-evidence-description", "asasasasasasasasasasasasas")
+     .formParam("additional-evidence-file", "2MB.pdf")
+    // .formParam("additional-evidence-file", "3MB.pdf")
+     .formParam("buttonSubmit", "Submit evidence to the tribunal")*/
+     /* .formParam("form_data","{\"additional-evidence-description\":\"adding text in a box and choosing a file\"}")
+        .formParam("form_data","{\"additional-evidence-file\":\"(binary)\"}")
+        .formParam("form_data","{\"buttonSubmit\":\"Submit evidence to the tribunal\"}")
+ */
+
+     .body(RawFileBody("RecordedSimulationlatestupdate_0082_request.txt"))
+
+     //.bodyPart(ElFileBodyPart("RecordedSimulationlatestupdate_0082_request.txt"))
+     //.check(CsrfCheck.save)
+     .check(status.is(200)))
+
+  .exec(http("SSCSMYA_080_010_SubmitEvidence_SessionExt")
+        .get("/session-extension")
+        .headers(SSCSMYAHeaders.headers_20)
+        .check(status.in(200,304))
+  )
+
+
+  val submitUploadedDocumentFire =
+exec(http("SSCSMYA_080_005_SubmitEvidence")
+.post("${uploadurlsubmitfinal}")
+       .headers(headers_submituploadfire)
+       .body(RawFileBody("RecordedSimulationCORFire_0010_request.txt"))
 
      //.bodyPart(ElFileBodyPart("RecordedSimulationlatestupdate_0082_request.txt"))
 //.check(CsrfCheck.save)

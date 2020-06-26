@@ -10,8 +10,8 @@ object  UserCreateSimulation {
 
   def createUser=
     exec(
-      //UserCreation.createUsers
-      UserCreation.emailNotification
+      UserCreation.createUsers
+     // UserCreation.emailNotification
     )
 
 }

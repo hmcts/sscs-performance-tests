@@ -80,24 +80,27 @@ object UserCreation {
         .post(addIdamUserUrl)
         .body(StringBody(
           """{
-               "email": "${idamUser}",
-               "forename": "CMC",
-               "surname": "'Test",
-                "levelOfAccess": 0,
-               "userGroup": {
-                  "code": "caseworker-cmc-solicitor"
-                },
-                "activationDate": "",
-               "lastAccess": "",
-               "roles": [{"code":"solicitor"},{"code":"caseworker-cmc"},{"code":"caseworker-cmc-solicitor"}],
-               "password": "Pass19word"
-            }"""
+                     "email": "${idamUser}",
+                     "forename": "Test",
+                     "id": "",
+                    "password": "Pass19word",
+                    "roles": [
+                     {
+                       "code": "citizen"
+                       }
+                    ],
+                    "surname": "Tester",
+                    "userGroup": {
+                      "code": ""
+                     }
+                  }"""
         ))
         .asJson
+
         .headers(Map("Content-Type" -> "application/json"))
         .check(status.is(201)))
       // .check(status.is(201)))
-      .pause(10)
+      .pause(30)
 
 
  val emailNotification =

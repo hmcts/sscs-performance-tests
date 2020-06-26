@@ -52,17 +52,17 @@ class SSCSSimulation extends Simulation
            rampUsers(1) during  (1)).protocols(httpProtocolSYA)
        )*/
 
-       setUp(
+       /*setUp(
          scenarioSSCSCOR.inject(
            nothingFor(10),
            rampUsers(1) during  (1)).protocols(httpProtocolTYA)
-       )
-      /* setUp(
+       )*/
+
+       setUp(
          scenarioUserCreation.inject(
            nothingFor(1),
-           rampUsers(1) during  (1)).protocols(httpProtocolUserCreation)
+           rampUsers(500) during  (600)).protocols(httpProtocolUserCreation)
        )
-*/
 
 
 

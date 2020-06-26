@@ -32,9 +32,12 @@ object  CreateCORSimulation {
       SSCSMYA.clickOnEvidenceTab,
       SSCSMYA.clickSubmitEvidenceLink,
       SSCSMYA.selectUploadRadioButton,
+     /* SSCSMYA.uploadDocument2MB,
+      SSCSMYA.uploadDocument3MB,*/
       SSCSMYA.uploadDocument_2MB,
-    //  SSCSMYA.uploadDocument_3MB,
-      SSCSMYA.submitUploadedDocument,
+      SSCSMYA.uploadDocument_3MB,
+      SSCSMYA.submitUploadedDocumentFire,
+     // SSCSMYA.submitUploadedDocument,
       SSCSMYA.returnToAppealDetails,
       SSCSMYA.Hearing,
       SSCSMYA.logout
