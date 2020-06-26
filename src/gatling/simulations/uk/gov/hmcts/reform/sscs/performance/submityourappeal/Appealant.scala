@@ -18,7 +18,7 @@ object Appealant{
 
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
-  val haveMRN=
+  val   haveMRN=
     exec(http("TX09_SSCS_HaveMRN")
       .post("/have-you-got-an-mrn")
       .formParam("haveAMRN", "yes")
@@ -31,7 +31,7 @@ object Appealant{
 val DWPIssuingOffice=
   exec(http("TX10_SSCS_DWPIssuingOffice")
     .post("/dwp-issuing-office")
-    .formParam("pipNumber", "2")
+    .formParam("pipNumber", "3")
      // .formParam(csrfParameter, csrfTemplate)
    //.check(regex("Are you an 'appointee'?"))
    // .check(CsrfCheck.save)

@@ -109,7 +109,7 @@ object UserCreation {
       val pattern = new Regex("token.+")
      // val str = findEmail(client,session("generatedEmail").as[String])
 //xui.sample1@mailinator.com
-      val str = findEmail(client,"sscs.cor.305@mailinator.com")
+      val str = findEmail(client,"sscs.cor.401@mailinator.com")
       //session.set("activationLink", (pattern findFirstMatchIn str.get).mkString)
       session.set("activationLink", (pattern findFirstMatchIn str.get).mkString.trim.replace(")", ""))
   }

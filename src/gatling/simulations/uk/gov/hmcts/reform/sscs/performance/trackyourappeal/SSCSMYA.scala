@@ -42,7 +42,7 @@ object SSCSMYA {
        .formParam("save", "Sign in")
        .formParam("selfRegistrationEnabled", "true")
        .check(status.is(200))
-     .check(CsrfCheck.save)
+   //  .check(CsrfCheck.save)
     //.check(regex("Enter the postcode for the appeal"))
   )
    .exec(http("SSCSMYA_020_010_LoginPage_SessionExt")
@@ -166,7 +166,7 @@ val uploadDocument_2MB=
   exec(http("SSCSMYA_070_005_UploadDoc2MB")
         .post("${uploadurl}")
         .headers(SSCSMYAHeaders.headers_73)
-    .bodyPart(RawFileBodyPart("file", "2MB.pdf")
+    .bodyPart(RawFileBodyPart("additional-evidence-file", "2MB.pdf")
               .fileName("2MB.pdf")
               .transferEncoding("binary")).asMultipartForm
     .check(status.is(200))
@@ -183,7 +183,7 @@ val uploadDocument_2MB=
     exec(http("SSCSMYA_070_005_UploadDoc3MB")
          .post("${uploadurlsubmit2mb}")
          .headers(SSCSMYAHeaders.headers_upload3mb)
-         .bodyPart(RawFileBodyPart("file", "3MB.pdf")
+         .bodyPart(RawFileBodyPart("additional-evidence-file", "3MB.pdf")
                    .fileName("3MB.pdf")
                    .transferEncoding("binary")).asMultipartForm
          .check(status.is(200))
@@ -207,7 +207,14 @@ val submitUploadedDocument =
 exec(http("SSCSMYA_080_005_SubmitEvidence")
 .post("${uploadurlsubmit2mb}")
        .headers(SSCSMYAHeaders.headers_83)
+       .header("Content-Type", "application/octet-stream")
+       /*.formParam("additional-evidence-description", "asasasasasasasasasasasasas")
+       .formParam("additional-evidence-file", "2MB.pdf")
+      // .formParam("additional-evidence-file", "3MB.pdf")
+       .formParam("buttonSubmit", "Submit evidence to the tribunal")*/
 .body(RawFileBody("RecordedSimulationlatestupdate_0082_request.txt"))
+
+     //.bodyPart(ElFileBodyPart("RecordedSimulationlatestupdate_0082_request.txt"))
 //.check(CsrfCheck.save)
 .check(status.is(200)))
 

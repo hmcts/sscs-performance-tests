@@ -40,7 +40,7 @@ object StartAppealPage{
   val postCodeCheck =
   exec(http("TX07_SSCS_PostCodeCheck")
     .post("/postcode-check")
-    .formParam("postcode", "TW33SD")
+    .formParam("postcode", "E1 6JJ")
     .check(status.in(200,302))
    // .formParam(csrfParameter, csrfTemplate)
     .check(regex("Your appeal will be decided by an independent tribunal"))
@@ -70,8 +70,14 @@ val areYouAnAppointee =
   )
     .pause(thinktime)
 
+
   val independance_postlogin=
-    exec(http("independance_postlogin")
+
+  exec(http("request_97")
+        .get("/independence")
+    .check(status.in(200,302)))
+
+      .exec(http("independance_postlogin")
       .post("/independence")
       .check(status.in(200,302))
       // .check(CsrfCheck.save)

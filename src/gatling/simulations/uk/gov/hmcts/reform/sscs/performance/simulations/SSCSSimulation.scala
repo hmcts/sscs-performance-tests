@@ -57,14 +57,12 @@ class SSCSSimulation extends Simulation
            nothingFor(10),
            rampUsers(1) during  (1)).protocols(httpProtocolTYA)
        )
-
       /* setUp(
          scenarioUserCreation.inject(
            nothingFor(1),
            rampUsers(1) during  (1)).protocols(httpProtocolUserCreation)
-       )*/
-
-
+       )
+*/
 
 
 
