@@ -24,8 +24,11 @@ class SSCSSimulation extends Simulation
        implicit val postHeaders: Map[String, String] = Map(
          "Origin" -> Environment.sscsSYAURL
        )
-       val scenarioSSCSCOR = scenario("Create TYA Journey")
-         .exec(CreateCORSimulation.createCORScenario)
+       val scenarioSSCSCORWithUpload = scenario("Create MYA Journey With Upload")
+         .exec(CreateCORSimulation.createCORScenarioWithUpload)
+
+       val scenarioSSCSCORNoUpload = scenario("Create MYA Journey With No Upload")
+         .exec(CreateCORSimulation.createCORScenarioNoUpload)
 
        val scenarioSYA = scenario("Create SYA Journey")
          .exec(CreateSYASimulation.createSYAScenario)
@@ -49,21 +52,24 @@ class SSCSSimulation extends Simulation
       /* setUp(
          scenarioSYA.inject(
            nothingFor(10),
-           rampUsers(1) during  (1)).protocols(httpProtocolSYA)
+           rampUsers(300) during  (1800)).protocols(httpProtocolSYA)
        )*/
-
-       /*setUp(
-         scenarioSSCSCOR.inject(
-           nothingFor(10),
-           rampUsers(1) during  (1)).protocols(httpProtocolTYA)
-       )*/
-
        setUp(
-         scenarioUserCreation.inject(
-           nothingFor(1),
-           rampUsers(500) during  (600)).protocols(httpProtocolUserCreation)
+         scenarioSSCSCORWithUpload.inject(
+           nothingFor(10),
+           rampUsers(237) during  (600),
+         ),
+         scenarioSSCSCORWithUpload.inject(
+           nothingFor(100),
+           rampUsers(237) during  (600)).protocols(httpProtocolTYA)
        )
 
+       /*setUp(
+         scenarioUserCreation.inject(
+           nothingFor(1),
+           rampUsers(300) during  (600)).protocols(httpProtocolUserCreation)
+       )
+*/
 
 
 

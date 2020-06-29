@@ -144,4 +144,25 @@ object SSCSMYAHeaders {
   "Upgrade-Insecure-Requests" -> "1",
   "User-Agent" -> "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36")
 
+ val headers_fire2MB = Map(
+  "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+  "Content-Type" -> "multipart/form-data; boundary=---------------------------198111773715345659193638287702",
+  "Origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
+  "TE" -> "Trailers",
+  "Upgrade-Insecure-Requests" -> "1")
+
+ val headers_fire3MB = Map(
+  "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+  "Content-Type" -> "multipart/form-data; boundary=---------------------------1748031016249108562799986968",
+  "Origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
+  "TE" -> "Trailers",
+  "Upgrade-Insecure-Requests" -> "1")
+
+ val headers_submituploadfire = Map(
+  "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+  "Content-Type" -> "multipart/form-data; boundary=---------------------------24522327642503733002897372352",
+  "Origin" -> "https://sscs-cor.perftest.platform.hmcts.net",
+  "TE" -> "Trailers",
+  "Upgrade-Insecure-Requests" -> "1")
+
 }

@@ -9,6 +9,8 @@ import uk.gov.hmcts.reform.sscs.performance.utils._
 object Appealant{
 
   val thinktime = Environment.thinkTime
+  val firstName = Environment.firstName
+  val lastName = Environment.lastName
   val mrnDate=Environment.mrnDate
   val mrnMonth=Environment.mrnMonth
   val mrnYear=Environment.mrnYear
@@ -56,8 +58,8 @@ val DWPIssuingOffice=
   exec(http("TX12_SSCS_Appealant_Name")
     .post("/enter-appellant-name")
     .formParam("title", "Mr.")
-    .formParam("firstName", "${firstname}")
-    .formParam("lastName", "${lastname}")
+    .formParam("firstName", firstName)
+    .formParam("lastName", lastName)
    // .formParam(csrfParameter, csrfTemplate)
    // .check(regex("Enter your date of birth"))
    // .check(CsrfCheck.save)
@@ -90,18 +92,18 @@ val DWPIssuingOffice=
   val contactDetailslookup=
     exec(http("TX15_SSCS_Appealant_ContactDetailsLookup")
       .post("/enter-appellant-contact-details")
-  .formParam("submitType", "lookup")
-    .formParam("postcodeLookup", "tw33sd")
-    .formParam("phoneNumber", "")
-    .formParam("emailAddress", "")
+      .formParam("submitType", "lookup")
+      .formParam("postcodeLookup", "E1 6JJ")
+      .formParam("phoneNumber", "")
+      .formParam("emailAddress", "")
       .check(status.in(200,302)))
 
   val contactDetailsSelection=
     exec(http("TX15_SSCS_Appealant_ContactDetailsSelection")
       .post("/enter-appellant-contact-details")
       .formParam("submitType", "addressSelection")
-      .formParam("postcodeLookup", "tw33sd")
-      .formParam("postcodeAddress", "100021551083")
+      .formParam("postcodeLookup", "E1 6JJ")
+      .formParam("postcodeAddress", "10008297237")
       .formParam("phoneNumber", "")
       .formParam("emailAddress", "")
       .check(status.in(200,302)))
@@ -109,17 +111,17 @@ val DWPIssuingOffice=
 
   val contactDetails=
   exec(http("TX15_SSCS_Appealant_ContactDetails")
-    .post("/enter-appellant-contact-details")
-    .formParam("submitType", "")
-    .formParam("postcodeLookup", "tw33sd")
-    .formParam("postcodeAddress", "100021551083")
-    .formParam("addressLine1", "12, HIBERNIA GARDENS")
-    .formParam("addressLine2", "")
-    .formParam("townCity", "HOUNSLOW")
-    .formParam("county", "HOUNSLOW")
-    .formParam("postCode", "TW3 3SD")
-    .formParam("phoneNumber", "07424523427")
-    .formParam("emailAddress", "${email}@mailinator.com")
+         .post("/enter-appellant-contact-details")
+         .formParam("submitType", "")
+         .formParam("postcodeLookup", "E1 6JJ")
+         .formParam("postcodeAddress", "10008297237")
+         .formParam("addressLine1", "LYLES")
+         .formParam("addressLine2", "56 THE TEA BUILDING, SHOREDITCH HIGH STREET")
+         .formParam("townCity", "LONDON")
+         .formParam("county", "LONDON")
+         .formParam("postCode", "E1 6JJ")
+         .formParam("phoneNumber", "")
+    .formParam("emailAddress", "${idamUser}")
   //  .formParam(csrfParameter, csrfTemplate)
     .check(regex("Do you want to receive text message notifications?"))
    // .check(CsrfCheck.save)

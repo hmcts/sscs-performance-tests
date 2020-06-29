@@ -14,11 +14,12 @@ object StartAppealPage{
   val idamUrl = Environment.IDAMURL
   val sscsSYAURL = Environment.sscsSYAURL
 
-  val feeder = csv("sscs_details.csv").circular
+  val sscsfeeder = csv("sscs_details.csv").circular
+  val loginfeeder = csv("IdamUsers.csv").circular
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
   //1
 
-  val entry = feed(feeder)
+  val entry = feed(sscsfeeder).feed(loginfeeder)
     .exec(http("TX05_SSCS_Entry")
       .get("/")
       .headers(SSCSSYAHeaders.headers_0)
@@ -44,7 +45,7 @@ object StartAppealPage{
     exec(http("TX07_SSCS_PostCodeCheck")
       .post("/postcode-check")
       .headers(SSCSSYAHeaders.headers_2)
-      .formParam("postcode", "TW33SD")
+      .formParam("postcode", "TS1 1ST")
       .check(status.in(200,302))
       //.formParam(csrfParameter, csrfTemplate)
       .check(regex("Your appeal will be decided by an independent tribunal"))
@@ -98,7 +99,7 @@ val savelater=
     exec(http("request_141")
       .post(idamUrl + "/login?client_id=sscs&redirect_uri=" + sscsSYAURL + "%2Fauthenticated&response_type=code&state=${stateId}")
       //.headers(headers_196)
-      .formParam("username", "${email}@mailinator.com") //${email}@mailinator.com
+      .formParam("username", "${idamUser}") //${email}@mailinator.com
       .formParam("password", "Pass19word") //Pass19word
       .formParam("save", "Sign in")
       .formParam("selfRegistrationEnabled", "true")

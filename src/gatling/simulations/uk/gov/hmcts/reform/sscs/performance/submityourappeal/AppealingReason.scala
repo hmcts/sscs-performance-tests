@@ -9,7 +9,8 @@ import uk.gov.hmcts.reform.sscs.performance.utils._
 object AppealingReason{
 
   val thinktime = Environment.thinkTime
-  val feeder = csv("sscs_details.csv").circular
+  val firstName = Environment.firstName
+  val lastName = Environment.lastName
   val sscsSYAURL = Environment.sscsSYAURL
 
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
@@ -28,11 +29,11 @@ object AppealingReason{
 
  val reasonForAppealing=
 
-   exec(http("request_806")
+   exec(http("TX20_SSCS_ReasonForAppealGet")
      .get("/reason-for-appealing")
    )
        .pause(5)
-    .exec(http("TX20_SSCS_ReasonForAppeal")
+    .exec(http("TX20_SSCS_ReasonForAppealPost")
     .post("/reason-for-appealing/item-0")
     .formParam("item.whatYouDisagreeWith", "Disagree - I am Performance Testing")
     .formParam("item.reasonForAppealing", "Reason For Appeal - I am Performance Testing")
@@ -107,11 +108,10 @@ val attendHearing=
     )
     .pause(thinktime)
     
-val checkYourAppeal= feed(feeder)
-  .
+val checkYourAppeal=
   exec(http("TX35_SSCS_CheckYourAppeal")
   .post("/check-your-appeal")
-    .formParam("signer", "${firstname} ${lastname}")
+    .formParam("signer",firstName+" "+lastName )
       .headers(headers_check_appeal)
       .check(status.in(200,302 ))
    // .formParam(csrfParameter, csrfTemplate)

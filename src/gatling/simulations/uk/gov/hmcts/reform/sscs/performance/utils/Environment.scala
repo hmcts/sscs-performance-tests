@@ -14,9 +14,13 @@ object Environment {
   val users = scala.util.Properties.envOrElse("numberOfUser", "10")
   val maxResponseTime = scala.util.Properties.envOrElse("maxResponseTime", "500")
   val idamCookieName="SESSION_ID"
-  val mrnDate="01"
+  val mrnDate="20"
   val mrnMonth="06"
   val mrnYear="2020"
+
+  val firstName="TestPF"
+  val lastName="TesterPF"
+
   
   val commonHeader = Map(
     "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -28,7 +32,8 @@ object Environment {
     "Upgrade-Insecure-Requests" -> "1")
 
     
-    val thinkTime = 5
+    val thinkTime = 333
+  val thinkTimeNoUpload = 750
   val tyaThinkTime=10
-    val waitForNextIteration = 80
+    val waitForNextIteration = 40
 }
