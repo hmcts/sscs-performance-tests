@@ -8,7 +8,8 @@ import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 class SSCSSimulation extends Simulation
      {
 
-       val httpProtocolTYA: HttpProtocolBuilder = http.proxy(Proxy("proxyout.reform.hmcts.net",8080))
+       val httpProtocolTYA: HttpProtocolBuilder = http
+         //.proxy(Proxy("proxyout.reform.hmcts.net",8080))
          .baseUrl(Environment.SSCSCORURL)
          .headers(Environment.commonHeader)
 
