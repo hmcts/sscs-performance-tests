@@ -60,7 +60,7 @@ class SSCSSimulation extends Simulation
            nothingFor(10),
            rampUsers(237) during  (600),
          ),
-         scenarioSSCSCORWithUpload.inject(
+         scenarioSSCSCORNoUpload.inject(
            nothingFor(100),
            rampUsers(237) during  (600)).protocols(httpProtocolTYA)
        )
