@@ -133,8 +133,8 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
   exec(http("SSCSMYA${service}_060_005_UploadDoc2MB")
         .post("${uploadurl}")
         .headers(SSCSMYAHeaders.headers_73)
-    .bodyPart(RawFileBodyPart("additional-evidence-file", "1MB.pdf")
-              .fileName("1MB.pdf")
+    .bodyPart(RawFileBodyPart("additional-evidence-file", "100_doc.docx")
+              .fileName("100_doc.docx")
               .transferEncoding("binary")).asMultipartForm
     .check(status.is(200))
     .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit2mb"))
@@ -155,7 +155,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
          .post("${uploadurlsubmit2mb}")
          .headers(SSCSMYAHeaders.headers_upload3mb)
          .bodyPart(RawFileBodyPart("additional-evidence-file", "30_doc.docx")
-                   .fileName("3MB.pdf")
+                   .fileName("30_doc.docx")
                    .transferEncoding("binary")).asMultipartForm
          .check(status.is(200))
          .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmitfinal"))
@@ -176,7 +176,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 // =======================================================================================
 
   val submitUploadedDocumentFire =
-exec(http("SSCSMYA${service}_080_005_SubmitEvidence")
+exec(http(" SSCSMYA${service}_080_005_SubmitEvidence")
 .post("${uploadurlsubmitfinal}")
        .headers(SSCSMYAHeaders.headers_submituploadfire)
        .body(RawFileBody("RecordedSimulationCORFire_0010_request.txt"))
