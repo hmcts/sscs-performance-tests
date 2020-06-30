@@ -223,7 +223,7 @@ exec(http("SSCSMYA${service}_100_005_Hearing")
 //Signout
 // =======================================================================================
 val logout =
-exec(http("SSCSMYA_${SignoutNumber}_Signout")
+exec(http("SSCSMYA${service}_${SignoutNumber}_Signout")
 .get("/sign-out")
 .check(status.is(200)))
 

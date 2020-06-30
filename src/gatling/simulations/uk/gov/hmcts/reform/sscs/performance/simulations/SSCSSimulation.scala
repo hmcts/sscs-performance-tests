@@ -9,7 +9,7 @@ class SSCSSimulation extends Simulation
      {
 
        val httpProtocolTYA: HttpProtocolBuilder = http
-         //.proxy(Proxy("proxyout.reform.hmcts.net",8080))
+        // .proxy(Proxy("proxyout.reform.hmcts.net",8080))
          .baseUrl(Environment.SSCSCORURL)
          .headers(Environment.commonHeader)
 
@@ -55,15 +55,18 @@ class SSCSSimulation extends Simulation
            nothingFor(10),
            rampUsers(300) during  (1800)).protocols(httpProtocolSYA)
        )*/
-       setUp(
-         scenarioSSCSCORWithUpload.inject(
-           nothingFor(10),
-           rampUsers(237) during  (600),
-         ),
+      /* setUp(
+         scenarioSSCSCORWithUpload.inject(nothingFor(10), rampUsers(237) during  (600)),
          scenarioSSCSCORNoUpload.inject(
            nothingFor(100),
            rampUsers(237) during  (600)).protocols(httpProtocolTYA)
        )
+*/
+       setUp(
+         scenarioSSCSCORWithUpload.inject(nothingFor(10),rampUsers(1) during (6))
+        /* scenarioSSCSCORNoUpload.inject(nothingFor(100),rampUsers(237) during (600))*/
+
+       ).protocols(httpProtocolTYA)
 
        /*setUp(
          scenarioUserCreation.inject(
