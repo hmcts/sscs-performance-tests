@@ -29,6 +29,11 @@ object  CreateCORSimulation {
     "Origin" -> Environment.SSCSCORURL
   )
 
+  //=======================================================================================
+  // Following scenario is for MYA including upload file
+  //=======================================================================================
+
+
   def createCORScenarioWithUpload =
     exec(
       feed(feederForUpload),
@@ -58,6 +63,11 @@ object  CreateCORSimulation {
     )
 
   pace(WaitForNextIteration)
+
+  //=======================================================================================
+  // Following scenario is for MYA with no upload file
+  //=======================================================================================
+
 
   def createCORScenarioNoUpload =
     exec(
