@@ -178,9 +178,10 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
   val submitUploadedDocumentFire =
 exec(http(" SSCSMYA${service}_080_005_SubmitEvidence")
 .post("${uploadurlsubmitfinal}")
-       //.headers(SSCSMYAHeaders.headers_submituploadfire)
-     .headers(SSCSMYAHeaders.headers_83)
-       .body(RawFileBody("RecordedSimulationCOR22062020_0083_request.txt"))
+       .headers(SSCSMYAHeaders.headers_submituploadfire)
+    // .headers(SSCSMYAHeaders.headers_83)
+      // .body(RawFileBody("RecordedSimulationCOR22062020_0083_request.txt"))
+     .body(RawFileBody("RecordedSimulationCORFire_0010_request.txt"))
 
 .check(status.is(200)))
 
