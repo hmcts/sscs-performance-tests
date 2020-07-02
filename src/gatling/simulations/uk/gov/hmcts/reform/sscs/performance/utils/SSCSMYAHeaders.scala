@@ -163,8 +163,12 @@ object SSCSMYAHeaders {
   "Content-Type" -> "multipart/form-data; boundary=---------------------------24522327642503733002897372352",
   "Origin" -> baseURL,
   "TE" -> "Trailers",
+  "sec-fetch-dest" -> "document",
   "Upgrade-Insecure-Requests" -> "1",
   "user-agent" -> "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 Safari/537.36"
+
+
+
  )
 
 

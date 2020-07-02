@@ -63,9 +63,9 @@ class SSCSSimulation extends Simulation
        )
 */
        setUp(
-         scenarioSSCSCORWithUpload.inject(nothingFor(10),rampUsers(1) during (6))
-        /* scenarioSSCSCORNoUpload.inject(nothingFor(100),rampUsers(237) during (600))*/
-
+         scenarioSSCSCORWithUpload.inject(nothingFor(1),rampUsers(1) during (6))
+        /* scenarioSSCSCORNoUpload.inject(nothingFor(100),rampUsers(237) during (600))
+*/
        ).protocols(httpProtocolTYA)
 
        /*setUp(
