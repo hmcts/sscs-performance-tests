@@ -27,6 +27,11 @@ object AppealingReason{
     "sec-fetch-user" -> "?1",
     "upgrade-insecure-requests" -> "1")
 
+
+  // =======================================================================================
+  // Provide a reason for appealing
+  // =======================================================================================
+
  val reasonForAppealing=
 
    exec(http("TX20_SSCS_ReasonForAppealGet")
@@ -42,6 +47,10 @@ object AppealingReason{
   //  .check(CsrfCheck.save)
   )
     .pause(thinktime)
+
+  // =======================================================================================
+  // Provide other reasons for appealing
+  // =======================================================================================
 
   val finalReasonForAppealing=
     exec(http("TX20_SSCS_FinalReasonForAppeal")
@@ -69,6 +78,11 @@ object AppealingReason{
     .pause(thinktime)
 
   //from here go to upload evidence
+
+  // =======================================================================================
+  // Provide evidence
+  // =======================================================================================
+
   val evidence=
   exec(http("request_432")
     .post("/evidence-provide")
@@ -77,38 +91,57 @@ object AppealingReason{
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Indicate whether you plan to attend the hearing
+  // =======================================================================================
+
 
 val attendHearing=
   exec(http("TX32_SSCS_AttendHearing")
     .post("/the-hearing")
     .formParam("attendHearing", "yes")
    // .formParam(csrfParameter, csrfTemplate)
-    .check(regex("Do you need any support at the hearing?"))
+    //.check(regex("Do you need any support at the hearing?"))
    // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Indicate whether you need support at the hearing
+  // =======================================================================================
 
-  val supportHearing=
+
+  val supportHearing= {
   exec(http("TX33_SSCS_HearingSupport")
     .post("/hearing-support")
     .formParam("arrangements", "no")
    // .formParam(csrfParameter, csrfTemplate)
-    .check(regex("Your availability for a hearing"))
+    //.check(regex("Your availability for a hearing"))
     //.check(CsrfCheck.save)
   )
     .pause(thinktime)
+
+    // =======================================================================================
+    // Provide your availability for a hearing
+    // =======================================================================================
 
     .exec(http("TX34_SSCS_HearingAvailability")
       .post("/hearing-availability")
       .formParam("scheduleHearing", "no")
      // .formParam(csrfParameter, csrfTemplate)
-    .check(regex("Check your answers"))
+    //.check(regex("Check your answers"))
      // .check(CsrfCheck.save)
     )
     .pause(thinktime)
-    
-val checkYourAppeal=
+
+
+  }
+
+  // =======================================================================================
+  // Check the appeal
+  // =======================================================================================
+
+  val checkYourAppeal=
   exec(http("TX35_SSCS_CheckYourAppeal")
   .post("/check-your-appeal")
     .formParam("signer",firstName+" "+lastName )

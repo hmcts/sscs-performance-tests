@@ -19,6 +19,11 @@ object StartAppealPage{
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
   //1
 
+  // =======================================================================================
+  // Have a look at the entry page
+  // =======================================================================================
+
+
   val entry = feed(sscsfeeder).feed(loginfeeder)
     .exec(http("TX05_SSCS_Entry")
       .get("/")
@@ -29,17 +34,25 @@ object StartAppealPage{
    )
       .pause(thinktime)
 
+  // =======================================================================================
+  // Indicate which benefit type your appeal is about
+  // =======================================================================================
+
   val benifitType =
-    exec(http("TX06_SSCS_BenifitType")
+    exec(http("TX06_SSCS_BenefitType")
       .post("/benefit-type")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("benefitType", "Personal Independence Payment (PIP)") //Employment and Support Allowance (ESA) Personal Independence Payment (PIP)
       .check(status.in(200,302))
       //.formParam(csrfParameter, csrfTemplate)
-      .check(regex("Enter your postcode"))
+      //.check(regex("Enter your postcode"))
       //.check(CsrfCheck.save)
   )
     .pause(thinktime)
+
+  // =======================================================================================
+  // Provide your postcode
+  // =======================================================================================
 
   val postCodeCheck =
     exec(http("TX07_SSCS_PostCodeCheck")
@@ -53,6 +66,10 @@ object StartAppealPage{
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Indicate whether you are an appointee
+  // =======================================================================================
+
   val areYouAnAppointee =
     exec(http("TX08_SSCS_AreYouAnAppointee")
       .post("/are-you-an-appointee")
@@ -65,6 +82,12 @@ object StartAppealPage{
     .pause(thinktime)
 
 //4
+
+  // =======================================================================================
+  // Indicate whether you want to save the appeal later (before login)
+  // =======================================================================================
+
+
   val independance_beforelogin=
     exec(http("independance_beforelogin")
       .post("/independence")
@@ -75,6 +98,11 @@ object StartAppealPage{
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Indicate whether you want to save the appeal later (after login)
+  // =======================================================================================
+
+
   val independance_postlogin=
     exec(http("independance_postlogin")
       .post("/independence")
@@ -84,7 +112,11 @@ object StartAppealPage{
     )
       .pause(thinktime)
 
-val savelater=
+  // =======================================================================================
+  // Create an account
+  // =======================================================================================
+
+  val savelater=
     exec(http("create account")
       .post("/create-account")
       .headers(SSCSSYAHeaders.headers_2)
@@ -94,6 +126,10 @@ val savelater=
       .check(status.in(200,302)))
 
   //contonue to save later
+
+  // =======================================================================================
+  // Log in
+  // =======================================================================================
 
   val login=
     exec(http("request_141")

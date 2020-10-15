@@ -31,7 +31,7 @@ object SSCSMYA {
   // =======================================================================================
   val login =
   exec(http("SSCSMYA${service}_020_005_LoginPage")
-       .post(idamUrl + "/login?redirect_uri=https%3A%2F%2Fsscs-cor.perftest.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code&state=${reference}")
+       .post(idamUrl + "/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code&state=${reference}")
     .headers(SSCSMYAHeaders.headers_login)
        .formParam("username", "${email}")
        .formParam("password", "Pass19word")
@@ -115,9 +115,9 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
    .formParam("additional-evidence-option", "upload")
    .formParam("_csrf", "${csrf}")
    .formParam("continue", "")
-  .check(status.is(200))
-   .check(css("#additional-evidence-form", "action").saveAs("uploadurl"))
-)
+  .check(status.is(200)))
+   //.check(css("#additional-evidence-form", "action").saveAs("uploadurl"))
+
    .exec(http("SSCSMYA${service}_050_010_SelectUploadOption_SessionExt")
 .get("/session-extension")
 .headers(SSCSMYAHeaders.headers_20)
@@ -131,13 +131,13 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 
   val uploadDocument_2MB=
   exec(http("SSCSMYA${service}_060_005_UploadDoc2MB")
-        .post("${uploadurl}")
+        .post("/additional-evidence/upload")
         .headers(SSCSMYAHeaders.headers_73)
     .bodyPart(RawFileBodyPart("additional-evidence-file", "2MB.pdf")
               .fileName("2MB.pdf")
               .transferEncoding("binary")).asMultipartForm
     .check(status.is(200))
-    .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit2mb"))
+    //.check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit2mb"))
   )
     .exec(http("SSCSMYA${service}_060_010_UploadDoc2MB_SessionExt")
           .get("/session-extension")
@@ -152,7 +152,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 
   val uploadDocument_3MB=
     exec(http("SSCSMYA${service}_070_005_UploadDoc3MB")
-         .post("${uploadurlsubmit2mb}")
+         .post("/additional-evidence/upload")
          .headers(SSCSMYAHeaders.headers_upload3mb)
          .bodyPart(RawFileBodyPart("additional-evidence-file", "3MB.pdf")
                    .fileName("3MB.pdf")
@@ -177,7 +177,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 
   val submitUploadedDocumentFire =
 exec(http(" SSCSMYA${service}_080_005_SubmitEvidence")
-.post("${uploadurlsubmit2mb}")
+.post("/additional-evidence/upload")
        .headers(SSCSMYAHeaders.headers_submituploadfire)
     // .headers(SSCSMYAHeaders.headers_83)
       // .body(RawFileBody("RecordedSimulationCOR22062020_0083_request.txt"))

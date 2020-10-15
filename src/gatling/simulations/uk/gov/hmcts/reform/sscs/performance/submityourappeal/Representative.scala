@@ -16,6 +16,10 @@ object Representative{
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
 
+  // =======================================================================================
+  // Indicate whether you have a representative
+  // =======================================================================================
+
   val representative=
   exec(http("TX18_SSCS_Representative")
     .post("/representative")
@@ -26,9 +30,11 @@ object Representative{
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Provide your representative's details
+  // =======================================================================================
 
-
-val repDetails=
+  val repDetails=
   exec(http("TX19_SSCS_RepresentativeDetails")
     .post("/representative-details")
       .formParam("name.title","Mr")

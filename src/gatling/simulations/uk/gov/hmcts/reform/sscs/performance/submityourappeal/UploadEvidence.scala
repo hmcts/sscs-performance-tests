@@ -61,6 +61,11 @@ object UploadEvidence{
 
 
 //following request has to be changed to yes when using upload files
+
+  // =======================================================================================
+  // Indicate whether you wish to provide evidence
+  // =======================================================================================
+
   val evidenceProvide=
     exec(http("TX22_SSCS_EvidenceProvide")
       .post("/evidence-provide")
@@ -70,6 +75,9 @@ object UploadEvidence{
     )
       .pause(thinktime)
 
+  // =======================================================================================
+  // Upload evidence (1)
+  // =======================================================================================
 
   val evidenceUpload_2MB_1=
     exec(http("TX24_SSCS_EvidenceUpload_2MB_1")
@@ -86,8 +94,9 @@ object UploadEvidence{
     )
       .pause(10)
 
-
-
+  // =======================================================================================
+  // Upload evidence (2)
+  // =======================================================================================
 
   val evidenceUpload_2MB_2=
     exec(http("TX26_SSCS_EvidenceUpload_2MB_2")
@@ -104,6 +113,10 @@ object UploadEvidence{
       )
     .pause(10)
 
+  // =======================================================================================
+  // Upload evidence (3)
+  // =======================================================================================
+
   val evidenceUpload_3MB=
     exec(http("TX28_SSCS_EvidenceUpload_3MB")
       .post("/evidence-upload/item-2")
@@ -118,6 +131,10 @@ object UploadEvidence{
     )
     .pause(10)
 
+  // =======================================================================================
+  // Complete uploading your evidence
+  // =======================================================================================
+
   val evidenceUploadComplete=
 
     exec(http("TX30_SSCS_EvidenceUpload_Complete")
@@ -129,6 +146,9 @@ object UploadEvidence{
       .pause(5)
 
 
+  // =======================================================================================
+  // Describe your evidence
+  // =======================================================================================
 
   val evidenceDescription=
     exec(http("TX31_SSCS_Evidence_Description")

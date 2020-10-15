@@ -14,19 +14,32 @@ object LandingPage {
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
   //1
- val landingPage =   exec(http("TX01_SSCS_LandingPage")
+
+  // =======================================================================================
+  // Have a look at the landing page
+  // =======================================================================================
+
+  val landingPage =   exec(http("TX01_SSCS_LandingPage")
       .get("/")
    .check(status.is(200))
       .check(regex("Appeal a benefit decision")))
       .pause(thinktime)
 
+  // =======================================================================================
+  // Have a look at the 'before you appeal' page
+  // =======================================================================================
 
-   val beforeYouAppeal=
+
+  val beforeYouAppeal=
      exec(http("TX02_SSCS_BeforeYouAppeal")
        .get("/before-you-appeal")
        .check(status.is(200))
        .check(regex("Before you appeal")))
      .pause(thinktime)
+
+  // =======================================================================================
+  // Have a look at the 'help with your appeal' page
+  // =======================================================================================
 
   val helpWithAppeal=
     exec(http("TX03_SSCS_HelpWithYourAppeal")
@@ -34,6 +47,10 @@ object LandingPage {
       .check(status.is(200))
       .check(regex("Help with your appeal")))
       .pause(thinktime)
+
+  // =======================================================================================
+  // Have a look at the 'start an appeal' page
+  // =======================================================================================
 
   val startAnAppeal=
     exec(http("TX04_SSCS_StartAnAppeal")

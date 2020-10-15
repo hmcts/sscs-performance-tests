@@ -3,13 +3,13 @@ package uk.gov.hmcts.reform.sscs.performance.utils
 object Environment {
 
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
-  val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "https://sscs-cor.perftest.platform.hmcts.net")
+  val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "https://sscs-cor.aat.platform.hmcts.net")
  /* val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "http://10.10.46.123")*/
   //val sscsSYAURL = scala.util.Properties.envOrElse("baseURL", "https://benefit-appeal.nonprod.platform.hmcts.net")
-  val sscsSYAURL = scala.util.Properties.envOrElse("basesyaURL", "https://benefit-appeal.perftest.platform.hmcts.net")
-  val IDAMURL = scala.util.Properties.envOrElse("idamURL", "https://idam-web-public.perftest.platform.hmcts.net")
+  val sscsSYAURL = scala.util.Properties.envOrElse("basesyaURL", "https://benefit-appeal.aat.platform.hmcts.net")
+  val IDAMURL = scala.util.Properties.envOrElse("idamURL", "https://idam-web-public.aat.platform.hmcts.net")
   //val idamBaseUrl-old = "http://idam-api-perftest.service.core-compute-perftest.internal"
-  val idamBaseUrl = "https://idam-api.perftest.platform.hmcts.net"
+  val idamBaseUrl = "https://idam-api.aat.platform.hmcts.net"
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
   
   val users = scala.util.Properties.envOrElse("numberOfUser", "10")
@@ -34,7 +34,7 @@ object Environment {
 
     
     val thinkTime = 10//333
-  val thinkTimeNoUpload = 750
+  val thinkTimeNoUpload = 10
   val tyaThinkTime=10
     val waitForNextIteration = 40
 }
