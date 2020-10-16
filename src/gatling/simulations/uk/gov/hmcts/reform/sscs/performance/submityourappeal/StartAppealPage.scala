@@ -45,7 +45,7 @@ object StartAppealPage{
       .formParam("benefitType", "Personal Independence Payment (PIP)") //Employment and Support Allowance (ESA) Personal Independence Payment (PIP)
       .check(status.in(200,302))
       //.formParam(csrfParameter, csrfTemplate)
-      //.check(regex("Enter your postcode"))
+      .check(regex("What language do you want us to use when we contact you?"))
       //.check(CsrfCheck.save)
   )
     .pause(thinktime)

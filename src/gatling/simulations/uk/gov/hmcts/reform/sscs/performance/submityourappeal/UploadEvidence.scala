@@ -71,7 +71,8 @@ object UploadEvidence{
       .post("/evidence-provide")
       .formParam("evidenceProvide", "no")
      // .formParam(csrfParameter, csrfTemplate)
-     // .check(CsrfCheck.save)
+      .check(status.in(200))
+      // .check(CsrfCheck.save)
     )
       .pause(thinktime)
 
@@ -142,6 +143,7 @@ object UploadEvidence{
       .formParam(csrfParameter, csrfTemplate)
       .headers(headers_19)
       .header("Content-Length", "0")
+      .check(status.in(200))
       .check(regex("Describe the evidence")))
       .pause(5)
 
@@ -155,6 +157,7 @@ object UploadEvidence{
       .post("/evidence-description")
       .formParam("describeTheEvidence", "Evidence - I am Performance Testing")
       .formParam(csrfParameter, csrfTemplate)
+      .check(status.in(200))
       .check(regex("The appeal hearing")))
       .pause(5)
 

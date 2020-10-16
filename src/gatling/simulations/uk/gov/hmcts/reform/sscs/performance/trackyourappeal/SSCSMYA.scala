@@ -11,6 +11,7 @@ import uk.gov.hmcts.reform.sscs.performance.utils._
 object SSCSMYA {
   val tyaThinkTime = Environment.tyaThinkTime
   val idamUrl = Environment.IDAMURL
+  val env = Environment.env
 
 //=======================================================================================
   // Enter URL for Service
@@ -31,7 +32,7 @@ object SSCSMYA {
   // =======================================================================================
   val login =
   exec(http("SSCSMYA${service}_020_005_LoginPage")
-       .post(idamUrl + "/login?redirect_uri=https%3A%2F%2Fsscs-cor.aat.platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code&state=${reference}")
+       .post(idamUrl + "/login?redirect_uri=https%3A%2F%2Fsscs-cor." + env + ".platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code&state=${reference}")
     .headers(SSCSMYAHeaders.headers_login)
        .formParam("username", "${email}")
        .formParam("password", "Pass19word")
@@ -126,7 +127,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 //.pause(tyaThinkTime)
 
 // =======================================================================================
-// Enter free text in descibe and then choose a file. Once okay the file, it is uploaded and page is refreshed, below is a request to upload 2MB file
+// Enter free text in describe and then choose a file. Once okay the file, it is uploaded and page is refreshed, below is a request to upload 2MB file
 // =======================================================================================
 
   val uploadDocument_2MB=
