@@ -13,6 +13,7 @@ object StartAppealPage{
   val thinktime = Environment.thinkTime
   val idamUrl = Environment.IDAMURL
   val sscsSYAURL = Environment.sscsSYAURL
+  val env = Environment.env
 
   val sscsfeeder = csv("sscs_details.csv").circular
   val loginfeeder = csv("IdamUsers.csv").circular
@@ -23,6 +24,12 @@ object StartAppealPage{
   // Have a look at the entry page
   // =======================================================================================
 
+  val environment =
+    exec{
+      session =>
+        println("This is the environment: " + env)
+        session
+    }
 
   val entry = feed(sscsfeeder).feed(loginfeeder)
     .exec(http("TX05_SSCS_Entry")
@@ -89,7 +96,7 @@ object StartAppealPage{
 
 
   val independance_beforelogin=
-    exec(http("independance_beforelogin")
+    exec(http("TX09_SSCS_IndependenceBeforeLogin")
       .post("/independence")
       .headers(SSCSSYAHeaders.headers_2)
       .check(status.in(200,302))
@@ -104,7 +111,7 @@ object StartAppealPage{
 
 
   val independance_postlogin=
-    exec(http("independance_postlogin")
+    exec(http("TX10_SSCS_IndependenceAfterLogin")
       .post("/independence")
       .check(status.in(200,302))
       //.check(CsrfCheck.save)
@@ -117,7 +124,7 @@ object StartAppealPage{
   // =======================================================================================
 
   val savelater=
-    exec(http("create account")
+    exec(http("TX11_SSCS_CreateAccount")
       .post("/create-account")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("createAccount", "yes")
@@ -132,7 +139,7 @@ object StartAppealPage{
   // =======================================================================================
 
   val login=
-    exec(http("request_141")
+    exec(http("TX12_SSCS_Login")
       .post(idamUrl + "/login?client_id=sscs&redirect_uri=" + sscsSYAURL + "%2Fauthenticated&response_type=code&state=${stateId}")
       //.headers(headers_196)
       .formParam("username", "${idamUser}") //${email}@mailinator.com

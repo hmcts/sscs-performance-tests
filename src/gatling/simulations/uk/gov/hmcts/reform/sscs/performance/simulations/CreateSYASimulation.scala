@@ -30,6 +30,7 @@ object  CreateSYASimulation {
      // LandingPage.beforeYouAppeal,
      // LandingPage.helpWithAppeal,
      // LandingPage.startAnAppeal,
+      StartAppealPage.environment,
       StartAppealPage.entry,
       StartAppealPage.benifitType,
       StartAppealPage.postCodeCheck,
