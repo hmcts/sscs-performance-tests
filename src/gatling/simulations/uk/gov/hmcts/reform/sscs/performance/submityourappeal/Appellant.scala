@@ -6,7 +6,7 @@ import io.gatling.http.Predef._
 //import uk.gov.hmcts.reform.idam.User
 import uk.gov.hmcts.reform.sscs.performance.utils._
 
-object Appealant{
+object Appellant{
 
   val thinktime = Environment.thinkTime
   val firstName = Environment.firstName
@@ -14,10 +14,11 @@ object Appealant{
   val mrnDate=Environment.mrnDate
   val mrnMonth=Environment.mrnMonth
   val mrnYear=Environment.mrnYear
-  
 
 
-
+  // =======================================================================================
+  // Indicate whether you have an MRN
+  // =======================================================================================
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
   val   haveMRN=
@@ -25,21 +26,31 @@ object Appealant{
       .post("/have-you-got-an-mrn")
       .formParam("haveAMRN", "yes")
      // .formParam(csrfParameter, csrfTemplate)
-     // .check(CsrfCheck.save)
+      .check(status.in(200,302))
+      // .check(CsrfCheck.save)
    //   .check(regex("When is your Mandatory Reconsideration Notice (MRN) dated?"))
       )
           .pause(thinktime)
+
+  // =======================================================================================
+  // Provide the DWP issuing office
+  // =======================================================================================
 
 val DWPIssuingOffice=
   exec(http("TX10_SSCS_DWPIssuingOffice")
     .post("/dwp-issuing-office")
     .formParam("pipNumber", "3")
      // .formParam(csrfParameter, csrfTemplate)
-   //.check(regex("Are you an 'appointee'?"))
+    .check(status.in(200,302))
+    //.check(regex("Are you an 'appointee'?"))
    // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 
+
+  // =======================================================================================
+  // Provide the MRN date
+  // =======================================================================================
 
   val MRNDate=
   exec(http("TX11_SSCS_MRNDate")
@@ -48,49 +59,69 @@ val DWPIssuingOffice=
     .formParam("mrnDate.month", mrnMonth)
     .formParam("mrnDate.year", mrnYear)
    // .formParam(csrfParameter, csrfTemplate)
-
-  //  .check(regex("Find DWP's address on the top right of your Mandatory Reconsideration Notice (MRN)"))
+      .check(status.in(200,302))
+    //  .check(regex("Find DWP's address on the top right of your Mandatory Reconsideration Notice (MRN)"))
    // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Provide your name
+  // =======================================================================================
+
   val name=
-  exec(http("TX12_SSCS_Appealant_Name")
+  exec(http("TX12_SSCS_Appellant_Name")
     .post("/enter-appellant-name")
     .formParam("title", "Mr.")
     .formParam("firstName", firstName)
     .formParam("lastName", lastName)
-   // .formParam(csrfParameter, csrfTemplate)
+    .check(status.in(200,302))
+    // .formParam(csrfParameter, csrfTemplate)
    // .check(regex("Enter your date of birth"))
    // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 
+
+  // =======================================================================================
+  // Submit your date of birth
+  // =======================================================================================
+
   val DOB=
-  exec(http("TX13_SSCS_Appealant_DOB")
+  exec(http("TX13_SSCS_Appellant_DOB")
     .post("/enter-appellant-dob")
     .formParam("date.day", "01")
     .formParam("date.month", "08")
     .formParam("date.year", "1990")
    // .formParam(csrfParameter, csrfTemplate)
-    .check(regex("Enter your National Insurance number"))
+    .check(status.in(200,302))
+    //.check(regex("Enter your National Insurance number"))
    // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Provide your national insurance number
+  // =======================================================================================
+
   val niNumber=
-  exec(http("TX14_SSCS_Appealant_NiNumber")
+  exec(http("TX14_SSCS_Appellant_NiNumber")
     .post("/enter-appellant-nino")
     .formParam("nino", "${ninumber}")
    // .formParam(csrfParameter, csrfTemplate)
-  //  .check(regex("Enter your contact details"))
+    .check(status.in(200,302))
+    //  .check(regex("Enter your contact details"))
    // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 
 
+  // =======================================================================================
+  // Provide your contact details
+  // =======================================================================================
+
   val contactDetailslookup=
-    exec(http("TX15_SSCS_Appealant_ContactDetailsLookup")
+    exec(http("TX15_SSCS_Appellant_ContactDetailsLookup")
       .post("/enter-appellant-contact-details")
       .formParam("submitType", "lookup")
       .formParam("postcodeLookup", "E1 6JJ")
@@ -98,8 +129,12 @@ val DWPIssuingOffice=
       .formParam("emailAddress", "")
       .check(status.in(200,302)))
 
+  // =======================================================================================
+  // Select an address
+  // =======================================================================================
+
   val contactDetailsSelection=
-    exec(http("TX15_SSCS_Appealant_ContactDetailsSelection")
+    exec(http("TX15_SSCS_Appellant_ContactDetailsSelection")
       .post("/enter-appellant-contact-details")
       .formParam("submitType", "addressSelection")
       .formParam("postcodeLookup", "E1 6JJ")
@@ -109,8 +144,12 @@ val DWPIssuingOffice=
       .check(status.in(200,302)))
 
 
+  // =======================================================================================
+  // Confirm your contact details
+  // =======================================================================================
+
   val contactDetails=
-  exec(http("TX15_SSCS_Appealant_ContactDetails")
+  exec(http("TX15_SSCS_Appellant_ContactDetails")
          .post("/enter-appellant-contact-details")
          .formParam("submitType", "")
          .formParam("postcodeLookup", "E1 6JJ")
@@ -123,18 +162,24 @@ val DWPIssuingOffice=
          .formParam("phoneNumber", "")
     .formParam("emailAddress", "${idamUser}")
   //  .formParam(csrfParameter, csrfTemplate)
-    .check(regex("Do you want to receive text message notifications?"))
+    .check(status.in(200,302))
+    //.check(regex("Do you want to receive text message notifications?"))
    // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 
+
+  // =======================================================================================
+  // Indicate whether you want to receive reminders by text message
+  // =======================================================================================
 
   val textRemainders=
   exec(http("TX16_SSCS_TextRemainders")
     .post("/appellant-text-reminders")
     .formParam("doYouWantTextMsgReminders", "no")
    // .formParam(csrfParameter, csrfTemplate)
-   // .check(regex("Do you want to receive text message notifications?"))
+    .check(status.in(200,302))
+    // .check(regex("Do you want to receive text message notifications?"))
 
    // .check(CsrfCheck.save))
   )

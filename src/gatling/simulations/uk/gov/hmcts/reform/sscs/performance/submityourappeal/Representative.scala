@@ -16,19 +16,26 @@ object Representative{
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
 
+  // =======================================================================================
+  // Indicate whether you have a representative
+  // =======================================================================================
+
   val representative=
   exec(http("TX18_SSCS_Representative")
     .post("/representative")
     .formParam("hasRepresentative", "no")
   //  .formParam(csrfParameter, csrfTemplate)
-   // .check(regex("Enter their details"))
+    .check(status.in(200,302))
+    // .check(regex("Enter their details"))
    // .check(CsrfCheck.save)
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Provide your representative's details
+  // =======================================================================================
 
-
-val repDetails=
+  val repDetails=
   exec(http("TX19_SSCS_RepresentativeDetails")
     .post("/representative-details")
       .formParam("name.title","Mr")
@@ -43,6 +50,7 @@ val repDetails=
     .formParam("phoneNumber", "07540612435")
     .formParam("emailAddress", "repemail@perftest.uk.gov")
     .formParam(csrfParameter, csrfTemplate)
+    .check(status.in(200,302))
     .check(regex("Your reasons for appealing"))
     .check(CsrfCheck.save)
   )

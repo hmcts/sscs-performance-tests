@@ -13,11 +13,23 @@ object StartAppealPage{
   val thinktime = Environment.thinkTime
   val idamUrl = Environment.IDAMURL
   val sscsSYAURL = Environment.sscsSYAURL
+  val env = Environment.env
 
   val sscsfeeder = csv("sscs_details.csv").circular
   val loginfeeder = csv("IdamUsers.csv").circular
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
   //1
+
+  // =======================================================================================
+  // Have a look at the entry page
+  // =======================================================================================
+
+  val environment =
+    exec{
+      session =>
+        println("This is the environment: " + env)
+        session
+    }
 
   val entry = feed(sscsfeeder).feed(loginfeeder)
     .exec(http("TX05_SSCS_Entry")
@@ -29,17 +41,25 @@ object StartAppealPage{
    )
       .pause(thinktime)
 
+  // =======================================================================================
+  // Indicate which benefit type your appeal is about
+  // =======================================================================================
+
   val benifitType =
-    exec(http("TX06_SSCS_BenifitType")
+    exec(http("TX06_SSCS_BenefitType")
       .post("/benefit-type")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("benefitType", "Personal Independence Payment (PIP)") //Employment and Support Allowance (ESA) Personal Independence Payment (PIP)
       .check(status.in(200,302))
       //.formParam(csrfParameter, csrfTemplate)
-      .check(regex("Enter your postcode"))
+      .check(regex("What language do you want us to use when we contact you?"))
       //.check(CsrfCheck.save)
   )
     .pause(thinktime)
+
+  // =======================================================================================
+  // Provide your postcode
+  // =======================================================================================
 
   val postCodeCheck =
     exec(http("TX07_SSCS_PostCodeCheck")
@@ -53,6 +73,10 @@ object StartAppealPage{
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Indicate whether you are an appointee
+  // =======================================================================================
+
   val areYouAnAppointee =
     exec(http("TX08_SSCS_AreYouAnAppointee")
       .post("/are-you-an-appointee")
@@ -65,8 +89,14 @@ object StartAppealPage{
     .pause(thinktime)
 
 //4
+
+  // =======================================================================================
+  // Indicate whether you want to save the appeal later (before login)
+  // =======================================================================================
+
+
   val independance_beforelogin=
-    exec(http("independance_beforelogin")
+    exec(http("TX09_SSCS_IndependenceBeforeLogin")
       .post("/independence")
       .headers(SSCSSYAHeaders.headers_2)
       .check(status.in(200,302))
@@ -75,8 +105,13 @@ object StartAppealPage{
   )
     .pause(thinktime)
 
+  // =======================================================================================
+  // Indicate whether you want to save the appeal later (after login)
+  // =======================================================================================
+
+
   val independance_postlogin=
-    exec(http("independance_postlogin")
+    exec(http("TX10_SSCS_IndependenceAfterLogin")
       .post("/independence")
       .check(status.in(200,302))
       //.check(CsrfCheck.save)
@@ -84,8 +119,12 @@ object StartAppealPage{
     )
       .pause(thinktime)
 
-val savelater=
-    exec(http("create account")
+  // =======================================================================================
+  // Create an account
+  // =======================================================================================
+
+  val savelater=
+    exec(http("TX11_SSCS_CreateAccount")
       .post("/create-account")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("createAccount", "yes")
@@ -95,8 +134,12 @@ val savelater=
 
   //contonue to save later
 
+  // =======================================================================================
+  // Log in
+  // =======================================================================================
+
   val login=
-    exec(http("request_141")
+    exec(http("TX12_SSCS_Login")
       .post(idamUrl + "/login?client_id=sscs&redirect_uri=" + sscsSYAURL + "%2Fauthenticated&response_type=code&state=${stateId}")
       //.headers(headers_196)
       .formParam("username", "${idamUser}") //${email}@mailinator.com
