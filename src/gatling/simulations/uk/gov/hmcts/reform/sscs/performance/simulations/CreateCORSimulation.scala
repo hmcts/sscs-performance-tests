@@ -42,7 +42,7 @@ object  CreateCORSimulation {
       pause(thinktime),//  LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       pause(thinktime),
-    //  SSCSMYA.enterPostcode,
+      SSCSMYA.enterPostcode,
       SSCSMYA.clickOnEvidenceTab,
       pause(thinktime),
       SSCSMYA.clickSubmitEvidenceLink,

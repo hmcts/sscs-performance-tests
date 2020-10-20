@@ -22,7 +22,7 @@ object Appellant{
    
   //def logIn(user: User)(implicit postHeaders: Map[String, String]): ChainBuilder = {
   val   haveMRN=
-    exec(http("TX09_SSCS_HaveMRN")
+    exec(http("TX15_SSCS_HaveMRN")
       .post("/have-you-got-an-mrn")
       .formParam("haveAMRN", "yes")
      // .formParam(csrfParameter, csrfTemplate)
@@ -37,7 +37,7 @@ object Appellant{
   // =======================================================================================
 
 val DWPIssuingOffice=
-  exec(http("TX10_SSCS_DWPIssuingOffice")
+  exec(http("TX16_SSCS_DWPIssuingOffice")
     .post("/dwp-issuing-office")
     .formParam("pipNumber", "3")
      // .formParam(csrfParameter, csrfTemplate)
@@ -53,7 +53,7 @@ val DWPIssuingOffice=
   // =======================================================================================
 
   val MRNDate=
-  exec(http("TX11_SSCS_MRNDate")
+  exec(http("TX17_SSCS_MRNDate")
     .post("/mrn-date")
     .formParam("mrnDate.day", mrnDate)
     .formParam("mrnDate.month", mrnMonth)
@@ -70,16 +70,16 @@ val DWPIssuingOffice=
   // =======================================================================================
 
   val name=
-  exec(http("TX12_SSCS_Appellant_Name")
+  exec(http("TX18_SSCS_Appellant_Name")
     .post("/enter-appellant-name")
     .formParam("title", "Mr.")
     .formParam("firstName", firstName)
     .formParam("lastName", lastName)
     .check(status.in(200,302))
+  )
     // .formParam(csrfParameter, csrfTemplate)
    // .check(regex("Enter your date of birth"))
    // .check(CsrfCheck.save)
-  )
     .pause(thinktime)
 
 
@@ -88,7 +88,7 @@ val DWPIssuingOffice=
   // =======================================================================================
 
   val DOB=
-  exec(http("TX13_SSCS_Appellant_DOB")
+  exec(http("TX19_SSCS_Appellant_DOB")
     .post("/enter-appellant-dob")
     .formParam("date.day", "01")
     .formParam("date.month", "08")
@@ -105,7 +105,7 @@ val DWPIssuingOffice=
   // =======================================================================================
 
   val niNumber=
-  exec(http("TX14_SSCS_Appellant_NiNumber")
+  exec(http("TX20_SSCS_Appellant_NiNumber")
     .post("/enter-appellant-nino")
     .formParam("nino", "${ninumber}")
    // .formParam(csrfParameter, csrfTemplate)
@@ -120,8 +120,8 @@ val DWPIssuingOffice=
   // Provide your contact details
   // =======================================================================================
 
-  val contactDetailslookup=
-    exec(http("TX15_SSCS_Appellant_ContactDetailsLookup")
+  val contactDetailsLookup=
+    exec(http("TX21_SSCS_Appellant_ContactDetailsLookup")
       .post("/enter-appellant-contact-details")
       .formParam("submitType", "lookup")
       .formParam("postcodeLookup", "E1 6JJ")
@@ -134,7 +134,7 @@ val DWPIssuingOffice=
   // =======================================================================================
 
   val contactDetailsSelection=
-    exec(http("TX15_SSCS_Appellant_ContactDetailsSelection")
+    exec(http("TX22_SSCS_Appellant_ContactDetailsSelection")
       .post("/enter-appellant-contact-details")
       .formParam("submitType", "addressSelection")
       .formParam("postcodeLookup", "E1 6JJ")
@@ -149,7 +149,7 @@ val DWPIssuingOffice=
   // =======================================================================================
 
   val contactDetails=
-  exec(http("TX15_SSCS_Appellant_ContactDetails")
+  exec(http("TX23_SSCS_Appellant_ContactDetails")
          .post("/enter-appellant-contact-details")
          .formParam("submitType", "")
          .formParam("postcodeLookup", "E1 6JJ")
@@ -174,7 +174,7 @@ val DWPIssuingOffice=
   // =======================================================================================
 
   val textRemainders=
-  exec(http("TX16_SSCS_TextRemainders")
+  exec(http("TX24_SSCS_TextRemainders")
     .post("/appellant-text-reminders")
     .formParam("doYouWantTextMsgReminders", "no")
    // .formParam(csrfParameter, csrfTemplate)

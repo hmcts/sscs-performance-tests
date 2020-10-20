@@ -67,7 +67,7 @@ object UploadEvidence{
   // =======================================================================================
 
   val evidenceProvide=
-    exec(http("TX22_SSCS_EvidenceProvide")
+    exec(http("TX37_SSCS_EvidenceProvide")
       .post("/evidence-provide")
       .formParam("evidenceProvide", "no")
      // .formParam(csrfParameter, csrfTemplate)
@@ -81,7 +81,7 @@ object UploadEvidence{
   // =======================================================================================
 
   val evidenceUpload_2MB_1=
-    exec(http("TX24_SSCS_EvidenceUpload_2MB_1")
+    exec(http("TX38_SSCS_EvidenceUpload_2MB_1")
 
       .post("/evidence-upload/item-0")
       .headers(headers_2MB_1)
@@ -93,14 +93,14 @@ object UploadEvidence{
         .check(status.is(200))
       .check(CsrfCheck.save)
     )
-      .pause(10)
+      .pause(thinktime)
 
   // =======================================================================================
   // Upload evidence (2)
   // =======================================================================================
 
   val evidenceUpload_2MB_2=
-    exec(http("TX26_SSCS_EvidenceUpload_2MB_2")
+    exec(http("TX39_SSCS_EvidenceUpload_2MB_2")
       .post("/evidence-upload/item-1")
       .headers(headers_2MB_2)
       .header("CSRF-Token", csrfTemplate)
@@ -112,14 +112,14 @@ object UploadEvidence{
         .check(status.is(200))
       .check(CsrfCheck.save)
       )
-    .pause(10)
+    .pause(thinktime)
 
   // =======================================================================================
   // Upload evidence (3)
   // =======================================================================================
 
   val evidenceUpload_3MB=
-    exec(http("TX28_SSCS_EvidenceUpload_3MB")
+    exec(http("TX40_SSCS_EvidenceUpload_3MB")
       .post("/evidence-upload/item-2")
       .headers(headers_3MB)
       .header("Content-Type", "application/json")
@@ -130,7 +130,7 @@ object UploadEvidence{
         .check(status.is(200))
       .check(CsrfCheck.save)
     )
-    .pause(10)
+    .pause(thinktime)
 
   // =======================================================================================
   // Complete uploading your evidence
@@ -138,14 +138,14 @@ object UploadEvidence{
 
   val evidenceUploadComplete=
 
-    exec(http("TX30_SSCS_EvidenceUpload_Complete")
+    exec(http("TX41_SSCS_EvidenceUpload_Complete")
       .post("/evidence-upload")
       .formParam(csrfParameter, csrfTemplate)
       .headers(headers_19)
       .header("Content-Length", "0")
       .check(status.in(200))
       .check(regex("Describe the evidence")))
-      .pause(5)
+      .pause(thinktime)
 
 
   // =======================================================================================
@@ -153,12 +153,13 @@ object UploadEvidence{
   // =======================================================================================
 
   val evidenceDescription=
-    exec(http("TX31_SSCS_Evidence_Description")
+    exec(http("TX42_SSCS_Evidence_Description")
       .post("/evidence-description")
       .formParam("describeTheEvidence", "Evidence - I am Performance Testing")
       .formParam(csrfParameter, csrfTemplate)
       .check(status.in(200))
       .check(regex("The appeal hearing")))
       .pause(5)
+      .pause(thinktime)
 
 }
