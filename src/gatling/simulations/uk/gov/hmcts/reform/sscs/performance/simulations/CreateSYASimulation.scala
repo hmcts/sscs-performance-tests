@@ -32,12 +32,14 @@ object  CreateSYASimulation {
      // LandingPage.startAnAppeal,
       StartAppealPage.environment,
       StartAppealPage.entry,
-      StartAppealPage.benifitType,
+      StartAppealPage.benefitType,
+      StartAppealPage.languagePreference,
       StartAppealPage.postCodeCheck,
-      StartAppealPage.independance_beforelogin,
-      StartAppealPage.savelater,
+      StartAppealPage.independenceBeforeLogin,
+      StartAppealPage.saveLater,
       StartAppealPage.login,
-      StartAppealPage.independance_postlogin,
+      StartAppealPage.checkYourAppeal1,
+      StartAppealPage.independenceAfterLogin,
       Appellant.haveMRN,
       Appellant.MRNDate,
       Appellant.DWPIssuingOffice,
@@ -45,6 +47,8 @@ object  CreateSYASimulation {
       Appellant.name,
       Appellant.DOB,
       Appellant.niNumber,
+      Appellant.contactDetailsLookup,
+      Appellant.contactDetailsSelection,
       Appellant.contactDetails,
       Appellant.textRemainders,
       Representative.representative,
@@ -61,8 +65,10 @@ object  CreateSYASimulation {
      UploadEvidence.evidenceUploadComplete,
      UploadEvidence.evidenceDescription,*/
       AppealingReason.attendHearing,
+      AppealingReason.hearingOptions,
       AppealingReason.supportHearing,
-      AppealingReason.checkYourAppeal
+      AppealingReason.hearingAvailability,
+      AppealingReason.checkYourAppeal2
 
     )
 

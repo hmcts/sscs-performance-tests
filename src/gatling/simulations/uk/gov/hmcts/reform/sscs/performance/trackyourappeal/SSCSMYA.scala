@@ -24,7 +24,7 @@ object SSCSMYA {
       .headers(SSCSMYAHeaders.headers_homepage)
          .check(status.in(200))
           .check(CsrfCheck.save))
-   // .pause(tyaThinkTime)
+   //.pause(tyaThinkTime)
 
 
   // =======================================================================================
@@ -35,20 +35,20 @@ object SSCSMYA {
        .post(idamUrl + "/login?redirect_uri=https%3A%2F%2Fsscs-cor." + env + ".platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code&state=${reference}")
     .headers(SSCSMYAHeaders.headers_login)
        .formParam("username", "${email}")
-       .formParam("password", "Pass19word")
+       .formParam("password", "Testing123")
        .formParam("_csrf", "${csrf}")
        .formParam("save", "Sign in")
        .formParam("selfRegistrationEnabled", "true")
-       .check(status.is(200))
+       .check(status.is(200)))
    //  .check(CsrfCheck.save)
     //.check(regex("Enter the postcode for the appeal"))
-  )
+
    .exec(http("SSCSMYA${service}_020_010_LoginPage_SessionExt")
           .get("/session-extension")
           .headers(SSCSMYAHeaders.headers_20)
      .check(status.in(200,304))
    )
- // .pause(tyaThinkTime)
+ //.pause(tyaThinkTime)
 
   // =======================================================================================
   // postcode validation
@@ -68,7 +68,7 @@ object SSCSMYA {
       .headers(SSCSMYAHeaders.headers_20)
   .check(status.in(200,304)
 ))
-              //    .pause(tyaThinkTime)
+    //.pause(tyaThinkTime)
 
   // =======================================================================================
   // when click on provide evidence tab after login
@@ -83,7 +83,7 @@ val clickOnEvidenceTab=
       .get("/session-extension")
       .headers(SSCSMYAHeaders.headers_20)
     .check(status.in(200,304)))
-  //  .pause(tyaThinkTime)
+  //.pause(tyaThinkTime)
 
 // =======================================================================================
 // Click on Submit your Evidence here link
@@ -145,7 +145,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
           .headers(SSCSMYAHeaders.headers_20)
       .check(status.in(200,304))
     )
-   // .pause(tyaThinkTime)
+    //.pause(tyaThinkTime)
 
   // =======================================================================================
   // Enter free text in descibe and then choose a file. Once okay the file, it is uploaded and page is refreshed, below is a request to upload 3MB file
@@ -166,7 +166,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
           .headers(SSCSMYAHeaders.headers_20)
       .check(status.in(200,304))
     )
-   // .pause(tyaThinkTime)
+    //.pause(tyaThinkTime)
 
 
 // =======================================================================================

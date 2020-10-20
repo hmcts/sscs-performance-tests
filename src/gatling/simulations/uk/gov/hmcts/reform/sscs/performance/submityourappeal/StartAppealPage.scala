@@ -45,7 +45,7 @@ object StartAppealPage{
   // Indicate which benefit type your appeal is about
   // =======================================================================================
 
-  val benifitType =
+  val benefitType =
     exec(http("TX06_SSCS_BenefitType")
       .post("/benefit-type")
       .headers(SSCSSYAHeaders.headers_2)
@@ -58,11 +58,26 @@ object StartAppealPage{
     .pause(thinktime)
 
   // =======================================================================================
+  // Indicate which language you prefer
+  // =======================================================================================
+
+  val languagePreference =
+    exec(http("TX07_SSCS_LanguagePreference")
+      .post("/language-preference")
+      .headers(SSCSSYAHeaders.headers_2)
+      .formParam("languagePreferenceWelsh", "no")
+      .check(status.in(200,302))
+      //.formParam(csrfParameter, csrfTemplate)
+      //.check(CsrfCheck.save)
+    )
+      .pause(thinktime)
+
+  // =======================================================================================
   // Provide your postcode
   // =======================================================================================
 
   val postCodeCheck =
-    exec(http("TX07_SSCS_PostCodeCheck")
+    exec(http("TX08_SSCS_PostCodeCheck")
       .post("/postcode-check")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("postcode", "TS1 1ST")
@@ -78,14 +93,14 @@ object StartAppealPage{
   // =======================================================================================
 
   val areYouAnAppointee =
-    exec(http("TX08_SSCS_AreYouAnAppointee")
+    exec(http("TX09_SSCS_AreYouAnAppointee")
       .post("/are-you-an-appointee")
       .formParam("isAppointee", "no")
       .check(status.in(200,302))
       //.formParam(csrfParameter, csrfTemplate)
-      .check(regex("Enter your name"))
+      .check(regex("Your hearing - Appeal a benefit decision"))
       //.check(CsrfCheck.save)
-  )
+    )
     .pause(thinktime)
 
 //4
@@ -95,8 +110,8 @@ object StartAppealPage{
   // =======================================================================================
 
 
-  val independance_beforelogin=
-    exec(http("TX09_SSCS_IndependenceBeforeLogin")
+  val independenceBeforeLogin=
+    exec(http("TX10_SSCS_IndependenceBeforeLogin")
       .post("/independence")
       .headers(SSCSSYAHeaders.headers_2)
       .check(status.in(200,302))
@@ -110,8 +125,8 @@ object StartAppealPage{
   // =======================================================================================
 
 
-  val independance_postlogin=
-    exec(http("TX10_SSCS_IndependenceAfterLogin")
+  val independenceAfterLogin=
+    exec(http("TX11_SSCS_IndependenceAfterLogin")
       .post("/independence")
       .check(status.in(200,302))
       //.check(CsrfCheck.save)
@@ -123,30 +138,48 @@ object StartAppealPage{
   // Create an account
   // =======================================================================================
 
-  val savelater=
-    exec(http("TX11_SSCS_CreateAccount")
+  val saveLater=
+    exec(http("TX12_SSCS_CreateAccount")
       .post("/create-account")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("createAccount", "yes")
       .check(CsrfCheck.save)
       .check(regex("state=(.*)&scope=").saveAs("stateId"))
       .check(status.in(200,302)))
+      .pause(thinktime)
 
-  //contonue to save later
+  //continue to save later
 
   // =======================================================================================
   // Log in
   // =======================================================================================
 
   val login=
-    exec(http("TX12_SSCS_Login")
+    exec(http("TX13_SSCS_Login")
       .post(idamUrl + "/login?client_id=sscs&redirect_uri=" + sscsSYAURL + "%2Fauthenticated&response_type=code&state=${stateId}")
       //.headers(headers_196)
       .formParam("username", "${idamUser}") //${email}@mailinator.com
-      .formParam("password", "Pass19word") //Pass19word
+      .formParam("password", "Testing123") //Pass19word
       .formParam("save", "Sign in")
       .formParam("selfRegistrationEnabled", "true")
       .formParam(csrfParameter, csrfTemplate)
       .check(status.in(200,302)))
+      .pause(thinktime)
+
+  // =======================================================================================
+  // Check your appeal
+  // =======================================================================================
+
+
+  val checkYourAppeal1=
+    exec(http("TX14_SSCS_CheckYourAppeal")
+      .post("/check-your-appeal")
+      .check(status.in(200,302))
+      //.check(CsrfCheck.save)
+      //.check(regex("Do you want to be able to save this appeal later?"))
+    )
+      .pause(thinktime)
 
 }
+
+
