@@ -35,7 +35,7 @@ repositories {
 }
 
 ext {
-    gatlingVersion = '3.3.1'
+    gatlingVersion = '3.2.0'
     scalaVersion = '2.13.3'
 }
 
@@ -51,7 +51,7 @@ dependencies {
 }
 
 gatling {
-    toolVersion '3.3.1'
+    toolVersion '3.2.0'
     scalaVersion '2.12.8'
     simulations = [ 'uk.gov.hmcts.reform.sscs.performance.simulations.SSCSSimulation'
     ]
