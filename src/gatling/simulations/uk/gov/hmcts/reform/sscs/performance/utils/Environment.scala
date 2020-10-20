@@ -2,7 +2,7 @@ package uk.gov.hmcts.reform.sscs.performance.utils
 
 object Environment {
 
-  val env = "aat"
+  val env = "perftest"
   val httpConfig = scala.util.Properties.envOrElse("httpConfig", "http")
   val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "https://sscs-cor." + env + ".platform.hmcts.net")
  /* val SSCSCORURL = scala.util.Properties.envOrElse("basetyaURL", "http://10.10.46.123")*/
