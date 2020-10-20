@@ -4,9 +4,9 @@ properties([
         pipelineTriggers([cron('00 21 * * *')]),
         parameters([
                 string(name: 'ENVIRONMENT', defaultValue: 'aat', description: 'Environment to test'),
-                string(name: 'basetyaURL', defaultValue: 'https://track-appeal.demo.platform.hmcts.net', description: 'The URL you want to run these tests against'),
-                string(name: 'sscsSYAURL', defaultValue: 'https://benefit-appeal.nonprod.platform.hmcts.net', description: 'this is for testing sya on aat'),
-                string(name: 'paymentURL', defaultValue: 'https://idam.preprod.ccidam.reform.hmcts.net', description: 'this is the payment url for sscs')
+                string(name: 'basetyaURL', defaultValue: 'https://track-appeal.aat.platform.hmcts.net', description: 'The URL you want to run these tests against'),
+                string(name: 'sscsSYAURL', defaultValue: 'https://benefit-appeal.aat.platform.hmcts.net', description: 'this is for testing sya on aat'),
+                string(name: 'paymentURL', defaultValue: 'https://idam.aat.ccidam.reform.hmcts.net', description: 'this is the payment url for sscs')
         ])
 ])
 
