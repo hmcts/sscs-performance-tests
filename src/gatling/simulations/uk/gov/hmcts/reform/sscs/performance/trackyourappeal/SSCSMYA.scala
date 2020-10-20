@@ -8,7 +8,9 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.sscs.performance.simulations.checks.CsrfCheck
 import uk.gov.hmcts.reform.sscs.performance.utils._
+
 object SSCSMYA {
+  
   val tyaThinkTime = Environment.tyaThinkTime
   val idamUrl = Environment.IDAMURL
   val env = Environment.env

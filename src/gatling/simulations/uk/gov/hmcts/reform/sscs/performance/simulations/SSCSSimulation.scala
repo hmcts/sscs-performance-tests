@@ -8,16 +8,18 @@ import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 class SSCSSimulation extends Simulation {
 
   val httpProtocolTYA: HttpProtocolBuilder = http
-    .proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+    //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
     .baseUrl(Environment.SSCSCORURL)
     .headers(Environment.commonHeader)
 
 
-  val httpProtocolSYA: HttpProtocolBuilder = http.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+  val httpProtocolSYA: HttpProtocolBuilder = http
+    //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
     .baseUrl(Environment.sscsSYAURL)
     .headers(Environment.commonHeader)
 
-  val httpProtocolUserCreation: HttpProtocolBuilder = http.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+  val httpProtocolUserCreation: HttpProtocolBuilder = http
+    //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
     .baseUrl(Environment.sscsSYAURL)
     .headers(Environment.commonHeader)
 
@@ -50,9 +52,7 @@ class SSCSSimulation extends Simulation {
 
   setUp(
     scenarioSYA.inject(atOnceUsers(1)).protocols(httpProtocolSYA),
-
-    scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
-
+    scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA)
     scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
 
 }
