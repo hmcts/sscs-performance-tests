@@ -26,7 +26,7 @@ object SSCSMYA {
       .headers(SSCSMYAHeaders.headers_homepage)
          .check(status.in(200))
           .check(CsrfCheck.save))
-   //.pause(tyaThinkTime)
+   .pause(tyaThinkTime)
 
 
   // =======================================================================================
@@ -50,7 +50,7 @@ object SSCSMYA {
           .headers(SSCSMYAHeaders.headers_20)
      .check(status.in(200,304))
    )
- //.pause(tyaThinkTime)
+ .pause(tyaThinkTime)
 
   // =======================================================================================
   // postcode validation
@@ -70,7 +70,7 @@ object SSCSMYA {
       .headers(SSCSMYAHeaders.headers_20)
   .check(status.in(200,304)
 ))
-    //.pause(tyaThinkTime)
+.pause(tyaThinkTime)
 
   // =======================================================================================
   // when click on provide evidence tab after login
@@ -85,7 +85,7 @@ val clickOnEvidenceTab=
       .get("/session-extension")
       .headers(SSCSMYAHeaders.headers_20)
     .check(status.in(200,304)))
-  //.pause(tyaThinkTime)
+  .pause(tyaThinkTime)
 
 // =======================================================================================
 // Click on Submit your Evidence here link
@@ -103,7 +103,7 @@ exec(http("SSCSMYA${service}_040_005_ClickOnSubmitEvidence")
 .headers(SSCSMYAHeaders.headers_20)
    .check(status.in(200,304))
  )
-//.pause(tyaThinkTime)
+.pause(tyaThinkTime)
 
 
 // =======================================================================================
@@ -126,7 +126,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 .headers(SSCSMYAHeaders.headers_20)
      .check(status.in(200,304))
    )
-//.pause(tyaThinkTime)
+.pause(tyaThinkTime)
 
 // =======================================================================================
 // Enter free text in describe and then choose a file. Once okay the file, it is uploaded and page is refreshed, below is a request to upload 2MB file
@@ -147,7 +147,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
           .headers(SSCSMYAHeaders.headers_20)
       .check(status.in(200,304))
     )
-    //.pause(tyaThinkTime)
+  .pause(tyaThinkTime)
 
   // =======================================================================================
   // Enter free text in descibe and then choose a file. Once okay the file, it is uploaded and page is refreshed, below is a request to upload 3MB file
@@ -168,7 +168,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
           .headers(SSCSMYAHeaders.headers_20)
       .check(status.in(200,304))
     )
-    //.pause(tyaThinkTime)
+  .pause(tyaThinkTime)
 
 
 // =======================================================================================
@@ -194,7 +194,7 @@ exec(http(" SSCSMYA${service}_080_005_SubmitEvidence")
   .check(status.in(200,304))
  )
 
-//.pause(tyaThinkTime)
+.pause(tyaThinkTime)
 // =======================================================================================
 // clcik return to PIP Appeal after Document is uploaded completely
 // =======================================================================================
@@ -209,7 +209,7 @@ exec(http("SSCSMYA${service}_090_005_ReturnToAppeal")
    .check(status.in(200,304))
  )
 
-//.pause(tyaThinkTime)
+.pause(tyaThinkTime)
 // =======================================================================================
 //click on hearing tab
 // =======================================================================================
@@ -223,7 +223,7 @@ exec(http("SSCSMYA${service}_100_005_Hearing")
 .headers(SSCSMYAHeaders.headers_20)
    .check(status.in(200,304))
  )
-//.pause(tyaThinkTime)
+.pause(tyaThinkTime)
 // =======================================================================================
 //Signout
 // =======================================================================================
