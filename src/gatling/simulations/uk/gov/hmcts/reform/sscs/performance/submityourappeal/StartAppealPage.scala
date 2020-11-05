@@ -98,7 +98,7 @@ object StartAppealPage{
       .formParam("isAppointee", "no")
       .check(status.in(200,302))
       //.formParam(csrfParameter, csrfTemplate)
-      .check(regex("Your hearing - Appeal a benefit decision"))
+      //.check(regex("Your hearing - Appeal a benefit decision"))
       //.check(CsrfCheck.save)
     )
     .pause(thinktime)
