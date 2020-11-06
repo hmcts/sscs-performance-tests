@@ -30,15 +30,15 @@ object  CreateSYASimulation {
      // LandingPage.beforeYouAppeal,
      // LandingPage.helpWithAppeal,
      // LandingPage.startAnAppeal,
-      StartAppealPage.environment,
+     /* StartAppealPage.environment,
       StartAppealPage.entry,
       StartAppealPage.benefitType,
       StartAppealPage.languagePreference,
       StartAppealPage.postCodeCheck,
       StartAppealPage.independenceBeforeLogin,
-      StartAppealPage.saveLater,
+      StartAppealPage.saveLater,*/
       StartAppealPage.login,
-      StartAppealPage.checkYourAppeal1,
+     /* StartAppealPage.checkYourAppeal1,
       StartAppealPage.independenceAfterLogin,
       Appellant.haveMRN,
       Appellant.MRNDate,
@@ -68,7 +68,7 @@ object  CreateSYASimulation {
       AppealingReason.hearingOptions,
       AppealingReason.supportHearing,
       AppealingReason.hearingAvailability,
-      AppealingReason.checkYourAppeal2
+      AppealingReason.checkYourAppeal2 */
 
     )
 
