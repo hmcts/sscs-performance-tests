@@ -38,11 +38,11 @@ object  CreateCORSimulation {
     exec(
       feed(feederForUpload),
       feed(Feeders.DataFeederForUpload),
-      SSCSMYA.home,
+      //SSCSMYA.home,
       //pause(thinktime),  LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       //pause(thinktime),
-      SSCSMYA.enterPostcode,
+      /*SSCSMYA.enterPostcode,
       SSCSMYA.clickOnEvidenceTab,
       //pause(thinktime),
       SSCSMYA.clickSubmitEvidenceLink,
@@ -59,7 +59,7 @@ object  CreateCORSimulation {
       //pause(thinktime),
       SSCSMYA.Hearing,
       //pause(thinktime),
-      SSCSMYA.logout
+      SSCSMYA.logout*/
     )
 
   pace(WaitForNextIteration)
@@ -73,15 +73,15 @@ object  CreateCORSimulation {
     exec(
       feed(feeder),
       feed(Feeders.DataFeederForNoUpload),
-      SSCSMYA.home,
+      //SSCSMYA.home,
       //pause(thinktimenoupload),  LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       //pause(thinktimenoupload),
-      SSCSMYA.clickOnEvidenceTab,
+      /*SSCSMYA.clickOnEvidenceTab,
       //pause(thinktimenoupload),
       SSCSMYA.Hearing,
       //pause(thinktimenoupload),
-      SSCSMYA.logout
+      SSCSMYA.logout*/
     )
 
 
