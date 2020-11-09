@@ -38,7 +38,7 @@ object  CreateSYASimulation {
       StartAppealPage.independenceBeforeLogin,
       StartAppealPage.saveLater,
       StartAppealPage.login,
-     /* StartAppealPage.checkYourAppeal1,
+      StartAppealPage.checkYourAppeal1,
       StartAppealPage.independenceAfterLogin,
       Appellant.haveMRN,
       Appellant.MRNDate,
@@ -68,7 +68,7 @@ object  CreateSYASimulation {
       AppealingReason.hearingOptions,
       AppealingReason.supportHearing,
       AppealingReason.hearingAvailability,
-      AppealingReason.checkYourAppeal2 */
+      AppealingReason.checkYourAppeal2
 
     )
 
