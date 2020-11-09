@@ -128,6 +128,7 @@ val DWPIssuingOffice=
       .formParam("phoneNumber", "")
       .formParam("emailAddress", "")
       .check(status.in(200,302)))
+      .pause(thinktime)
 
   // =======================================================================================
   // Select an address
@@ -142,7 +143,7 @@ val DWPIssuingOffice=
       .formParam("phoneNumber", "")
       .formParam("emailAddress", "")
       .check(status.in(200,302)))
-
+      .pause(thinktime)
 
   // =======================================================================================
   // Confirm your contact details

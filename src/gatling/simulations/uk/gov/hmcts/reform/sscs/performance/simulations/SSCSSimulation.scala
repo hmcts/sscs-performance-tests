@@ -1,7 +1,7 @@
 package uk.gov.hmcts.reform.sscs.performance.simulations
 
 import io.gatling.core.Predef._
-import io.gatling.http.Predef.{Proxy, http}
+import io.gatling.http.Predef.http
 import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 
@@ -44,7 +44,7 @@ class SSCSSimulation extends Simulation {
 
   scenarioSSCSCORNoUpload.inject(nothingFor(100), rampUsers(287) during (600)).protocols(httpProtocolTYA),
     
-  scenarioSYA.inject(nothingFor(10), rampUsers(255) during (1800)).protocols(httpProtocolSYA))
+  scenarioSYA.inject(nothingFor(10), rampUsers(255) during (1200)).protocols(httpProtocolSYA))
 
 }
 

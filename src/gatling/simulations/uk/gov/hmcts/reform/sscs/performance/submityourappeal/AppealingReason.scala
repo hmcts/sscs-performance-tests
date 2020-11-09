@@ -37,7 +37,7 @@ object AppealingReason{
    exec(http("TX27_SSCS_ReasonForAppealGet")
      .get("/reason-for-appealing")
    )
-       .pause(5)
+       .pause(thinktime)
     .exec(http("TX28_SSCS_ReasonForAppealPost")
     .post("/reason-for-appealing/item-0")
     .formParam("item.whatYouDisagreeWith", "Disagree - I am Performance Testing")

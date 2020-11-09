@@ -15,7 +15,7 @@ import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 object  CreateCORSimulation {
 
   val WaitForNextIteration = Environment.waitForNextIteration
-  val thinktime = Environment.thinkTime
+  val thinktime = Environment.tyaThinkTime
   val thinktimenoupload = Environment.thinkTimeNoUpload
   val feeder = csv("TYA_Details.csv").circular
   val feederForUpload = csv("TYA_Details_Upload.csv").circular
@@ -39,26 +39,27 @@ object  CreateCORSimulation {
       feed(feederForUpload),
       feed(Feeders.DataFeederForUpload),
       SSCSMYA.home,
-      //pause(thinktime),  LoginPage.logIn(testUsers.head),
+      pause(thinktime),  //LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
-      //pause(thinktime),
+      pause(thinktime),
       SSCSMYA.enterPostcode,
+      pause(thinktime),
       SSCSMYA.clickOnEvidenceTab,
-      //pause(thinktime),
+      pause(thinktime),
       SSCSMYA.clickSubmitEvidenceLink,
-      //pause(thinktime),
+      pause(thinktime),
       SSCSMYA.selectUploadRadioButton,
-      //pause(thinktime),
+      pause(thinktime),
       SSCSMYA.uploadDocument_2MB,
-      //pause(thinktime),
+      pause(thinktime),
     // SSCSMYA.uploadDocument_3MB,
      // pause(thinktime),
       SSCSMYA.submitUploadedDocumentFire,
-      //pause(thinktime),
+      pause(thinktime),
       SSCSMYA.returnToAppealDetails,
-      //pause(thinktime),
+      pause(thinktime),
       SSCSMYA.Hearing,
-      //pause(thinktime),
+      pause(thinktime),
       SSCSMYA.logout
     )
 
@@ -74,13 +75,13 @@ object  CreateCORSimulation {
       feed(feeder),
       feed(Feeders.DataFeederForNoUpload),
       SSCSMYA.home,
-      //pause(thinktimenoupload),  LoginPage.logIn(testUsers.head),
+      pause(thinktimenoupload),  //LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
-      //pause(thinktimenoupload),
+      pause(thinktimenoupload),
       SSCSMYA.clickOnEvidenceTab,
-      //pause(thinktimenoupload),
+      pause(thinktimenoupload),
       SSCSMYA.Hearing,
-      //pause(thinktimenoupload),
+      pause(thinktimenoupload),
       SSCSMYA.logout
     )
 
