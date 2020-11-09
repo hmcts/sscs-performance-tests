@@ -17,8 +17,8 @@ object Environment {
   val users = scala.util.Properties.envOrElse("numberOfUser", "10")
   val maxResponseTime = scala.util.Properties.envOrElse("maxResponseTime", "500")
   val idamCookieName="SESSION_ID"
-  val mrnDate="19"
-  val mrnMonth="10"
+  val mrnDate="03"
+  val mrnMonth="11"
   val mrnYear="2020"
 
   val firstName="TestPF"
