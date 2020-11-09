@@ -42,7 +42,7 @@ object  CreateCORSimulation {
       //pause(thinktime),  LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       //pause(thinktime),
-      /*SSCSMYA.enterPostcode,
+      SSCSMYA.enterPostcode,
       SSCSMYA.clickOnEvidenceTab,
       //pause(thinktime),
       SSCSMYA.clickSubmitEvidenceLink,
@@ -59,7 +59,7 @@ object  CreateCORSimulation {
       //pause(thinktime),
       SSCSMYA.Hearing,
       //pause(thinktime),
-      SSCSMYA.logout*/
+      SSCSMYA.logout
     )
 
   pace(WaitForNextIteration)
@@ -77,11 +77,11 @@ object  CreateCORSimulation {
       //pause(thinktimenoupload),  LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       //pause(thinktimenoupload),
-      /*SSCSMYA.clickOnEvidenceTab,
+      SSCSMYA.clickOnEvidenceTab,
       //pause(thinktimenoupload),
       SSCSMYA.Hearing,
       //pause(thinktimenoupload),
-      SSCSMYA.logout*/
+      SSCSMYA.logout
     )
 
 
