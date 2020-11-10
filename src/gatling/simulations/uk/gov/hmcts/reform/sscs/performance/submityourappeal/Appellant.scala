@@ -124,7 +124,7 @@ val DWPIssuingOffice=
     exec(http("TX21_SSCS_Appellant_ContactDetailsLookup")
       .post("/enter-appellant-contact-details")
       .formParam("submitType", "lookup")
-      .formParam("postcodeLookup", "E1 6JJ")
+      .formParam("postcodeLookup", "TS1 1ST")
       .formParam("phoneNumber", "")
       .formParam("emailAddress", "")
       .check(status.in(200,302)))
