@@ -159,7 +159,7 @@ object StartAppealPage{
       .post(idamUrl + "/login?client_id=sscs&redirect_uri=" + sscsSYAURL + "%2Fauthenticated&response_type=code&state=${stateId}")
       //.headers(headers_196)
       .formParam("username", "${idamUser}") //${email}@mailinator.com
-      .formParam("password", "Testing123") //Pass19word
+      .formParam("password", "Pass19word")
       .formParam("save", "Sign in")
       .formParam("selfRegistrationEnabled", "true")
       .formParam(csrfParameter, csrfTemplate)
