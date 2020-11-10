@@ -35,7 +35,7 @@ object SSCSMYA {
        .post(idamUrl + "/login?redirect_uri=https%3A%2F%2Fsscs-cor." + env + ".platform.hmcts.net%2Fsign-in&client_id=sscs&response_type=code&state=${reference}")
     .headers(SSCSMYAHeaders.headers_login)
        .formParam("username", "${email}")
-       .formParam("password", "Testing123")
+       .formParam("password", "Pass19word")
        .formParam("_csrf", "${csrf}")
        .formParam("save", "Sign in")
        .formParam("selfRegistrationEnabled", "true")
