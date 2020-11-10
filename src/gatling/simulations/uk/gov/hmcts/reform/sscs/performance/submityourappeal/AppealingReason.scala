@@ -115,7 +115,7 @@ val attendHearing=
   // =======================================================================================
 
 
-  val hearingOptions=
+  /*val hearingOptions=
     exec(http("TX33_SSCS_HearingOptions")
       .post("/hearing-options")
       .formParam("selectOptions.telephone.phoneNumber", "")
@@ -126,7 +126,7 @@ val attendHearing=
       //.check(regex("Select the suitable options for you to attend the hearing."))
       // .check(CsrfCheck.save)
     )
-      .pause(thinktime)
+      .pause(thinktime)*/
 
   // =======================================================================================
   // Indicate whether you need support at the hearing
@@ -134,7 +134,7 @@ val attendHearing=
 
 
   val supportHearing=
-  exec(http("TX34_SSCS_HearingSupport")
+  exec(http("TX33_SSCS_HearingSupport")
     .post("/hearing-support")
     .formParam("arrangements", "no")
    // .formParam(csrfParameter, csrfTemplate)
@@ -149,7 +149,7 @@ val attendHearing=
     // =======================================================================================
 
     val hearingAvailability =
-    exec(http("TX35_SSCS_HearingAvailability")
+    exec(http("TX34_SSCS_HearingAvailability")
       .post("/hearing-availability")
       .formParam("scheduleHearing", "no")
      // .formParam(csrfParameter, csrfTemplate)
@@ -164,8 +164,8 @@ val attendHearing=
   // Check the appeal
   // =======================================================================================
 
-  val checkYourAppeal2=
-  exec(http("TX36_SSCS_CheckYourAppeal")
+  val checkYourAppeal=
+  exec(http("TX35_SSCS_CheckYourAppeal")
   .post("/check-your-appeal")
     .formParam("signer",firstName+" "+lastName )
       .headers(headers_check_appeal)

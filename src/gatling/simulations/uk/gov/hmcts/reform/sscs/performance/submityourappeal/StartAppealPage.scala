@@ -154,12 +154,15 @@ object StartAppealPage{
   // Log in
   // =======================================================================================
 
-val login=
-    exec(http("TX13_SSCS_Login")
+val login1 =
+    exec(http("TX13_SSCS_Login1")
       .get(idamUrl + "/login?client_id=sscs&redirect_uri=https%3A%2F%2Fbenefit-appeal.perftest.platform.hmcts.net%2Fauthenticated&ui_locales=en&response_type=code&state=${stateId}")
       .headers(SSCSSYAHeaders.headers_17)
-      .pause(thinktime)
-      
+      .check(status.in(200,302)))
+  .pause(thinktime)
+
+val login2 =
+      exec(http("TX14_SSCS_Login2")
       .post(idamUrl + "/login?client_id=sscs&redirect_uri=https%3A%2F%2Fbenefit-appeal.perftest.platform.hmcts.net%2Fauthenticated&ui_locales=en&response_type=code&state=${stateId}")
       .headers(SSCSSYAHeaders.headers_18)
       .formParam("username", "${idamUser}") //${email}@mailinator.com
@@ -175,14 +178,14 @@ val login=
   // =======================================================================================
 
 
-  val checkYourAppeal1=
+  /*val checkYourAppeal1=
     exec(http("TX14_SSCS_CheckYourAppeal")
       .post("/check-your-appeal")
       .check(status.in(200,302))
       //.check(CsrfCheck.save)
       //.check(regex("Do you want to be able to save this appeal later?"))
     )
-      .pause(thinktime)
+      .pause(thinktime)*/
 
 }
 
