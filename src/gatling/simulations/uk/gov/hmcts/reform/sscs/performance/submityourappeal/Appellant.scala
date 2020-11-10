@@ -120,26 +120,21 @@ val DWPIssuingOffice=
   // Provide your contact details
   // =======================================================================================
 
-  val contactDetailsLookup=
-    exec(http("TX21_SSCS_Appellant_ContactDetailsLookup")
-      .post("/enter-appellant-contact-details")
-      .formParam("submitType", "lookup")
-      .formParam("postcodeLookup", "E1 6JJ")
-      .formParam("phoneNumber", "")
-      .formParam("emailAddress", "")
-      .check(status.in(200,302)))
+  val contactDetails1 =
+    exec(http("TX21_SSCS_Appellant_ContactDetails1")
+      .get("/enter-appellant-contact-details")
+      .check(status.in(200,304)))
       .pause(thinktime)
 
   // =======================================================================================
   // Select an address
   // =======================================================================================
 
-  val contactDetailsSelection=
-    exec(http("TX22_SSCS_Appellant_ContactDetailsSelection")
+  val contactDetails2 =
+    exec(http("TX22_SSCS_Appellant_ContactDetails2")
       .post("/enter-appellant-contact-details")
-      .formParam("submitType", "addressSelection")
-      .formParam("postcodeLookup", "E1 6JJ")
-      .formParam("postcodeAddress", "10008297237")
+      .formParam("submitType", "manual")
+      .formParam("postcodeLookup", "")
       .formParam("phoneNumber", "")
       .formParam("emailAddress", "")
       .check(status.in(200,302)))
@@ -149,19 +144,16 @@ val DWPIssuingOffice=
   // Confirm your contact details
   // =======================================================================================
 
-  val contactDetails=
-  exec(http("TX23_SSCS_Appellant_ContactDetails")
+  val contactDetails3=
+  exec(http("TX23_SSCS_Appellant_ContactDetails3")
          .post("/enter-appellant-contact-details")
-         .formParam("submitType", "")
-         .formParam("postcodeLookup", "E1 6JJ")
-         .formParam("postcodeAddress", "10008297237")
-         .formParam("addressLine1", "LYLES")
-         .formParam("addressLine2", "56 THE TEA BUILDING, SHOREDITCH HIGH STREET")
-         .formParam("townCity", "LONDON")
-         .formParam("county", "LONDON")
-         .formParam("postCode", "E1 6JJ")
-         .formParam("phoneNumber", "")
-    .formParam("emailAddress", "${idamUser}")
+        .formParam("addressLine1", "Ministry Of Justice")
+        .formParam("addressLine2", "Seventh Floor 102 Petty France")
+        .formParam("townCity", "London")
+        .formParam("county", "Greater London")
+        .formParam("postCode", "TS1 1ST")
+        .formParam("phoneNumber", "")
+        .formParam("emailAddress", "${idamUser}")
   //  .formParam(csrfParameter, csrfTemplate)
     .check(status.in(200,302))
     //.check(regex("Do you want to receive text message notifications?"))
@@ -174,8 +166,8 @@ val DWPIssuingOffice=
   // Indicate whether you want to receive reminders by text message
   // =======================================================================================
 
-  val textRemainders=
-  exec(http("TX24_SSCS_TextRemainders")
+  val textReminders=
+  exec(http("TX24_SSCS_TextReminders")
     .post("/appellant-text-reminders")
     .formParam("doYouWantTextMsgReminders", "no")
    // .formParam(csrfParameter, csrfTemplate)
