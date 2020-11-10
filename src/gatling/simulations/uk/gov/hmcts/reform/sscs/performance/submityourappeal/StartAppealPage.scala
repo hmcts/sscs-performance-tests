@@ -154,10 +154,14 @@ object StartAppealPage{
   // Log in
   // =======================================================================================
 
-  val login=
+val login=
     exec(http("TX13_SSCS_Login")
-      .post(idamUrl + "/login?client_id=sscs&redirect_uri=" + sscsSYAURL + "%2Fauthenticated&response_type=code&state=${stateId}")
-      //.headers(headers_196)
+      .get(idamUrl + "/login?client_id=sscs&redirect_uri=https%3A%2F%2Fbenefit-appeal.perftest.platform.hmcts.net%2Fauthenticated&ui_locales=en&response_type=code&state=${stateId}")
+      .headers(SSCSSYAHeaders.headers_17)
+      .pause(thinktime)
+      
+      .post(idamUrl + "/login?client_id=sscs&redirect_uri=https%3A%2F%2Fbenefit-appeal.perftest.platform.hmcts.net%2Fauthenticated&ui_locales=en&response_type=code&state=${stateId}")
+      .headers(SSCSSYAHeaders.headers_18)
       .formParam("username", "${idamUser}") //${email}@mailinator.com
       .formParam("password", "Pass19word")
       .formParam("save", "Sign in")
