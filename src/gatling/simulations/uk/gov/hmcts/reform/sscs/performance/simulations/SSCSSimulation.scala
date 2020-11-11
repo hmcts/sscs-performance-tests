@@ -65,7 +65,7 @@ class SSCSSimulation extends Simulation {
        ).maxDuration(5400)*/
 
   setUp(
-    scenarioSYA.inject(rampUsers(1) during (10)).protocols(httpProtocolSYA))
+    scenarioSYA.inject(rampUsers(2) during (10)).protocols(httpProtocolSYA))
 
     //scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
 
