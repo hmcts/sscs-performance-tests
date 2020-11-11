@@ -70,6 +70,7 @@ object  CreateSYASimulation {
       AppealingReason.supportHearing,
       AppealingReason.hearingAvailability,
       AppealingReason.checkYourAppeal
+      AppealingReason.signOut
 
     )
 
