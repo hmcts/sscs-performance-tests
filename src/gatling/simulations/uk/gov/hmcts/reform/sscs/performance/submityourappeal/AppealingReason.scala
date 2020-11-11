@@ -192,7 +192,7 @@ val attendHearing=
   exec(http("TX36_SSCS_SignOut")
   .get("/sign-out")
   .headers(headers_sign_out)
-  .check(status.in(200,302)))
+  .check(status.in(200,302,304)))
 
 
 
