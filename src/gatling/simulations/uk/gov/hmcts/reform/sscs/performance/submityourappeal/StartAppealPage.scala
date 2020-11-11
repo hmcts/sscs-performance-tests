@@ -31,8 +31,8 @@ object StartAppealPage{
         session
     }
 
-  val entry = feed(sscsfeeder).feed(loginfeeder)
-    .exec(http("TX05_SSCS_Entry")
+  val entry = //feed(sscsfeeder).feed(loginfeeder)
+    exec(http("TX05_SSCS_Entry")
       .get("/")
       .headers(SSCSSYAHeaders.headers_0)
       .check(status.in(200,302))
