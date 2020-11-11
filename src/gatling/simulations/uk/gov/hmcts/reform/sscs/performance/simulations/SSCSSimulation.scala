@@ -6,6 +6,9 @@ import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 
 class SSCSSimulation extends Simulation {
+  
+  val sscsfeeder = csv("sscs_details.csv").circular
+  val loginfeeder = csv("IdamUsers.csv").circular
 
   val httpProtocolTYA: HttpProtocolBuilder = http
     //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
@@ -32,8 +35,9 @@ class SSCSSimulation extends Simulation {
   val scenarioSSCSCORNoUpload = scenario("Create MYA Journey With No Upload")
     .exec(CreateCORSimulation.createCORScenarioNoUpload)
 
-  val scenarioSYA = scenario("Create SYA Journey")
-    .exec(CreateSYASimulation.createSYAScenario)
+  val scenarioSYA = scenario("Create SYA Journey").repeat(2)
+  {feed(sscsfeeder).feed(loginfeeder)
+    .exec(CreateSYASimulation.createSYAScenario)}
 
   val scenarioUserCreation = scenario("Create User")
     .exec(UserCreateSimulation.createUser)
@@ -61,7 +65,7 @@ class SSCSSimulation extends Simulation {
        ).maxDuration(5400)*/
 
   setUp(
-    scenarioSYA.inject(rampUsers(3) during (20)).protocols(httpProtocolSYA))
+    scenarioSYA.inject(rampUsers(1) during (10)).protocols(httpProtocolSYA))
 
     //scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
 
