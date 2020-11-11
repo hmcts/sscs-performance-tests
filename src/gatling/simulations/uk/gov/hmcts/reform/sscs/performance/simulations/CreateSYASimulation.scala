@@ -69,7 +69,7 @@ object  CreateSYASimulation {
       //AppealingReason.hearingOptions,
       AppealingReason.supportHearing,
       AppealingReason.hearingAvailability,
-      AppealingReason.checkYourAppeal
+      AppealingReason.checkYourAppeal,
       AppealingReason.signOut
 
     )
