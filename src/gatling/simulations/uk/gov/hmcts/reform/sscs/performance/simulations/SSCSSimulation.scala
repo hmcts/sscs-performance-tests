@@ -35,7 +35,7 @@ class SSCSSimulation extends Simulation {
   val scenarioSSCSCORNoUpload = scenario("Create MYA Journey With No Upload")
     .exec(CreateCORSimulation.createCORScenarioNoUpload)
 
-  val scenarioSYA = scenario("Create SYA Journey").repeat(2)
+  val scenarioSYA = scenario("Create SYA Journey").repeat(100)
   {feed(sscsfeeder).feed(loginfeeder)
     .exec(CreateSYASimulation.createSYAScenario)}
 
@@ -65,7 +65,7 @@ class SSCSSimulation extends Simulation {
        ).maxDuration(5400)*/
 
   setUp(
-    scenarioSYA.inject(rampUsers(2) during (10)).protocols(httpProtocolSYA))
+    scenarioSYA.inject(rampUsers(6) during (60)).protocols(httpProtocolSYA))
 
     //scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
 
