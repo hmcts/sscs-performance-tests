@@ -188,7 +188,7 @@ val attendHearing=
   )
     .pause(thinktime)
   
-  val logout = 
+  val signOut = 
   exec(http("TX36_SSCS_SignOut")
   .get("/sign-out")
   .headers(headers_sign_out)
