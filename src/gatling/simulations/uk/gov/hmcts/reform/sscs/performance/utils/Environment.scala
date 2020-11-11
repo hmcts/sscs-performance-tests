@@ -17,7 +17,7 @@ object Environment {
   val users = scala.util.Properties.envOrElse("numberOfUser", "10")
   val maxResponseTime = scala.util.Properties.envOrElse("maxResponseTime", "500")
   val idamCookieName="SESSION_ID"
-  val mrnDate="09"
+  val mrnDate="10"
   val mrnMonth="11"
   val mrnYear="2020"
 
@@ -35,7 +35,7 @@ object Environment {
     "Upgrade-Insecure-Requests" -> "1")
 
     
-    val thinkTime = 30
+    val thinkTime = 80
   val thinkTimeNoUpload = 750
   val tyaThinkTime=300
     val waitForNextIteration = 20
