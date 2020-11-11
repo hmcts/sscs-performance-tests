@@ -171,6 +171,7 @@ val login2 =
       .formParam("selfRegistrationEnabled", "true")
       .formParam(csrfParameter, csrfTemplate)
       .check(status.in(200,302)))
+      .exitHereIfFailed
       .pause(thinktime)
 
   // =======================================================================================
