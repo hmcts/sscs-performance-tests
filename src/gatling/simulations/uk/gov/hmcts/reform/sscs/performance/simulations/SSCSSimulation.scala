@@ -10,7 +10,8 @@ class SSCSSimulation extends Simulation {
   val sscsfeeder = csv("sscs_details.csv").circular
   val loginfeeder = csv("IdamUsers.csv").circular
 
-  val httpProtocolTYA: HttpProtocolBuilder = http//.proxy(Proxy("proxyout.reform.hmcts.net", 8080)).baseUrl(Environment.SSCSCORURL).headers(Environment.commonHeader)
+  val httpProtocolTYA: HttpProtocolBuilder = http//.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+  .baseUrl(Environment.SSCSCORURL).headers(Environment.commonHeader)
 
 
   val httpProtocolSYA: HttpProtocolBuilder = http //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
