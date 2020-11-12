@@ -19,7 +19,9 @@ object SSCSMYA {
   //=======================================================================================
 
   val home =
-  exec(http("SSCSMYA${service}_010_LandingPage")
+   exec(flushCookieJar)
+  .exec(flushHttpCache)
+  .exec(http("SSCSMYA${service}_010_LandingPage")
       .get("/sign-in?tya=${reference}")
       .headers(SSCSMYAHeaders.headers_homepage)
          .check(status.in(200))
