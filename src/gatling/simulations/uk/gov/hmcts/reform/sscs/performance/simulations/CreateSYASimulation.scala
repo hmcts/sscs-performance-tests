@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.sscs.performance.simulations
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
-import uk.gov.hmcts.reform.sscs.performance.submityourappeal.{UploadEvidence, _}
+import uk.gov.hmcts.reform.sscs.performance.submityourappeal._
 //import uk.gov.hmcts.reform.sscs.performance.processes._
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 //import uk.gov.hmcts.reform.sscs.performance.simulations.lifecycle.SimulationHooks
@@ -39,7 +39,6 @@ object  CreateSYASimulation {
       StartAppealPage.saveLater,
       StartAppealPage.login1,
       StartAppealPage.login2,
-      //StartAppealPage.checkYourAppeal1,
       StartAppealPage.independenceAfterLogin,
       Appellant.haveMRN,
       Appellant.MRNDate,
@@ -61,10 +60,10 @@ object  CreateSYASimulation {
     //UploadEvidence.evidenceUpload_1MB,
     //UploadEvidence.evidenceUpload_2MB,
     //UploadEvidence.evidenceUpload_3MB,
-     /* UploadEvidence.evidenceUpload_2MB_1,
+      UploadEvidence.evidenceUpload_2MB_1,
       UploadEvidence.evidenceUpload_2MB_2,
      UploadEvidence.evidenceUploadComplete,
-     UploadEvidence.evidenceDescription,*/
+     UploadEvidence.evidenceDescription,
       AppealingReason.attendHearing,
       //AppealingReason.hearingOptions,
       AppealingReason.supportHearing,

@@ -47,7 +47,7 @@ object AppealingReason{
 
  val reasonForAppealing=
 
-   exec(http("TX27_SSCS_ReasonForAppealGet")
+   exec(http("SSCS_220_ReasonForAppealGet")
      .get("/reason-for-appealing")
    )
        .pause(thinktime)
@@ -67,7 +67,7 @@ object AppealingReason{
   // =======================================================================================
 
   val finalReasonForAppealing=
-    exec(http("TX29_SSCS_FinalReasonForAppeal")
+    exec(http("SSCS_230_FinalReasonForAppeal")
       .post("/reason-for-appealing")
       .formParam("item.whatYouDisagreeWith-0", "Disagree - I am Performance Testing")
       .formParam("item.reasonForAppealing-0", "Reason For Appeal - I am Performance Testing")
@@ -113,7 +113,7 @@ object AppealingReason{
 
 
 val attendHearing=
-  exec(http("TX32_SSCS_AttendHearing")
+  exec(http("SSCS_290_AttendHearing")
     .post("/the-hearing")
     .formParam("attendHearing", "yes")
    // .formParam(csrfParameter, csrfTemplate)
@@ -147,7 +147,7 @@ val attendHearing=
 
 
   val supportHearing=
-  exec(http("TX33_SSCS_HearingSupport")
+  exec(http("SSCS_300_HearingSupport")
     .post("/hearing-support")
     .formParam("arrangements", "no")
    // .formParam(csrfParameter, csrfTemplate)
@@ -162,7 +162,7 @@ val attendHearing=
     // =======================================================================================
 
     val hearingAvailability =
-    exec(http("TX34_SSCS_HearingAvailability")
+    exec(http("SSCS_310_HearingAvailability")
       .post("/hearing-availability")
       .formParam("scheduleHearing", "no")
      // .formParam(csrfParameter, csrfTemplate)
@@ -178,7 +178,7 @@ val attendHearing=
   // =======================================================================================
 
   val checkYourAppeal=
-  exec(http("TX35_SSCS_CheckYourAppeal")
+  exec(http("SSCS_320_CheckYourAppeal")
   .post("/check-your-appeal")
     .formParam("signer",firstName+" "+lastName )
       .headers(headers_check_appeal)

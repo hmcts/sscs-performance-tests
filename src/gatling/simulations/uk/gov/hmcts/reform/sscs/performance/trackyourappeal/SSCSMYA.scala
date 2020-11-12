@@ -47,63 +47,33 @@ object SSCSMYA {
       }
     ))
 
-    .exec(http("SSCSMYA${service}_020_010_LoginPage_SessionExt")
-          .get("/session-extension")
-          .headers(SSCSMYAHeaders.headers_20)
-          .check(status.in(200,304))
+  val enterPostcode =
+  doIf("${postcodecheck.exists()}") {
+      exec(http("SSCSMYA${service}_030_005_EnterPostcode").post("/assign-case").headers(SSCSMYAHeaders.headers_postcode).formParam("_csrf", "${csrf}").formParam("postcode", "${postcode}").formParam("assign-case", "Continue").check(status.is(200)) //  .check(CsrfCheck.save)
     )
-
-    .doIf("${postcodecheck.exists()}")
-    {
-      exec(http("SSCSMYA${service}_030_005_EnterPostcode").post("/assign-case").headers(SSCSMYAHeaders.headers_postcode).formParam("_csrf", "${csrf}").formParam("postcode", "${postcode}").formParam("assign-case", "Continue").check(status.is(200))
-      )
         .exec(http("SSCSMYA${service}_030_010_EnterPostcode_SessionExt")
           .get("/session-extension")
           .headers(SSCSMYAHeaders.headers_20)
           .check(status.in(200, 304)))
-    }
-
- /* .exec( session => {
-         println("postcode check "+session("postcodecheck").as[String])
-   // println("page check "+session("currentPage").as[String])
-         session
-       })*/
-   //  .check(CsrfCheck.save)
-    //.check(regex("Enter the postcode for the appeal"))
+  }
 
 
- //.pause(tyaThinkTime)
 
-  // =======================================================================================
-  // postcode validation
-  // =======================================================================================
 
-  val enterPostcode = exec(http("SSCSMYA${service}_030_005_EnterPostcode")
-                           .post("/assign-case")
-                            .headers(SSCSMYAHeaders.headers_postcode)
-                           .formParam("_csrf", "${csrf}")
-                           .formParam("postcode", "${postcode}")
-                           .formParam("assign-case", "Continue")
-                           .check(status.is(200))
-    //  .check(CsrfCheck.save)
-  )
-.exec(http("SSCSMYA${service}_030_010_EnterPostcode_SessionExt")
-      .get("/session-extension")
-      .headers(SSCSMYAHeaders.headers_20)
-  .check(status.in(200,304)
-))
-//.pause(tyaThinkTime)
+
+
+
 
   // =======================================================================================
   // when click on provide evidence tab after login
   // =======================================================================================
 val clickOnEvidenceTab=
-  exec(http("SSCSMYA${service}_030_005_ClickOnEvidenceTab")
+  exec(http("SSCSMYA${service}_040_005_ClickOnEvidenceTab")
        .get("/task-list")
        .headers(SSCSMYAHeaders.headers_tasklist)
     .check(status.in(200,304))
   )
-  .exec(http("SSCSMYA${service}_030_010_ClickOnEvidenceTab_SessionExt")
+  .exec(http("SSCSMYA${service}_040_010_ClickOnEvidenceTab_SessionExt")
       .get("/session-extension")
       .headers(SSCSMYAHeaders.headers_20)
     .check(status.in(200,304)))
@@ -114,13 +84,13 @@ val clickOnEvidenceTab=
 // https://sscs-cor.aat.platform.hmcts.net/additional-evidence
 // =======================================================================================
 val clickSubmitEvidenceLink =
-exec(http("SSCSMYA${service}_040_005_ClickOnSubmitEvidence")
+exec(http("SSCSMYA${service}_050_005_ClickOnSubmitEvidence")
    .get("/additional-evidence")
     .headers(SSCSMYAHeaders.headers_tasklist)
    .check(CsrfCheck.save)
    .check(status.is(200)))
 
- .exec(http("SSCSMYA${service}_040_010_ClickOnSubmitEvidence_SessionExt")
+ .exec(http("SSCSMYA${service}_050_010_ClickOnSubmitEvidence_SessionExt")
 .get("/session-extension")
 .headers(SSCSMYAHeaders.headers_20)
    .check(status.in(200,304))
@@ -134,7 +104,7 @@ exec(http("SSCSMYA${service}_040_005_ClickOnSubmitEvidence")
 // =======================================================================================
 
 val selectUploadRadioButton =
-exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
+exec(http("SSCSMYA${service}_060_005_SelectUploadOption")
    .post("/additional-evidence")
        .headers(SSCSMYAHeaders.headers_upload)
    .formParam("additional-evidence-option", "upload")
@@ -144,7 +114,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
    .check(css("#additional-evidence-form", "action").saveAs("uploadurl"))
 )
 
-   .exec(http("SSCSMYA${service}_050_010_SelectUploadOption_SessionExt")
+   .exec(http("SSCSMYA${service}_060_010_SelectUploadOption_SessionExt")
 .get("/session-extension")
 .headers(SSCSMYAHeaders.headers_20)
      .check(status.in(200,304))
@@ -155,7 +125,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 // Enter free text in describe and then choose a file. Once okay the file, it is uploaded and page is refreshed, below is a request to upload 2MB file
 // =======================================================================================
 val uploadDoc=
-  exec(http("SSCSMYA${service}_0X0_005_UploadDoc2MB")
+  exec(http("SSCSMYA${service}_070_005_UploadDoc2MB")
       .post("${uploadurl}")
       .headers(SSCSMYAHeaders.headers_uploadfile)
     .bodyPart(RawFileBodyPart("additional-evidence-file", "2MB.pdf")
@@ -165,12 +135,12 @@ val uploadDoc=
     .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit2mb"))
   )
 
-    .exec(http("SSCSMYA${service}_060_010_UploadDoc2MB_SessionExt")
+    .exec(http("SSCSMYA${service}_070_010_UploadDoc2MB_SessionExt")
           .get("/session-extension")
           .headers(SSCSMYAHeaders.headers_20)
           .check(status.in(200,304))
     )
-    .pause(tyaThinkTime)
+    //.pause(tyaThinkTime)
 
 val upload2MBSubmit=
     exec(http("SSCSMYA${service}_080_005_SubmitEvidence")
@@ -185,7 +155,7 @@ val upload2MBSubmit=
             .headers(SSCSMYAHeaders.headers_20)
             .check(status.in(200,304))
       )
-    .pause(tyaThinkTime)
+    //.pause(tyaThinkTime)
 
 
   /*val uploadDocument_2MB=

@@ -67,7 +67,7 @@ object UploadEvidence{
   // =======================================================================================
 
   val evidenceProvide=
-    exec(http("TX37_SSCS_EvidenceProvide")
+    exec(http("SSCS_240_EvidenceProvide")
       .post("/evidence-provide")
       .formParam("evidenceProvide", "no")
      // .formParam(csrfParameter, csrfTemplate)
@@ -81,7 +81,7 @@ object UploadEvidence{
   // =======================================================================================
 
   val evidenceUpload_2MB_1=
-    exec(http("TX38_SSCS_EvidenceUpload_2MB_1")
+    exec(http("SSCS_250_EvidenceUpload_2MB_1")
 
       .post("/evidence-upload/item-0")
       .headers(headers_2MB_1)
@@ -100,14 +100,14 @@ object UploadEvidence{
   // =======================================================================================
 
   val evidenceUpload_2MB_2=
-    exec(http("TX39_SSCS_EvidenceUpload_2MB_2")
+    exec(http("SSCS_260_005_EvidenceUpload_2MB_2")
       .post("/evidence-upload/item-1")
       .headers(headers_2MB_2)
       .header("CSRF-Token", csrfTemplate)
       .body(RawFileBody("RecordedSimulationtoday1112_0128_request.txt")))
 
      // .pause(10)
-      .exec(http("TX27_SSCS_EvidenceUpload_2MB_2_GET")
+      .exec(http("SSCS_260_010_EvidenceUpload_2MB_2_GET")
         .get("/evidence-upload")
         .check(status.is(200))
       .check(CsrfCheck.save)
@@ -138,7 +138,7 @@ object UploadEvidence{
 
   val evidenceUploadComplete=
 
-    exec(http("TX41_SSCS_EvidenceUpload_Complete")
+    exec(http("SSCS_270_005_EvidenceUpload_Complete")
       .post("/evidence-upload")
       .formParam(csrfParameter, csrfTemplate)
       .headers(headers_19)
@@ -153,7 +153,7 @@ object UploadEvidence{
   // =======================================================================================
 
   val evidenceDescription=
-    exec(http("TX42_SSCS_Evidence_Description")
+    exec(http("SSCS_280_005_Evidence_Description")
       .post("/evidence-description")
       .formParam("describeTheEvidence", "Evidence - I am Performance Testing")
       .formParam(csrfParameter, csrfTemplate)

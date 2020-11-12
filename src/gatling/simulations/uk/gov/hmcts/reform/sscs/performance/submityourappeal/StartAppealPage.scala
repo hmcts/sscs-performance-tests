@@ -32,7 +32,7 @@ object StartAppealPage{
     }
 
   val entry = //feed(sscsfeeder).feed(loginfeeder)
-    exec(http("TX05_SSCS_Entry")
+    exec(http("SSCS_010_Entry")
       .get("/")
       .headers(SSCSSYAHeaders.headers_0)
       .check(status.in(200,302))
@@ -46,7 +46,7 @@ object StartAppealPage{
   // =======================================================================================
 
   val benefitType =
-    exec(http("TX06_SSCS_BenefitType")
+    exec(http("SSCS_020_BenefitType")
       .post("/benefit-type")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("benefitType", "Personal Independence Payment (PIP)") //Employment and Support Allowance (ESA) Personal Independence Payment (PIP)
@@ -62,7 +62,7 @@ object StartAppealPage{
   // =======================================================================================
 
   val languagePreference =
-    exec(http("TX07_SSCS_LanguagePreference")
+    exec(http("SSCS_030_LanguagePreference")
       .post("/language-preference")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("languagePreferenceWelsh", "no")
@@ -77,7 +77,7 @@ object StartAppealPage{
   // =======================================================================================
 
   val postCodeCheck =
-    exec(http("TX08_SSCS_PostCodeCheck")
+    exec(http("SSCS_040_PostCodeCheck")
       .post("/postcode-check")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("postcode", "TS1 1ST")
@@ -93,7 +93,7 @@ object StartAppealPage{
   // =======================================================================================
 
   val areYouAnAppointee =
-    exec(http("TX09_SSCS_AreYouAnAppointee")
+    exec(http("SSCS_130_AreYouAnAppointee")
       .post("/are-you-an-appointee")
       .formParam("isAppointee", "no")
       .check(status.in(200,302))
@@ -111,7 +111,7 @@ object StartAppealPage{
 
 
   val independenceBeforeLogin=
-    exec(http("TX10_SSCS_IndependenceBeforeLogin")
+    exec(http("SSCS_050_IndependenceBeforeLogin")
       .post("/independence")
       .headers(SSCSSYAHeaders.headers_2)
       .check(status.in(200,302))
@@ -126,7 +126,7 @@ object StartAppealPage{
 
 
   val independenceAfterLogin=
-    exec(http("TX11_SSCS_IndependenceAfterLogin")
+    exec(http("SSCS_090_IndependenceAfterLogin")
       .post("/independence")
       .check(status.in(200,302))
       //.check(CsrfCheck.save)
@@ -139,7 +139,7 @@ object StartAppealPage{
   // =======================================================================================
 
   val saveLater=
-    exec(http("TX12_SSCS_CreateAccount")
+    exec(http("SSCS_060_CreateAccount")
       .post("/create-account")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("createAccount", "yes")
@@ -155,14 +155,14 @@ object StartAppealPage{
   // =======================================================================================
 
 val login1 =
-    exec(http("TX13_SSCS_Login1")
+    exec(http("SSCS_070_Login1")
       .get(idamUrl + "/login?client_id=sscs&redirect_uri=https%3A%2F%2Fbenefit-appeal.perftest.platform.hmcts.net%2Fauthenticated&ui_locales=en&response_type=code&state=${stateId}")
       .headers(SSCSSYAHeaders.headers_17)
       .check(status.in(200,302)))
   .pause(thinktime)
 
 val login2 =
-      exec(http("TX14_SSCS_Login2")
+      exec(http("SSCS_080_Login2")
       .post(idamUrl + "/login?client_id=sscs&redirect_uri=https%3A%2F%2Fbenefit-appeal.perftest.platform.hmcts.net%2Fauthenticated&ui_locales=en&response_type=code&state=${stateId}")
       .headers(SSCSSYAHeaders.headers_18)
       .formParam("username", "${idamUser}") //${email}@mailinator.com

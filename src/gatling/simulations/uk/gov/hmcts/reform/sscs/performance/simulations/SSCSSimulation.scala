@@ -6,49 +6,35 @@ import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 
 class SSCSSimulation extends Simulation {
-  
+
   val sscsfeeder = csv("sscs_details.csv").circular
   val loginfeeder = csv("IdamUsers.csv").circular
 
-  val httpProtocolTYA: HttpProtocolBuilder = http
-    .proxy(Proxy("proxyout.reform.hmcts.net", 8080))
-    .baseUrl(Environment.SSCSCORURL)
-    .headers(Environment.commonHeader)
+  val httpProtocolTYA: HttpProtocolBuilder = http//.proxy(Proxy("proxyout.reform.hmcts.net", 8080)).baseUrl(Environment.SSCSCORURL).headers(Environment.commonHeader)
 
 
-  val httpProtocolSYA: HttpProtocolBuilder = http
-    //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
-    .baseUrl(Environment.sscsSYAURL)
-    .headers(Environment.commonHeader)
+  val httpProtocolSYA: HttpProtocolBuilder = http //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+                                             .baseUrl(Environment.sscsSYAURL).headers(Environment.commonHeader)
 
-  val httpProtocolUserCreation: HttpProtocolBuilder = http
-    //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
-    .baseUrl(Environment.sscsSYAURL)
-    .headers(Environment.commonHeader)
+  val httpProtocolUserCreation: HttpProtocolBuilder = http// .proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+                                                      .baseUrl(Environment.sscsSYAURL).headers(Environment.commonHeader)
 
-  implicit val postHeaders: Map[String, String] = Map(
-    "Origin" -> Environment.sscsSYAURL
-  )
-  val scenarioSSCSCORWithUpload = scenario("Create MYA Journey With Upload")
-    .exec(CreateCORSimulation.createCORScenarioWithUpload)
+  implicit val postHeaders: Map[String, String] = Map("Origin" -> Environment.sscsSYAURL)
+  val scenarioSSCSCORWithUpload = scenario("Create MYA Journey With Upload").exec(CreateCORSimulation.createCORScenarioWithUpload)
 
-  val scenarioSSCSCORNoUpload = scenario("Create MYA Journey With No Upload")
-    .exec(CreateCORSimulation.createCORScenarioNoUpload)
+  val scenarioSSCSCORNoUpload = scenario("Create MYA Journey With No Upload").exec(CreateCORSimulation.createCORScenarioNoUpload)
 
-  val scenarioSYA = scenario("Create SYA Journey").repeat(1)
-  {feed(sscsfeeder).feed(loginfeeder)
-    .exec(CreateSYASimulation.createSYAScenario)}
+  val scenarioSYA = scenario("Create SYA Journey").repeat(1) {
+    feed(sscsfeeder).feed(loginfeeder).exec(CreateSYASimulation.createSYAScenario)
+  }
 
-  val scenarioUserCreation = scenario("Create User")
-    .exec(UserCreateSimulation.createUser)
-  
-  
- /* setUp(
-  scenarioSSCSCORWithUpload.inject(nothingFor(10), rampUsers(287) during (600)).protocols(httpProtocolTYA),
-  scenarioSSCSCORNoUpload.inject(nothingFor(100), rampUsers(287) during (600)).protocols(httpProtocolTYA),
-  scenarioSYA.inject(nothingFor(10), rampUsers(255) during (1200)).protocols(httpProtocolSYA))
-*/
+  val scenarioUserCreation = scenario("Create User").exec(UserCreateSimulation.createUser)
 
+
+   setUp(
+  scenarioSSCSCORWithUpload.inject(nothingFor(20), rampUsers(287) during (600)).protocols(httpProtocolTYA),
+  scenarioSSCSCORNoUpload.inject(nothingFor(50), rampUsers(287) during (600)).protocols(httpProtocolTYA),
+  scenarioSYA.inject(nothingFor(80), rampUsers(255) during (1200)).protocols(httpProtocolSYA))
   /*setUp(
          scenarioSYA.inject(
            nothingFor(10),
@@ -59,46 +45,34 @@ class SSCSSimulation extends Simulation {
            splitUsers(30) into (rampUsers(2) over (30)) separatedBy (0)).protocols(httpProtocolTYA)
 
        ).maxDuration(5400)*/
-
+ /* setUp(
+    scenarioSYA.inject(rampUsers(300) during (1200)).protocols(httpProtocolSYA))*/
+  //scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
+  //scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
   /*setUp(
-    scenarioSYA.inject(rampUsers(1000) during (3600)).protocols(httpProtocolSYA))*/
+    scenarioSSCSCORWithUpload.inject(rampUsers(1) during (1)).protocols(httpProtocolTYA))
 
-    //scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
-
-    //scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
-
-  setUp(
-    scenarioSSCSCORNoUpload.inject(rampUsers(1) during (1)).protocols(httpProtocolTYA))
-
-}
-
-
-/* setUp(
+}*/
+  /* setUp(
    scenarioSYA.inject(
      nothingFor(10),
      rampUsers(300) during  (1800)).protocols(httpProtocolSYA)
  )*/
-      /* setUp(
+  /* setUp(
          scenarioSSCSCORWithUpload.inject(nothingFor(10), rampUsers(237) during  (600)),
          scenarioSSCSCORNoUpload.inject(
            nothingFor(100),
            rampUsers(237) during  (600)).protocols(httpProtocolTYA)
        )
 */
-       /*setUp(
+  /*setUp(
          scenarioSSCSCORWithUpload.inject(nothingFor(1),rampUsers(1) during (6))*/
-        /* scenarioSSCSCORNoUpload.inject(nothingFor(100),rampUsers(237) during (600))
+  /* scenarioSSCSCORNoUpload.inject(nothingFor(100),rampUsers(237) during (600))
 */
-       //).protocols(httpProtocolTYA)
+  //).protocols(httpProtocolTYA)
+ /* setUp(scenarioUserCreation.inject(nothingFor(1), rampUsers(400) during (2700)).protocols(httpProtocolUserCreation))*/
 
-       /*setUp(
-         scenarioUserCreation.inject(
-           nothingFor(1),
-           rampUsers(300) during  (600)).protocols(httpProtocolUserCreation)
-       )
-*/
-
-
+}
 
 
 

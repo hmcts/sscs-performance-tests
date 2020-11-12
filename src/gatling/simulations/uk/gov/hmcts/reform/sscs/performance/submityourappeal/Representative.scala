@@ -21,7 +21,7 @@ object Representative{
   // =======================================================================================
 
   val representative=
-  exec(http("TX25_SSCS_Representative")
+  exec(http("SSCS_210_Representative")
     .post("/representative")
     .formParam("hasRepresentative", "no")
   //  .formParam(csrfParameter, csrfTemplate)
