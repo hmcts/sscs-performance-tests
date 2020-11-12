@@ -2,7 +2,6 @@ package uk.gov.hmcts.reform.sscs.performance.simulations
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.core.structure.Execs._
 import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.submityourappeal._
 //import uk.gov.hmcts.reform.sscs.performance.processes._
@@ -27,8 +26,6 @@ object  CreateSYASimulation {
 
   def createSYAScenario =
     exec(
-      flushHttpCache,
-      flushCookieJar,
     // LandingPage.landingPage,
      // LandingPage.beforeYouAppeal,
      // LandingPage.helpWithAppeal,
