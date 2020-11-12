@@ -35,8 +35,8 @@ object Environment {
     "Upgrade-Insecure-Requests" -> "1")
 
     
-    val thinkTime = 80
-  val thinkTimeNoUpload = 600
-  val tyaThinkTime=300
+    val thinkTime = 10 //80
+  val thinkTimeNoUpload = 10 //600
+  val tyaThinkTime= 10 //300
     val waitForNextIteration = 20
 }
