@@ -1,7 +1,7 @@
 package uk.gov.hmcts.reform.sscs.performance.simulations
 
 import io.gatling.core.Predef._
-import io.gatling.http.Predef.http
+import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 
@@ -11,7 +11,7 @@ class SSCSSimulation extends Simulation {
   val loginfeeder = csv("IdamUsers.csv").circular
 
   val httpProtocolTYA: HttpProtocolBuilder = http
-    //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+    .proxy(Proxy("proxyout.reform.hmcts.net", 8080))
     .baseUrl(Environment.SSCSCORURL)
     .headers(Environment.commonHeader)
 
@@ -43,11 +43,11 @@ class SSCSSimulation extends Simulation {
     .exec(UserCreateSimulation.createUser)
   
   
-  setUp(
+ /* setUp(
   scenarioSSCSCORWithUpload.inject(nothingFor(10), rampUsers(287) during (600)).protocols(httpProtocolTYA),
   scenarioSSCSCORNoUpload.inject(nothingFor(100), rampUsers(287) during (600)).protocols(httpProtocolTYA),
   scenarioSYA.inject(nothingFor(10), rampUsers(255) during (1200)).protocols(httpProtocolSYA))
-
+*/
 
   /*setUp(
          scenarioSYA.inject(
@@ -66,6 +66,9 @@ class SSCSSimulation extends Simulation {
     //scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
 
     //scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
+
+  setUp(
+    scenarioSSCSCORWithUpload.inject(rampUsers(1) during (1)).protocols(httpProtocolTYA))
 
 }
 

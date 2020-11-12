@@ -39,7 +39,15 @@ object SSCSMYA {
        .formParam("_csrf", "${csrf}")
        .formParam("save", "Sign in")
        .formParam("selfRegistrationEnabled", "true")
-       .check(status.is(200)))
+       .check(status.is(200))
+     // .check(currentLocation.saveAs("currentPage"))
+    .check(regex("Enter the postcode for the appeal").optional.saveAs("postcodecheck"))
+  )
+  /*.exec( session => {
+         println("postcode check "+session("pc").as[String])
+    println("page check "+session("currentPage").as[String])
+         session
+       })*/
    //  .check(CsrfCheck.save)
     //.check(regex("Enter the postcode for the appeal"))
 
@@ -116,8 +124,9 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
    .formParam("additional-evidence-option", "upload")
    .formParam("_csrf", "${csrf}")
    .formParam("continue", "")
-  .check(status.is(200)))
-   //.check(css("#additional-evidence-form", "action").saveAs("uploadurl"))
+  .check(status.is(200))
+   .check(css("#additional-evidence-form", "action").saveAs("uploadurl"))
+)
 
    .exec(http("SSCSMYA${service}_050_010_SelectUploadOption_SessionExt")
 .get("/session-extension")
@@ -129,8 +138,41 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 // =======================================================================================
 // Enter free text in describe and then choose a file. Once okay the file, it is uploaded and page is refreshed, below is a request to upload 2MB file
 // =======================================================================================
+val uploadDoc=
+  exec(http("SSCSMYA${service}_0X0_005_UploadDoc2MB")
+      .post("${uploadurl}")
+      .headers(SSCSMYAHeaders.headers_uploadfile)
+    .bodyPart(RawFileBodyPart("additional-evidence-file", "2MB.pdf")
+              .fileName("2MB.pdf")
+              .transferEncoding("binary")).asMultipartForm
+    .check(status.is(200))
+    .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit2mb"))
+  )
 
-  val uploadDocument_2MB=
+    .exec(http("SSCSMYA${service}_060_010_UploadDoc2MB_SessionExt")
+          .get("/session-extension")
+          .headers(SSCSMYAHeaders.headers_20)
+          .check(status.in(200,304))
+    )
+    .pause(tyaThinkTime)
+
+val upload2MBSubmit=
+    exec(http("SSCSMYA${service}_080_005_SubmitEvidence")
+          .post("${uploadurlsubmit2mb}")
+          .headers(SSCSMYAHeaders.headers_upload2MBcomplete)
+          .body(RawFileBody("RecordedSimulationnopostcode_0112_request.txt"))
+      .check(status.in(200,304))
+    )
+
+      .exec(http("SSCSMYA${service}_080_010_SubmitEvidence_SessionExt")
+            .get("/session-extension")
+            .headers(SSCSMYAHeaders.headers_20)
+            .check(status.in(200,304))
+      )
+    .pause(tyaThinkTime)
+
+
+  /*val uploadDocument_2MB=
   exec(http("SSCSMYA${service}_060_005_UploadDoc2MB")
         .post("/additional-evidence/upload")
         .headers(SSCSMYAHeaders.headers_73)
@@ -144,14 +186,14 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
           .get("/session-extension")
           .headers(SSCSMYAHeaders.headers_20)
       .check(status.in(200,304))
-    )
+    )*/
    // .pause(tyaThinkTime)
 
   // =======================================================================================
   // Enter free text in descibe and then choose a file. Once okay the file, it is uploaded and page is refreshed, below is a request to upload 3MB file
   // =======================================================================================
 
-  val uploadDocument_3MB=
+ /* val uploadDocument_3MB=
     exec(http("SSCSMYA${service}_070_005_UploadDoc3MB")
          .post("/additional-evidence/upload")
          .headers(SSCSMYAHeaders.headers_upload3mb)
@@ -165,7 +207,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
           .get("/session-extension")
           .headers(SSCSMYAHeaders.headers_20)
       .check(status.in(200,304))
-    )
+    )*/
    // .pause(tyaThinkTime)
 
 
@@ -176,7 +218,7 @@ exec(http("SSCSMYA${service}_050_005_SelectUploadOption")
 // Request URL: https://sscs-cor.aat.platform.hmcts.net/additional-evidence/confirm
 // =======================================================================================
 
-  val submitUploadedDocumentFire =
+ /* val submitUploadedDocumentFire =
 exec(http(" SSCSMYA${service}_080_005_SubmitEvidence")
 .post("/additional-evidence/upload")
        .headers(SSCSMYAHeaders.headers_submituploadfire)
@@ -190,7 +232,7 @@ exec(http(" SSCSMYA${service}_080_005_SubmitEvidence")
 .get("/session-extension")
 .headers(SSCSMYAHeaders.headers_20)
   .check(status.in(200,304))
- )
+ )*/
 
 //.pause(tyaThinkTime)
 // =======================================================================================
