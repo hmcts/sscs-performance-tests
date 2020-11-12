@@ -36,7 +36,7 @@ object Environment {
 
     
     val thinkTime = 80
-  val thinkTimeNoUpload = 750
+  val thinkTimeNoUpload = 10//750
   val tyaThinkTime=10//300
     val waitForNextIteration = 20
 }

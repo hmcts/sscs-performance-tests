@@ -68,7 +68,7 @@ class SSCSSimulation extends Simulation {
     //scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
 
   setUp(
-    scenarioSSCSCORWithUpload.inject(rampUsers(1) during (1)).protocols(httpProtocolTYA))
+    scenarioSSCSCORNoUpload.inject(rampUsers(1) during (1)).protocols(httpProtocolTYA))
 
 }
 

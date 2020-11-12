@@ -39,12 +39,14 @@ object SSCSMYA {
        .formParam("_csrf", "${csrf}")
        .formParam("save", "Sign in")
        .formParam("selfRegistrationEnabled", "true")
-        .check(CsrfCheck.save)
        .check(status.is(200))
-     // .check(currentLocation.saveAs("currentPage"))
       .check(regex("Enter the postcode for the appeal").optional.saveAs("postcodecheck"))
+    .check(
+      checkIf("${postcodecheck.exists()}") {
+        CsrfCheck.save
+      }
+    ))
 
-  )
     .exec(http("SSCSMYA${service}_020_010_LoginPage_SessionExt")
           .get("/session-extension")
           .headers(SSCSMYAHeaders.headers_20)

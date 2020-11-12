@@ -42,10 +42,6 @@ object  CreateCORSimulation {
       pause(thinktime),  //LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       pause(thinktime),
-     /* doIf("${postcodecheck.exists()}") {
-         SSCSMYA.enterPostcode
-          pause(thinktime)
-      },*/
       SSCSMYA.clickOnEvidenceTab,
       pause(thinktime),
       SSCSMYA.clickSubmitEvidenceLink,
