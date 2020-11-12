@@ -2,7 +2,6 @@ package uk.gov.hmcts.reform.sscs.performance.simulations
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.core.structure.Execs._
 import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.utils.Feeders
 //import uk.gov.hmcts.reform.sscs.performance.processes._
@@ -37,8 +36,6 @@ object  CreateCORSimulation {
 
   def createCORScenarioWithUpload =
     exec(
-      flushHttpCache,
-      flushCookieJar,
       feed(feederForUpload),
       feed(Feeders.DataFeederForUpload),
       SSCSMYA.home,
@@ -73,8 +70,6 @@ object  CreateCORSimulation {
 
   def createCORScenarioNoUpload =
     exec(
-      flushHttpCache,
-      flushCookieJar,
       feed(feeder),
       feed(Feeders.DataFeederForNoUpload),
       SSCSMYA.home,
