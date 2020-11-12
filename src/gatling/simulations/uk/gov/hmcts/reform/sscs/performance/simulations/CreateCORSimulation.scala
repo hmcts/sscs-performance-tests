@@ -36,6 +36,8 @@ object  CreateCORSimulation {
 
   def createCORScenarioWithUpload =
     exec(
+      flushHttpCache,
+      flushCookieJar,
       feed(feederForUpload),
       feed(Feeders.DataFeederForUpload),
       SSCSMYA.home,
@@ -70,6 +72,8 @@ object  CreateCORSimulation {
 
   def createCORScenarioNoUpload =
     exec(
+      flushHttpCache,
+      flushCookieJar,
       feed(feeder),
       feed(Feeders.DataFeederForNoUpload),
       SSCSMYA.home,
