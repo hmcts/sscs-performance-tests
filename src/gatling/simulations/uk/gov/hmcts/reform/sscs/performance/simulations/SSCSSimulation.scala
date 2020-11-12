@@ -32,10 +32,10 @@ class SSCSSimulation extends Simulation {
   val scenarioUserCreation = scenario("Create User").exec(UserCreateSimulation.createUser)
 
 
-   setUp(
+   /*setUp(
   scenarioSSCSCORWithUpload.inject(nothingFor(20), rampUsers(287) during (600)).protocols(httpProtocolTYA),
   scenarioSSCSCORNoUpload.inject(nothingFor(50), rampUsers(287) during (600)).protocols(httpProtocolTYA),
-  scenarioSYA.inject(nothingFor(80), rampUsers(255) during (1200)).protocols(httpProtocolSYA))
+  scenarioSYA.inject(nothingFor(80), rampUsers(255) during (1200)).protocols(httpProtocolSYA))*/
   /*setUp(
          scenarioSYA.inject(
            nothingFor(10),
@@ -46,10 +46,10 @@ class SSCSSimulation extends Simulation {
            splitUsers(30) into (rampUsers(2) over (30)) separatedBy (0)).protocols(httpProtocolTYA)
 
        ).maxDuration(5400)*/
- /* setUp(
-    scenarioSYA.inject(rampUsers(300) during (1200)).protocols(httpProtocolSYA))*/
-  //scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
-  //scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
+ setUp(
+    scenarioSYA.inject(atOnceUsers(1)).protocols(httpProtocolSYA),
+  scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
+  scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
   /*setUp(
     scenarioSSCSCORWithUpload.inject(rampUsers(1) during (1)).protocols(httpProtocolTYA))
 
