@@ -100,7 +100,7 @@ object UserCreation {
         .headers(Map("Content-Type" -> "application/json"))
         .check(status.is(201)))
       // .check(status.is(201)))
-      .pause(30)
+      .pause(50)
 
 
  val emailNotification =

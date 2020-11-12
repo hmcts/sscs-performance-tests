@@ -39,23 +39,37 @@ object SSCSMYA {
        .formParam("_csrf", "${csrf}")
        .formParam("save", "Sign in")
        .formParam("selfRegistrationEnabled", "true")
+        .check(CsrfCheck.save)
        .check(status.is(200))
      // .check(currentLocation.saveAs("currentPage"))
-    .check(regex("Enter the postcode for the appeal").optional.saveAs("postcodecheck"))
+      .check(regex("Enter the postcode for the appeal").optional.saveAs("postcodecheck"))
+
   )
-  /*.exec( session => {
-         println("postcode check "+session("pc").as[String])
-    println("page check "+session("currentPage").as[String])
+    .exec(http("SSCSMYA${service}_020_010_LoginPage_SessionExt")
+          .get("/session-extension")
+          .headers(SSCSMYAHeaders.headers_20)
+          .check(status.in(200,304))
+    )
+
+    .doIf("${postcodecheck.exists()}")
+    {
+      exec(http("SSCSMYA${service}_030_005_EnterPostcode").post("/assign-case").headers(SSCSMYAHeaders.headers_postcode).formParam("_csrf", "${csrf}").formParam("postcode", "${postcode}").formParam("assign-case", "Continue").check(status.is(200))
+      )
+        .exec(http("SSCSMYA${service}_030_010_EnterPostcode_SessionExt")
+          .get("/session-extension")
+          .headers(SSCSMYAHeaders.headers_20)
+          .check(status.in(200, 304)))
+    }
+
+ /* .exec( session => {
+         println("postcode check "+session("postcodecheck").as[String])
+   // println("page check "+session("currentPage").as[String])
          session
        })*/
    //  .check(CsrfCheck.save)
     //.check(regex("Enter the postcode for the appeal"))
 
-   .exec(http("SSCSMYA${service}_020_010_LoginPage_SessionExt")
-          .get("/session-extension")
-          .headers(SSCSMYAHeaders.headers_20)
-     .check(status.in(200,304))
-   )
+
  //.pause(tyaThinkTime)
 
   // =======================================================================================

@@ -42,10 +42,10 @@ object  CreateCORSimulation {
       pause(thinktime),  //LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       pause(thinktime),
-      doIf("${postcodecheck.exists()}") {
+     /* doIf("${postcodecheck.exists()}") {
          SSCSMYA.enterPostcode
           pause(thinktime)
-      },
+      },*/
       SSCSMYA.clickOnEvidenceTab,
       pause(thinktime),
       SSCSMYA.clickSubmitEvidenceLink,
@@ -78,10 +78,6 @@ object  CreateCORSimulation {
       pause(thinktimenoupload),  //LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       pause(thinktimenoupload),
-      doIf("${postcodecheck.exists()}") {
-        SSCSMYA.enterPostcode
-        pause(thinktime)
-      },
       SSCSMYA.clickOnEvidenceTab,
       pause(thinktimenoupload),
       SSCSMYA.Hearing,
