@@ -26,6 +26,8 @@ object  CreateSYASimulation {
 
   def createSYAScenario =
     exec(
+      flushHttpCache,
+      flushCookieJar,
     // LandingPage.landingPage,
      // LandingPage.beforeYouAppeal,
      // LandingPage.helpWithAppeal,
