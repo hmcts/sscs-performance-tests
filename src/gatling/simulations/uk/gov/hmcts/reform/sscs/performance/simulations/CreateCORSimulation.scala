@@ -78,6 +78,10 @@ object  CreateCORSimulation {
       pause(thinktimenoupload),  //LoginPage.logIn(testUsers.head),
       SSCSMYA.login,
       pause(thinktimenoupload),
+      doIf("${postcodecheck.exists()}") {
+        SSCSMYA.enterPostcode
+        pause(thinktime)
+      },
       SSCSMYA.clickOnEvidenceTab,
       pause(thinktimenoupload),
       SSCSMYA.Hearing,
