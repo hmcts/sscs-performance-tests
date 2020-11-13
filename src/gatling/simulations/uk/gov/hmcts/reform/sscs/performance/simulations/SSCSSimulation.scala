@@ -10,7 +10,8 @@ class SSCSSimulation extends Simulation {
   val sscsfeeder = csv("sscs_details.csv").circular
   val loginfeeder = csv("IdamUsers.csv").circular
 
-  val httpProtocolTYA: HttpProtocolBuilder = http//.proxy(Proxy("proxyout.reform.hmcts.net", 8080)).baseUrl(Environment.SSCSCORURL).headers(Environment.commonHeader)
+  val httpProtocolTYA: HttpProtocolBuilder = http//.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+  .baseUrl(Environment.SSCSCORURL).headers(Environment.commonHeader)
 
 
   val httpProtocolSYA: HttpProtocolBuilder = http //.proxy(Proxy("proxyout.reform.hmcts.net", 8080))
@@ -45,10 +46,10 @@ class SSCSSimulation extends Simulation {
            splitUsers(30) into (rampUsers(2) over (30)) separatedBy (0)).protocols(httpProtocolTYA)
 
        ).maxDuration(5400)*/
- /* setUp(
-    scenarioSYA.inject(rampUsers(300) during (1200)).protocols(httpProtocolSYA))*/
-  //scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
-  //scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
+ /*setUp(
+    //scenarioSYA.inject(atOnceUsers(1)).protocols(httpProtocolSYA),
+ // scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
+  scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))*/
   /*setUp(
     scenarioSSCSCORWithUpload.inject(rampUsers(1) during (1)).protocols(httpProtocolTYA))
 

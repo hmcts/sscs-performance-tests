@@ -32,7 +32,9 @@ object StartAppealPage{
     }
 
   val entry = //feed(sscsfeeder).feed(loginfeeder)
-    exec(http("SSCS_010_Entry")
+  exec(flushCookieJar)
+  .exec(flushHttpCache)
+    .exec(http("SSCS_010_Entry")
       .get("/")
       .headers(SSCSSYAHeaders.headers_0)
       .check(status.in(200,302))
