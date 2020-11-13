@@ -19,9 +19,9 @@ object SSCSMYA {
   //=======================================================================================
 
   val home =
-   exec(flushCookieJar)
-  .exec(flushHttpCache)
-  .exec(http("SSCSMYA${service}_010_LandingPage")
+    exec(flushCookieJar)
+    .exec(flushHttpCache)
+    .exec(http("SSCSMYA${service}_010_LandingPage")
       .get("/sign-in?tya=${reference}")
       .headers(SSCSMYAHeaders.headers_homepage)
          .check(status.in(200))
@@ -136,15 +136,16 @@ val uploadDoc=
     .check(status.is(200))
     .check(css("#additional-evidence-form", "action").saveAs("uploadurlsubmit2mb"))
   )
-
     .exec(http("SSCSMYA${service}_070_010_UploadDoc2MB_SessionExt")
           .get("/session-extension")
           .headers(SSCSMYAHeaders.headers_20)
           .check(status.in(200,304))
     )
+
+
     //.pause(tyaThinkTime)
 
-val upload2MBSubmit=
+/*val upload2MBSubmit=
     exec(http("SSCSMYA${service}_080_005_SubmitEvidence")
           .post("${uploadurlsubmit2mb}")
           .headers(SSCSMYAHeaders.headers_upload2MBcomplete)
@@ -156,9 +157,21 @@ val upload2MBSubmit=
             .get("/session-extension")
             .headers(SSCSMYAHeaders.headers_20)
             .check(status.in(200,304))
-      )
+      )*/
     //.pause(tyaThinkTime)
+val upload2MBSubmit=
+  exec(http("SSCSMYA${service}_080_005_SubmitEvidence")
+        .post("${uploadurlsubmit2mb}")
+    .headers(SSCSMYAHeaders.headers_upload2MBcomplete)
+        .body(RawFileBody("RecordedSimulation1211cor_0032_request.txt"))
+    .check(status.in(200,304))
+  )
 
+    .exec(http("SSCSMYA${service}_080_010_SubmitEvidence_SessionExt")
+          .get("/session-extension")
+          .headers(SSCSMYAHeaders.headers_20)
+          .check(status.in(200,304))
+    )
 
   /*val uploadDocument_2MB=
   exec(http("SSCSMYA${service}_060_005_UploadDoc2MB")
