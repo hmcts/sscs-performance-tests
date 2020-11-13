@@ -47,7 +47,7 @@ object Representative{
     .formParam("townCity", "PerfCity")
     .formParam("county", "PerfCounty")
     .formParam("postCode", "TS1 1ST")
-    .formParam("phoneNumber", "07540612435")
+    .formParam("phoneNumber", "07398785050")
     .formParam("emailAddress", "repemail@perftest.uk.gov")
     .formParam(csrfParameter, csrfTemplate)
     .check(status.in(200,302))
