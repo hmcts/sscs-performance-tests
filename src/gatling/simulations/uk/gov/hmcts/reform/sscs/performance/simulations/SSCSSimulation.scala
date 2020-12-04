@@ -53,8 +53,8 @@ class SSCSSimulation extends Simulation {
   setUp(
     scenarioSYA.inject(atOnceUsers(1)).protocols(httpProtocolSYA),
     scenarioSSCSCORNoUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA),
-    scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA)
-    .assertions(global.successfulRequests.percent.is(100)))
+    scenarioSSCSCORWithUpload.inject(atOnceUsers(1)).protocols(httpProtocolTYA))
+    .assertions(global.successfulRequests.percent.is(100))
 
 }
 
