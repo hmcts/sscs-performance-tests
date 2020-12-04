@@ -1,7 +1,7 @@
 package uk.gov.hmcts.reform.sscs.performance.simulations
 
 import io.gatling.core.Predef._
-import io.gatling.http.Predef.{Proxy, http}
+import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 import uk.gov.hmcts.reform.sscs.performance.utils.Environment
 
