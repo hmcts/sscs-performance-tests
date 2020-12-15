@@ -1,5 +1,7 @@
 package uk.gov.hmcts.reform.sscs.performance.utils
 
+import java.util.Calendar
+
 object Environment {
 
   val env = "aat"
@@ -13,13 +15,19 @@ object Environment {
   val idamBaseUrl = "https://idam-api." + env + ".platform.hmcts.net"
   val PaymentURL = scala.util.Properties.envOrElse("paymentURL", "https://www.payments.service.gov.uk")
 
-  
+  val cal = Calendar.getInstance()
+  val date1 =cal.get(Calendar.DATE)
+  val date = date1-1
+  val month1 =cal.get(Calendar.MONTH)
+  val month = month1+1
+  val year =cal.get(Calendar.YEAR)
+
   val users = scala.util.Properties.envOrElse("numberOfUser", "10")
   val maxResponseTime = scala.util.Properties.envOrElse("maxResponseTime", "500")
   val idamCookieName="SESSION_ID"
-  val mrnDate="14"
-  val mrnMonth="12"
-  val mrnYear="2020"
+  val mrnDate=date
+  val mrnMonth=month
+  val mrnYear=year
 
   val firstName="TestPF"
   val lastName="TesterPF"

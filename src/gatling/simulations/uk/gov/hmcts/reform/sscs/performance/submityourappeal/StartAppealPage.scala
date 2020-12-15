@@ -4,6 +4,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.sscs.performance.simulations.checks.CsrfCheck
 import uk.gov.hmcts.reform.sscs.performance.simulations.checks.CsrfCheck.{csrfParameter, csrfTemplate}
+import uk.gov.hmcts.reform.sscs.performance.utils.Environment._
 //import uk.gov.hmcts.reform.sscs.performance.simulations.checks.{CsrfCheck, CurrentPageCheck}
 //import uk.gov.hmcts.reform.idam.User
 import uk.gov.hmcts.reform.sscs.performance.utils._
