@@ -117,7 +117,7 @@ object StartAppealPage{
       .headers(SSCSSYAHeaders.headers_2)
       .check(status.in(200,302))
       //.check(CsrfCheck.save)
-      .check(regex("Do you want to be able to save this appeal later?"))
+      //.check(regex("Do you want to be able to save this appeal later?"))
   )
     .pause(thinktime)
 
