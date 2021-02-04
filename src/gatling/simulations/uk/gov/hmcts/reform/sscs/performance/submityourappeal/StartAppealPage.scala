@@ -143,7 +143,7 @@ object StartAppealPage{
     exec(http("TX12_SSCS_CreateAccount")
       .post("/create-account")
       .headers(SSCSSYAHeaders.headers_2)
-      .formParam("createAccount", "yes")
+      .formParam("createAccount", "no")
       .check(CsrfCheck.save)
       .check(regex("state=(.*)&scope=").saveAs("stateId"))
       .check(status.in(200,302)))
