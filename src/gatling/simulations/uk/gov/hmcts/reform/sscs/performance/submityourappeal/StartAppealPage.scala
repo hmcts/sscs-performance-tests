@@ -145,7 +145,7 @@ object StartAppealPage{
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("createAccount", "no")
       .check(CsrfCheck.save)
-      .check(regex("state=(.*)&scope=").saveAs("stateId"))
+      //.check(regex("state=(.*)&scope=").saveAs("stateId"))
       .check(status.in(200,302)))
       .pause(thinktime)
 
@@ -155,7 +155,7 @@ object StartAppealPage{
   // Log in
   // =======================================================================================
 
-  val login=
+  /*val login=
     exec(http("TX13_SSCS_Login")
       .post(idamUrl + "/login?client_id=sscs&redirect_uri=" + sscsSYAURL + "%2Fauthenticated&response_type=code&state=${stateId}")
       //.headers(headers_196)
@@ -165,7 +165,7 @@ object StartAppealPage{
       .formParam("selfRegistrationEnabled", "true")
       .formParam(csrfParameter, csrfTemplate)
       .check(status.in(200,302)))
-      .pause(thinktime)
+      .pause(thinktime)*/
 
   // =======================================================================================
   // Check your appeal
