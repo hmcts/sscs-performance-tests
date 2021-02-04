@@ -144,7 +144,7 @@ object StartAppealPage{
       .post("/create-account")
       .headers(SSCSSYAHeaders.headers_2)
       .formParam("createAccount", "no")
-      .check(CsrfCheck.save)
+      //.check(CsrfCheck.save)
       //.check(regex("state=(.*)&scope=").saveAs("stateId"))
       .check(status.in(200,302)))
       .pause(thinktime)
