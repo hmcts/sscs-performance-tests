@@ -51,9 +51,9 @@ class SSCSSimulation extends Simulation {
        ).maxDuration(5400)*/
 
   setUp(
-    scenarioSYA.inject(atOnceUsers(10)).protocols(httpProtocolSYA),
-    scenarioSSCSCORNoUpload.inject(atOnceUsers(10)).protocols(httpProtocolTYA),
-    scenarioSSCSCORWithUpload.inject(atOnceUsers(10)).protocols(httpProtocolTYA))
+    scenarioSYA.inject(rampUsers(10) during 180).protocols(httpProtocolSYA),
+    scenarioSSCSCORNoUpload.inject(rampUsers(10) during 180).protocols(httpProtocolTYA),
+    scenarioSSCSCORWithUpload.inject(rampUsers(10) during 180).protocols(httpProtocolTYA))
     .assertions(global.successfulRequests.percent.gte(95),
       forAll.successfulRequests.percent.gte(80))
 
