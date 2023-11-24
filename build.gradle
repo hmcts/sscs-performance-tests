@@ -41,7 +41,7 @@ ext {
 
 dependencies {
     //compile 'org.scala-lang:scala-library:2.12.8'
-    gatlingCompile 'com.warrenstrange:googleauth:1.1.5'
+    gatlingCompile 'com.warrenstrange:googleauth:1.5.0'
     testCompile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
     //compile group: 'io.gatling', name: 'gatling-app', version: gatlingVersion
     //compile group: 'io.gatling', name: 'gatling-recorder', version: gatlingVersion
