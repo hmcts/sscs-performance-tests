@@ -46,7 +46,7 @@ dependencies {
     //compile group: 'io.gatling', name: 'gatling-app', version: gatlingVersion
     //compile group: 'io.gatling', name: 'gatling-recorder', version: gatlingVersion
     //compile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: gatlingVersion
-    gatlingCompile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '3.14.1-RELEASE'
+    gatlingCompile group: 'uk.gov.service.notify', name: 'notifications-java-client', version: '5.2.1-RELEASE'
 
 }
 
